@@ -6,5 +6,6 @@
     */
 
     echo 'hi testing again and documenting the process';
+    echo 'megane testing hello';
  
 ?>
