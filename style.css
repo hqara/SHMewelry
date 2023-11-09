@@ -1,0 +1,43 @@
+/* TO DISPLACE LATER */
+
+input[type=text]
+{
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid grey;
+    float: left;
+    width: 120px;
+    height: 30px;
+    background: #f1f1f1;
+}
+
+.searchIcon
+{
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+}
+
+.searchIcon:hover
+{
+    background: #0b7dda;
+}
+
+.searchBar::after 
+{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+#profileButton
+{
+    color: blue;
+    outline: 0px;
+    outline-style: none;
+    
+    
+}
