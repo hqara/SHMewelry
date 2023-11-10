@@ -2,8 +2,6 @@
 
 include '../../Models/Product.php';
 
-$conn = Product::getConnection();
-
 if (isset($_GET['removeid'])) {
     $id = $_GET['removeid'];
 

@@ -1,8 +1,5 @@
 <?php
 
-    session_start();
-    include('../../navbar.php');
-
 include '../../Models/Product.php';
 
 $productModel = new Product();
@@ -23,7 +20,6 @@ if (isset($_GET['editid'])) {
 
 if (isset($_POST['update'])) {
     // Get form data
-    $id = $_POST['product_id'];
     $name = $_POST['name'];
     $description = $_POST['description'];
     $price = $_POST['price'];
@@ -36,7 +32,6 @@ if (isset($_POST['update'])) {
     $product_image = $_POST['product_image'];
 
     // Update the product
-    $productModel->product_id = $product_id;
     $productModel->name = $name;
     $productModel->description = $description;
     $productModel->price = $price;
@@ -65,6 +60,11 @@ if (isset($_POST['update'])) {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <header>
+    <?php include('../../navbar.php'); ?>
+    </header>
+    
   </head>
 
   <body>

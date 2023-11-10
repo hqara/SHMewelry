@@ -189,24 +189,13 @@ class AdminModel
         }
     
         public function getAll() {
-            $SQL = 'SELECT * FROM USER WHERE GROUP_ID = 3'; // admin group_id is 3
+            $SQL = 'SELECT * FROM user
+            JOIN `group` ON user.GROUP_ID = `group`.GROUP_ID';
             $result = self::$_connection->query($SQL);
             return $result->fetch_all(MYSQLI_ASSOC);
         }
+
     
-        public function getById($user_id): ?array {
-            $SQL = 'SELECT * FROM USER WHERE USER_ID = ? AND GROUP_ID = 2'; // admin group_id is 3
-            $stmt = self::$_connection->prepare($SQL);
-            $stmt->bind_param('i', $user_id);
-            $stmt->execute();
-            $result = $stmt->get_result();
-    
-            if ($result->num_rows > 0) { // no rows found
-                return $result->fetch_assoc();
-            }
-    
-            return null;
-        }
 
         public function create($fname, $lname, $email, $password) {
             $SQL = 'INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES (?, ?, ?, ?, ?)';

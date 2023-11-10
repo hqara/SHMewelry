@@ -1,7 +1,4 @@
-<?php
-        session_start();
-        include('../../navbar.php');
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +8,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 </head>
+<header>
+    <?php include('../../navbar.php'); ?>
+</header>   
+
 <body>
     <div class="container my-5">
         <h1>MANAGE PRODUCTS</h1>
@@ -36,7 +37,6 @@
                 <?php
                 
                 include '../../Models/Product.php';
-                $conn = Product::getConnection();
                 $productModel = new Product();
                 $products = $productModel->getAll();
 

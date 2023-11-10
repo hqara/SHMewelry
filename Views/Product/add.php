@@ -1,8 +1,5 @@
 <?php
 
-    session_start();
-    include('../../navbar.php');
-
 include '../../Models/Product.php';
 
 $productModel = new Product(); // Create an instance of the Product model
@@ -49,6 +46,10 @@ if (isset($_POST['create'])) {
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+    <header>
+    <?php include('../../navbar.php'); ?>
+    </header>
 </head>
 <body>
 <div class="container my-5">

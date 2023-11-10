@@ -2,14 +2,11 @@
 
 include '../../Models/Order.php';
 
-$conn = Order::getConnection();
-
 if (isset($_GET['order_id'])) {
     $id = $_GET['order_id'];
 
     $orderModel = new Order();
     $orderModel->order_id = $id;
-
     $rowsAffected = $orderModel->delete();
 
     if ($rowsAffected > 0) {

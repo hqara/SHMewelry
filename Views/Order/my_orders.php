@@ -1,8 +1,3 @@
-<?php
-        session_start();
-        include('../../navbar.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +7,9 @@
     <title>Manage Orders</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <header>
+    <?php include('../../navbar.php'); ?>
+    </header>
 </head>
 
 <body>
@@ -32,7 +30,6 @@
                 <?php
                 
                 include '../../Models/Order.php'; 
-                $conn = Order::getConnection(); 
                 $orderModel = new Order(); 
                 $user_id = 1;  // FOR NOW
 

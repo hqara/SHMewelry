@@ -7,6 +7,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../style.css">
+    <header>
+    <?php include('../../navbar.php'); ?>
+    </header>
 </head>
 <body>
     <div class="container">
@@ -109,4 +112,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 </body>
+<footer>
+    <?php
+        include_once("../../footer.html");
+    ?>
+</footer>
 </html>

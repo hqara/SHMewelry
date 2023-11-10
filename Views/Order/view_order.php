@@ -1,8 +1,3 @@
-<?php
-        session_start();
-        include('../../navbar.php');
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <header>
+    <?php include('../../navbar.php'); ?>
+    </header>
 </head>
 
 <body>
@@ -20,8 +18,6 @@
 
         include '../../Models/Client.php';
         include '../../Models/Order.php';
-        $conn1 = Order::getConnection();
-        $conn2 = Client::getConnection();
         $orderModel = new Order();
         $clientModel = new Client();
 
