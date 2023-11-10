@@ -14,6 +14,27 @@ class Product {
     public $stock;
     public $product_image;
 
+    private static $_connection = null;
+
+    public function __construct() {
+        if (self::$_connection == null) {
+            $host = 'localhost';
+            $user = 'root';
+            $password = '';
+            $dbname = 'shmewelry';
+
+            self::$_connection = new mysqli($host, $user, $password, $dbname);
+
+            if (self::$_connection->connect_error) {
+                die("Connection failed: " . self::$_connection->connect_error);
+            }
+        }
+    }
+
+    public static function getConnection() {
+        return self::$_connection;
+    }
+
     public function getAll() {
         $SQL = 'SELECT * FROM PRODUCT';
         $result = self::$_connection->query($SQL);
