@@ -208,5 +208,7 @@ INSERT INTO ORDER_DETAILS (ORDER_ID, PRODUCT_ID, QTY, USER_ID) VALUES
     (3, 3, 1, 5), -- Eva Williams' order details about product id=3 (Sapphire Bracelet)
     (3, 5, 2, 5); -- Eva Williams' order details about product id=5 (Copper Bracelet)
 
-
+ALTER TABLE `ORDER`
+ADD CONSTRAINT chk_order_status
+CHECK (ORDER_STATUS IN ('Processed', 'Shipped', 'Delivered'));
 
