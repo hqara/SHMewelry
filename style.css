@@ -38,6 +38,9 @@ input[type=text]
     color: blue;
     outline: 0px;
     outline-style: none;
-    
-    
+}
+
+body
+{
+    background-color: #F6F6F6;
 }
