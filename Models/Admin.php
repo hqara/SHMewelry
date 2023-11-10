@@ -1,4 +1,5 @@
 <?php
+
 class AdminModel
 {
     private $userId;
@@ -26,10 +27,8 @@ class AdminModel
             global $conn;
             $sql = "SELECT * FROM USER WHERE
             USER_ID = " . $userId . ";";
-
             $result = $conn->query($sql);
             $data = $result->fetch_assoc();
-
             $this->userId = $userId;
             $this->groupId = $data["GROUP_ID"];
             $this->email = $data["EMAIL"];
@@ -108,7 +107,7 @@ class AdminModel
         }
         else
         {
-            echo "Error creating product: \n" . $conn->error;
+            echo "Error creating admin: \n" . $conn->error;
         }
     }
 
@@ -155,6 +154,101 @@ class AdminModel
             return null;
         }
     }
+
+    //hibba's model, but need to review...
+    class Admin {
+
+        public $user_id;
+        public $fname;
+        public $lname;
+        public $email;
+        public $password;
+        public $group_id; 
+    
+        private static $_connection = null;
+    
+        public function __construct() {
+            if (self::$_connection == null) {
+                $host = 'localhost';
+                $user = 'root';
+                $password = '';
+                $dbname = 'shmewelry'; 
+    
+                self::$_connection = new mysqli($host, $user, $password, $dbname);
+    
+                if (self::$_connection->connect_error) {
+                    die("Connection failed: " . self::$_connection->connect_error);
+                }
+            }
+        }
+    
+        public static function getConnection() {
+            return self::$_connection;
+        }
+    
+        public function getAll() {
+            $SQL = 'SELECT * FROM USER WHERE GROUP_ID = 3'; // admin group_id is 3
+            $result = self::$_connection->query($SQL);
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+    
+        public function getById($user_id): ?array {
+            $SQL = 'SELECT * FROM USER WHERE USER_ID = ? AND GROUP_ID = 2'; // admin group_id is 3
+            $stmt = self::$_connection->prepare($SQL);
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            if ($result->num_rows > 0) { // no rows found
+                return $result->fetch_assoc();
+            }
+    
+            return null;
+        }
+
+        public function create($fname, $lname, $email, $password) {
+            $SQL = 'INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES (?, ?, ?, ?, ?)';
+            $stmt = self::$_connection->prepare($SQL);
+            $stmt->bind_param('ssssi', $fname, $lname, $email, $password, $group_id);
+            $stmt->execute();
+            return $stmt->insert_id;
+        }
+
+        public function update($user_id, $fname, $lname, $email, $password) {
+            $SQL = 'UPDATE USER SET FNAME = ?, LNAME = ?, EMAIL = ?, PASSWORD = ?, GROUP_ID = ? WHERE USER_ID = ?';
+            $stmt = self::$_connection->prepare($SQL);
+            $stmt->bind_param('ssssii', $fname, $lname, $email, $password, $group_id, $user_id);
+            $stmt->execute();
+            return $stmt->affected_rows;
+        }
+    
+        public function delete($user_id) { 
+            $SQL = 'DELETE FROM USER WHERE USER_ID = ?';
+            $stmt = self::$_connection->prepare($SQL);
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+            return $stmt->affected_rows;
+        }
+
+        public function deleteAdmin($user_id) {
+            // Check if there is at least one admin with GROUP_ID = 3
+            $checkSQL = 'SELECT COUNT(*) as count FROM USER WHERE GROUP_ID = 3';
+            $checkResult = self::$_connection->query($checkSQL);
+            $count = $checkResult->fetch_assoc()['count'];
+            if ($count <= 1) {
+               
+                return; // Do nothing
+            }
+            // Allow deletion since there is more than one admin with GROUP_ID = 3
+            $deleteSQL = 'DELETE FROM USER WHERE USER_ID = ?';
+            $stmt = self::$_connection->prepare($deleteSQL);
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+            return $stmt->affected_rows;
+        }
+    
+    }
+
 }
 
 ?>
