@@ -12,11 +12,9 @@ if (isset($_GET['editid'])) {
     $product = $productModel->getById($product_id);
 
     if (!$product) {
-        // Handle product not found
         die("Product not found.");
     }
 } else {
-    // Handle missing product ID
     die("Product ID not provided.");
 }
 

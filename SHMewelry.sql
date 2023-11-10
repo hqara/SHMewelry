@@ -197,6 +197,8 @@ INSERT INTO `ORDER` (TOTAL_PRICE, ORDER_DATE, ORDER_STATUS, EXPECTED_DELIVERY, U
     (999.99, '2023-10-20', 'Processed', '2023-10-25', 1), -- John Doe's order
     (599.99, '2023-10-19', 'Shipped', '2023-10-24', 4), -- Bob Brown's order
     (799.99, '2023-10-18', 'Delivered', '2023-10-23', 5); -- Eva Williams'order
+-- Added
+INSERT INTO `order` (`ORDER_ID`, `TOTAL_PRICE`, `ORDER_DATE`, `ORDER_STATUS`, `EXPECTED_DELIVERY`, `USER_ID`) VALUES (NULL, '23.25', '2023-11-08', 'Shipped', '2023-11-11', '1'), (NULL, '44.34', '2023-11-01', 'Delivered', '2023-11-06', '1');
 
 -- Insert values into the ORDER_DETAILS table (only client's sample data)
 INSERT INTO ORDER_DETAILS (ORDER_ID, PRODUCT_ID, QTY, USER_ID) VALUES
