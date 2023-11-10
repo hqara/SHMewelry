@@ -1,3 +1,8 @@
+<?php
+        session_start();
+        include('../../navbar.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +14,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container my-5">
         <h1>ORDER DETAILS</h1>
         <?php
 
@@ -72,5 +77,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 </body>
+<footer>
+    <?php
+        include_once("../../footer.html");
+    ?>
+</footer>
 
 </html>

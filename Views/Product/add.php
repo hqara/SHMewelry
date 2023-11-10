@@ -1,5 +1,8 @@
 <?php
 
+    session_start();
+    include('../../navbar.php');
+
 include '../../Models/Product.php';
 
 $productModel = new Product(); // Create an instance of the Product model
@@ -106,4 +109,9 @@ if (isset($_POST['create'])) {
     </form>
 </div>
 </body>
+<footer>
+    <?php
+        include_once("../../footer.html");
+    ?>
+</footer>
 </html>

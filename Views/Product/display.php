@@ -1,3 +1,7 @@
+<?php
+        session_start();
+        include('../../navbar.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container my-5">
         <h1>MANAGE PRODUCTS</h1>
         <table class="table">
             <thead>
@@ -24,6 +28,8 @@
                     <th scope="col">Size</th>
                     <th scope="col">Stock</th>
                     <th scope="col" class="col-md-3">Image</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -62,4 +68,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 </body>
+<footer>
+    <?php
+        include_once("../../footer.html");
+    ?>
+</footer>
 </html>

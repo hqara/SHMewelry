@@ -1,13 +1,5 @@
 <?php
-   /*
-    include_once("SHMewelry/Controllers/$controllerName.php");
-    $contr = new $controllerName();
-    $contr->route();
-
-    */
-        include_once("navbar.php");
-
- 
+        include_once("navbar.php"); 
 ?>
 
 <!DOCTYPE html>
@@ -79,8 +71,6 @@
     <?php
    
         include_once("footer.html");
-
- 
-?>
+    ?>
 </footer>
 </html>

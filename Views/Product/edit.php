@@ -1,5 +1,8 @@
 <?php
 
+    session_start();
+    include('../../navbar.php');
+
 include '../../Models/Product.php';
 
 $productModel = new Product();
@@ -65,8 +68,9 @@ if (isset($_POST['update'])) {
   </head>
 
   <body>
-  <h1>Edit Product#<?php echo $product['PRODUCT_ID']; ?></h1>
+ 
     <div class="container my-5">
+    <h1>Edit Product#<?php echo $product['PRODUCT_ID']; ?></h1>
         <form method="post">
             <div class="form-group">
                 <label>Name</label>
@@ -123,4 +127,9 @@ if (isset($_POST['update'])) {
         </form>
     </div>
   </body>
+  <footer>
+    <?php
+        include_once("../../footer.html");
+    ?>
+</footer>
 </html>

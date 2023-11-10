@@ -1,4 +1,5 @@
 <?php
+
 include '../../Models/Order.php';
 
 $conn = Order::getConnection();
@@ -35,4 +36,5 @@ if (isset($_GET['order_id'])) {
         die("Error deleting order: " . mysqli_error($conn));
     }
 }
+
 ?>

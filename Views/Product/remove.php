@@ -1,4 +1,5 @@
 <?php
+
 include '../../Models/Product.php';
 
 $conn = Product::getConnection();
@@ -18,4 +19,5 @@ if (isset($_GET['removeid'])) {
         die("Error deleting product: " . mysqli_error($conn));
     }
 }
+
 ?>
