@@ -2,6 +2,8 @@
 session_start();
 require 'db_connection.php';
 
+$isLoggedIn = false;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -17,6 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->fetch();
 
         if (password_verify($password, $storedPassword)) {
+            //user logged in
+            $isLoggedIn = true;
+
+
             $_SESSION['user_id'] = $user_id;
             $_SESSION['username'] = $username;
             $_SESSION['fname'] = $fname;
@@ -26,11 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->close();
             header('Location: ' . getRedirectPage($group_id));
         } else {
+            $isLoggedIn = false;
             $stmt->close();
             $_SESSION['login_error'] = "Invalid username or password";
             header('Location: login.php');
         }
     } else {
+        $isLoggedIn = false;
+
         $stmt->close();
         $_SESSION['login_error'] = "Invalid username or password";
         header('Location: login.php');
