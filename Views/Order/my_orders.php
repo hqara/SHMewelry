@@ -33,7 +33,6 @@
 
                 foreach ($orders as $order) {
                     echo '<tr>
-                        <td>' . $order['USER_ID'] . '</td>
                         <td>' . $order['ORDER_ID'] . '</td>
                         <td>' . $order['ORDER_DATE'] . '</td>
                         <td>' . $order['ORDER_STATUS'] . '</td>
