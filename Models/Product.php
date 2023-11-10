@@ -41,13 +41,18 @@ class Product {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getById($product_id) {
+    public function getById($product_id): ?array {
         $SQL = 'SELECT * FROM PRODUCT WHERE PRODUCT_ID = ?';
         $stmt = self::$_connection->prepare($SQL);
         $stmt->bind_param('i', $product_id);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_assoc();
+
+        if ($result->num_rows > 0) { // no rows found
+            return $result->fetch_assoc();
+        }
+
+        return null;
     }
 
     public function getByType($type) {
