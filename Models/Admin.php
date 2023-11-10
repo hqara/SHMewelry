@@ -155,6 +155,8 @@ class AdminModel
         }
     }
 
+}
+
     //hibba's model, but need to review...
     class Admin {
 
@@ -247,8 +249,7 @@ class AdminModel
             return $stmt->affected_rows;
         }
     
-    }
-
 }
+
 
 ?>
