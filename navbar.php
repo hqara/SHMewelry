@@ -134,13 +134,13 @@ section {
                         <script>
                             function redirectToProfile() {
                                 // Replace 'profile.php' with the actual path to the user profile page
-                                window.location.href = 'Views/Client/profile.php';
+                                window.location.href = '../../../../SHMewelry/Views/Login/login.php';
                             }
 
                             function openLoginPage() {
                                 console.log('Opening login page');
                                 // Replace 'login.php' with the actual path to the login page
-                                window.location.href = 'Views/Login/login.php';
+                                window.location.href = '../../../../SHMewelry/Views/Login/login.php';
                             }
                         </script>
                     </td>
