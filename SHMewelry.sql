@@ -208,6 +208,10 @@ INSERT INTO ORDER_DETAILS (ORDER_ID, PRODUCT_ID, QTY, USER_ID) VALUES
     (3, 3, 1, 5), -- Eva Williams' order details about product id=3 (Sapphire Bracelet)
     (3, 5, 2, 5); -- Eva Williams' order details about product id=5 (Copper Bracelet)
 
+-- Added 
+INSERT INTO `order_details` (`ORDER_ID`, `PRODUCT_ID`, `QTY`, `USER_ID`) VALUES ('4', '4', '2', '1');
+INSERT INTO `order_details` (`ORDER_ID`, `PRODUCT_ID`, `QTY`, `USER_ID`) VALUES ('6', '3', '2', '1'), ('7', '5', '3', '1');
+
 ALTER TABLE `ORDER`
 ADD CONSTRAINT chk_order_status
 CHECK (ORDER_STATUS IN ('Processed', 'Shipped', 'Delivered'));

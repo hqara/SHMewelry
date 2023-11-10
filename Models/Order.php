@@ -82,6 +82,33 @@ class Order {
         $stmt->execute();
         return $stmt->affected_rows;
     }
+
+    public function getOrderDetails($order_id): ?array {
+        $SQL = 'SELECT ORDER_DETAILS.QTY, PRODUCT.PRICE, PRODUCT.NAME, PRODUCT.SIZE, PRODUCT.MATERIAL, PRODUCT.TYPE, PRODUCT.COLOR
+                FROM ORDER_DETAILS
+                JOIN PRODUCT ON ORDER_DETAILS.PRODUCT_ID = PRODUCT.PRODUCT_ID
+                WHERE ORDER_DETAILS.ORDER_ID = ?';
+        $stmt = self::$_connection->prepare($SQL);
+        $stmt->bind_param('i', $order_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) { // check if rows found
+            return $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+        return null;
+    }
+
+    public function calculateTotalPrice($orderDetails): float {
+        $totalPrice = 0;
+
+        foreach ($orderDetails as $detail) {
+            $totalPrice += $detail['QTY'] * $detail['PRICE'];
+        }
+
+        return $totalPrice;
+    }
 }
 
 ?>
