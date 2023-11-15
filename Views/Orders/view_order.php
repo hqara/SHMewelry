@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <header>
-    <?php include('../../navbar.php'); ?>
+        <?php include('../../navbar.php'); ?>
     </header>
 </head>
 
@@ -16,23 +16,25 @@
         <h1>ORDER DETAILS</h1>
         <?php
 
-        include '../../Models/Client.php';
+        include '../../Models/User.php';
         include '../../Models/Order.php';
+        include '../../Models/Address.php'; // Include the Address model
+
         $orderModel = new Order();
-        $clientModel = new Client();
+        $clientModel = new User();
+        $addressModel = new Address(); // Create an instance of the Address model
 
         if (isset($_GET['order_id'])) {
             $order_id = $_GET['order_id'];
-            $order = $orderModel->getById($order_id);
+            $order = $orderModel->getByOrderID($order_id); 
 
             if ($order) {
                 echo '<h2>Shipping Details</h2>';
 
                 // Retrieve user info
-                $user_id = $order['USER_ID'];
-                $clientModel = new Client();
+                $user_id = $order[0]['USER_ID'];
                 $userInfo = $clientModel->getById($user_id);
-                $addressInfo = $clientModel->getAddressInfo($user_id);
+                $addressInfo = $addressModel->getAddressInfo($user_id); // Use the getAddressInfo method from the Address model
 
                 if ($userInfo && $addressInfo) {
                     // Display shipping details
@@ -75,7 +77,7 @@
 </body>
 <footer>
     <?php
-        include_once("../../footer.html");
+    include_once("../../footer.html");
     ?>
 </footer>
 

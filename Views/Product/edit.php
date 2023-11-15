@@ -9,7 +9,7 @@ if (isset($_GET['editid'])) {
     $product_id = $_GET['editid'];
 
     // Get the current values of the product
-    $product = $productModel->getById($product_id);
+    $product = $productModel->getProductById($product_id);
 
     if (!$product) {
         die("Product not found.");
@@ -32,28 +32,21 @@ if (isset($_POST['update'])) {
     $product_image = $_POST['product_image'];
 
     // Update the product
-    $productModel->name = $name;
-    $productModel->description = $description;
-    $productModel->price = $price;
-    $productModel->manufacturer = $manufacturer;
-    $productModel->color = $color;
-    $productModel->material = $material;
-    $productModel->type = $type;
-    $productModel->size = $size;
-    $productModel->stock = $stock;
-    $productModel->product_image = $product_image;
+    $affected_rows = $productModel->update($product_id, $name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image);
 
-    $productModel->update();
-
-    header('location: display.php'); // Redirect after successful update
-    exit();
+    if ($affected_rows > 0) {
+        header('location: display.php'); // Redirect after successful update
+        exit();
+    } else {
+        echo "Update failed. Please try again.";
+    }
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -62,15 +55,13 @@ if (isset($_POST['update'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 
     <header>
-    <?php include('../../navbar.php'); ?>
+        <?php include('../../navbar.php'); ?>
     </header>
-    
-  </head>
+</head>
 
-  <body>
- 
+<body>
     <div class="container my-5">
-    <h1>Edit Product#<?php echo $product['PRODUCT_ID']; ?></h1>
+        <h1>Edit Product#<?php echo $product['PRODUCT_ID']; ?></h1>
         <form method="post">
             <div class="form-group">
                 <label>Name</label>
@@ -121,15 +112,16 @@ if (isset($_POST['update'])) {
                 <label>Product Image</label>
                 <input type="text" class="form-control" id="product_image" name="product_image" autocomplete="off" value="<?php echo $product['PRODUCT_IMAGE']; ?>">
             </div>
-
             <button type="submit" class="btn btn-primary" name="update">UPDATE</button>
             <button type="button" class="btn btn-primary" name="back" onclick="window.history.back();">GO BACK</button>
         </form>
     </div>
-  </body>
-  <footer>
+</body>
+
+<footer>
     <?php
         include_once("../../footer.html");
     ?>
 </footer>
+
 </html>

@@ -18,27 +18,21 @@ if (isset($_POST['create'])) {
     $product_image = $_POST['product_image'];
 
     // Call the create method to insert a new product
-    $productModel->name = $name;
-    $productModel->description = $description;
-    $productModel->price = $price;
-    $productModel->manufacturer = $manufacturer;
-    $productModel->color = $color;
-    $productModel->material = $material;
-    $productModel->type = $type;
-    $productModel->size = $size;
-    $productModel->stock = $stock;
-    $productModel->product_image = $product_image;
+    $insertedProductId = $productModel->create($name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image);
 
-    $productModel->create();
-
-    header('location: display.php');
-    exit();
+    if ($insertedProductId) {
+        header('location: display.php');
+        exit();
+    } else {
+        echo "Error creating the product.";
+    }
 }
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -48,13 +42,14 @@ if (isset($_POST['create'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 
     <header>
-    <?php include('../../navbar.php'); ?>
+        <?php include('../../navbar.php'); ?>
     </header>
 </head>
+
 <body>
-<div class="container my-5">
-    <h1> Add New Product to Catalog </h1>
-    <form method="post">
+    <div class="container my-5">
+        <h1>Add New Product to Catalog</h1>
+        <form method="post">
         <div class="form-group">
             <label>Name</label>
             <input type="text" class="form-control" id="name" name="name" autocomplete="off" required>
@@ -103,16 +98,16 @@ if (isset($_POST['create'])) {
         <div class="form-group">
                 <label>Product Image</label>
                 <input type="text" class="form-control" name="product_image" autocomplete="off" required>
-            </div>
+        </div>
 
-           <button type="submit" class="btn btn-primary" name="create">CREATE</button>
-           <button type="button" class="btn btn-primary" name="back" onclick="window.history.back();">GO BACK</button>
-    </form>
-</div>
+            <button type="submit" class="btn btn-primary" name="create">CREATE</button>
+            <button type="button" class="btn btn-primary" name="back" onclick="window.history.back();">GO BACK</button>
+        </form>
+    </div>
 </body>
+
 <footer>
-    <?php
-        include_once("../../footer.html");
-    ?>
+    <?php include_once("../../footer.html"); ?>
 </footer>
+
 </html>

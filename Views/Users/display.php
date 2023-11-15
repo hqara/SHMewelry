@@ -29,10 +29,9 @@
             <tbody>
                 <?php
                 
-                include '../../Models/Admin.php';
-                $conn = Admin::getConnection();
-                $adminModel = new Admin();
-                $users = $adminModel->getAll();
+                include '../../Models/User.php';
+                $adminModel = new User();
+                $users = $adminModel->getAllUsersInfo();
 
                 foreach ($users as $user) {
                     echo '<tr>

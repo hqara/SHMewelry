@@ -1,6 +1,145 @@
 <?php
 
-class AdminModel
+include_once(__DIR__ . '/../db_connection.php');
+
+class User {
+
+    public $user_id;
+    public $fname;
+    public $lname;
+    public $email;
+    public $password;
+    public $group_id;
+
+    public function __construct($id = -1) {
+        global $conn;
+
+        if ($id < 0) {
+             // initialize default values
+            $this->user_id = -1;
+            $this->fname = "";
+            $this->lname = "";
+            $this->email = "";
+            $this->password = "";
+            $this->group_id = 0;
+        } else {
+            // fetch user details from the database
+            $sql = "SELECT * FROM `USER` WHERE USER_ID = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('i', $id);
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $assocUser = $res->fetch_assoc();
+
+            // set object properties
+            $this->user_id = $id;
+            $this->fname = $assocUser['FNAME'];
+            $this->lname = $assocUser['LNAME'];
+            $this->email = $assocUser['EMAIL'];
+            $this->password = $assocUser['PASSWORD'];
+            $this->group_id = $assocUser['GROUP_ID'];
+
+            $stmt->close();
+        }
+    }
+
+    public function getAllUsersInfo() {
+        global $conn;
+        $sql = 'SELECT * FROM USER JOIN `GROUP` ON USER.GROUP_ID = `GROUP`.GROUP_ID';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getById($user_id): ?array {
+        global $conn;
+        $sql = 'SELECT * FROM USER WHERE USER_ID = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+
+        return null;
+    }
+
+    public function getByUserIdandGroup($user_id): ?array {
+        global $conn;
+        $sql = 'SELECT * FROM USER WHERE USER_ID = ? AND GROUP_ID = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $user_id, $this->group_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+
+        return null;
+    }
+
+    public function create($fname, $lname, $email, $password, $group_id) { //need update
+        global $conn;
+        $sql = 'INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES (?, ?, ?, ?, ?)';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ssssi', $fname, $lname, $email, $password, $group_id);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
+    
+
+    public function update($group_id, $user_id) {
+        global $conn;
+        $sql = 'UPDATE USER SET GROUP_ID = ? WHERE USER_ID = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('ii', $group_id, $user_id);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
+    
+    public function delete() {
+        global $conn;
+    
+        if ($this->group_id == 3) {
+            // Check if there is only one admin left
+            $checksql = 'SELECT COUNT(*) as count FROM USER WHERE GROUP_ID = 3';
+            $checkResult = $conn->query($checksql);
+            $count = $checkResult->fetch_assoc()['count'];
+    
+            if ($count <= 1) {
+                // Do not delete the last admin
+                return;
+            }
+    
+            // Delete the admin
+            $deletesql = 'DELETE FROM USER WHERE USER_ID = ? AND GROUP_ID = 3';
+        } else {
+            // Delete a regular user
+            $deletesql = 'DELETE FROM USER WHERE USER_ID = ?';
+        }
+    
+        $stmt = $conn->prepare($deletesql);
+        $stmt->bind_param('i', $this->user_id);
+        $stmt->execute();
+        return $stmt->affected_rows;
+    }
+    
+}
+
+
+ /*
+
+
+
+<?php
+
+//DISPLACED MEGANE'S CODE HERE
+class Admin
 {
     private $userId;
     private $groupId;
@@ -48,7 +187,7 @@ class AdminModel
 
         while ($row = $result->fetch_assoc())
         {
-            $admin = new AdminModel();
+            $admin = new Admin();
             $admin->userId = $row["USER_ID"];
             $admin->groupId = $row["GROUP_ID"];
             $admin->email = $row["EMAIL"];
@@ -62,7 +201,7 @@ class AdminModel
         return $list;
     }
 
-    public static function updateAdmin($userId, $groupId, $email, $firstName, $lastName, $password)
+    public static function update($userId, $groupId, $email, $firstName, $lastName, $password)
     {
         global $conn;
 
@@ -156,89 +295,7 @@ class AdminModel
     }
 
 }
-
-    //hibba's model, but need to review...
-    class Admin {
-
-        public $user_id;
-        public $fname;
-        public $lname;
-        public $email;
-        public $password;
-        public $group_id; 
-    
-        private static $_connection = null;
-    
-        public function __construct() {
-            if (self::$_connection == null) {
-                $host = 'localhost';
-                $user = 'root';
-                $password = '';
-                $dbname = 'shmewelry'; 
-    
-                self::$_connection = new mysqli($host, $user, $password, $dbname);
-    
-                if (self::$_connection->connect_error) {
-                    die("Connection failed: " . self::$_connection->connect_error);
-                }
-            }
-        }
-    
-        public static function getConnection() {
-            return self::$_connection;
-        }
-    
-        public function getAll() {
-            $SQL = 'SELECT * FROM user
-            JOIN `group` ON user.GROUP_ID = `group`.GROUP_ID';
-            $result = self::$_connection->query($SQL);
-            return $result->fetch_all(MYSQLI_ASSOC);
-        }
-
-    
-
-        public function create($fname, $lname, $email, $password) {
-            $SQL = 'INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES (?, ?, ?, ?, ?)';
-            $stmt = self::$_connection->prepare($SQL);
-            $stmt->bind_param('ssssi', $fname, $lname, $email, $password, $group_id);
-            $stmt->execute();
-            return $stmt->insert_id;
-        }
-
-        public function update($user_id, $fname, $lname, $email, $password) {
-            $SQL = 'UPDATE USER SET FNAME = ?, LNAME = ?, EMAIL = ?, PASSWORD = ?, GROUP_ID = ? WHERE USER_ID = ?';
-            $stmt = self::$_connection->prepare($SQL);
-            $stmt->bind_param('ssssii', $fname, $lname, $email, $password, $group_id, $user_id);
-            $stmt->execute();
-            return $stmt->affected_rows;
-        }
-    
-        public function delete($user_id) { 
-            $SQL = 'DELETE FROM USER WHERE USER_ID = ?';
-            $stmt = self::$_connection->prepare($SQL);
-            $stmt->bind_param('i', $user_id);
-            $stmt->execute();
-            return $stmt->affected_rows;
-        }
-
-        public function deleteAdmin($user_id) {
-            // Check if there is at least one admin with GROUP_ID = 3
-            $checkSQL = 'SELECT COUNT(*) as count FROM USER WHERE GROUP_ID = 3';
-            $checkResult = self::$_connection->query($checkSQL);
-            $count = $checkResult->fetch_assoc()['count'];
-            if ($count <= 1) {
-               
-                return; // Do nothing
-            }
-            // Allow deletion since there is more than one admin with GROUP_ID = 3
-            $deleteSQL = 'DELETE FROM USER WHERE USER_ID = ?';
-            $stmt = self::$_connection->prepare($deleteSQL);
-            $stmt->bind_param('i', $user_id);
-            $stmt->execute();
-            return $stmt->affected_rows;
-        }
-    
-}
+*/
 
 
 ?>

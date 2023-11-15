@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <header>
-    <?php include('../../navbar.php'); ?>
+        <?php include('../../navbar.php'); ?>
     </header>
 </head>
 
@@ -30,33 +30,32 @@
             <tbody>
                 <?php
                 include '../../Models/Order.php';
-                $conn = Order::getConnection();
                 $orderModel = new Order();
-                $orders = $orderModel->getAll();
+                $orders = $orderModel->listAllOrders();
 
                 foreach ($orders as $order) {
                     echo '<tr>
-                        <td>' . $order['USER_ID'] . '</td>
-                        <td>' . $order['ORDER_ID'] . '</td>
-                        <td>' . $order['ORDER_DATE'] . '</td>
-                        <td>' . $order['ORDER_STATUS'] . '</td>
-                        <td>' . $order['EXPECTED_DELIVERY'] . '</td>
+                        <td>' . $order->userId . '</td>
+                        <td>' . $order->orderId . '</td>
+                        <td>' . $order->orderDate . '</td>
+                        <td>' . $order->orderStatus . '</td>
+                        <td>' . $order->expectedDelivery . '</td>
                         <td>'; // Open the <td> tag for actions
 
                     // View Order Details button
                     echo '<button class="btn btn-primary">
-                            <a href="view_order.php?order_id=' . $order['ORDER_ID'] . '" class="text-light">View Order Details</a>
+                            <a href="view_order.php?order_id=' . $order->orderId . '" class="text-light">View Order Details</a>
                         </button>';
 
                     // Check if the order status is "Shipped" or "Delivered"
-                    if ($order['ORDER_STATUS'] !== 'Shipped' && $order['ORDER_STATUS'] !== 'Delivered') {
+                    if ($order->orderStatus !== 'Shipped' && $order->orderStatus !== 'Delivered') {
                         // Display the cancel button
                         echo '<button class="btn btn-danger">
-                                <a href="cancel_order.php?order_id=' . $order['ORDER_ID'] . '" class="text-light">Cancel Order</a>
+                                <a href="cancel_order.php?order_id=' . $order->orderId . '" class="text-light">Cancel Order</a>
                             </button>';
                     } else {
                         // Order is shipped or delivered, disable the cancel button with dark grey background
-                        echo '<button class="btn btn-disabled" disabled style="background-color: darkgrey; style="background-color: #555; border: 1px solid grey;">
+                        echo '<button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">
                                 Cancel Order
                             </button>';
                     }
@@ -74,9 +73,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 </body>
+
 <footer>
     <?php
-        include_once("../../footer.html");
+    include_once("../../footer.html");
     ?>
 </footer>
+
 </html>

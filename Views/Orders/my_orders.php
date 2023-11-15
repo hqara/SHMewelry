@@ -7,9 +7,6 @@
     <title>Manage Orders</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <header>
-    <?php include('../../navbar.php'); ?>
-    </header>
 </head>
 
 <body>
@@ -28,12 +25,11 @@
             </thead>
             <tbody>
                 <?php
-                
-                include '../../Models/Order.php'; 
-                $orderModel = new Order(); 
-                $user_id = 1;  // FOR NOW
+                include '../../Models/Order.php';
+                $orderModel = new Order();
+                $user_id = 1; // FOR NOW
 
-                $orders = $orderModel->getByUserID($user_id); // Get orders for a specific user
+                $orders = $orderModel->getByUserID($user_id); 
 
                 foreach ($orders as $order) {
                     echo '<tr>
@@ -41,7 +37,7 @@
                         <td>' . $order['ORDER_DATE'] . '</td>
                         <td>' . $order['ORDER_STATUS'] . '</td>
                         <td>' . $order['EXPECTED_DELIVERY'] . '</td>
-                        <td>'; 
+                        <td>';
 
                     // View Order Details button
                     echo '<button class="btn btn-primary">
@@ -56,7 +52,7 @@
                             </button>';
                     } else {
                         // Order is shipped or delivered, disable the cancel button with dark grey background
-                        echo '<button class="btn btn-disabled" disabled style="background-color: darkgrey; style="background-color: #555; border: 1px solid grey;">
+                        echo '<button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">
                                 Cancel Order
                             </button>';
                     }
@@ -73,11 +69,10 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+
+    <footer>
+        <?php include_once("../../footer.html"); ?>
+    </footer>
 </body>
-<footer>
-    <?php
-        include_once("../../footer.html");
-    ?>
-</footer>
 
 </html>
