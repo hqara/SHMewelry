@@ -1,35 +1,3 @@
-<?php
-
-include '../../Models/Product.php';
-
-$productModel = new Product(); // Create an instance of the Product model
-
-if (isset($_POST['create'])) {
-    // Get form data
-    $name = $_POST['name'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $manufacturer = $_POST['manufacturer'];
-    $color = $_POST['color'];
-    $material = $_POST['material'];
-    $type = $_POST['type'];
-    $size = $_POST['size'];
-    $stock = $_POST['stock'];
-    $product_image = $_POST['product_image'];
-
-    // Call the create method to insert a new product
-    $insertedProductId = $productModel->create($name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image);
-
-    if ($insertedProductId) {
-        header('location: display.php');
-        exit();
-    } else {
-        echo "Error creating the product.";
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +17,7 @@ if (isset($_POST['create'])) {
 <body>
     <div class="container my-5">
         <h1>Add New Product to Catalog</h1>
-        <form method="post">
+        <form method="post" action="?controller=product&action=add">
         <div class="form-group">
             <label>Name</label>
             <input type="text" class="form-control" id="name" name="name" autocomplete="off" required>

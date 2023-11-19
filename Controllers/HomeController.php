@@ -1,53 +1,15 @@
-<?
-//FOR REFERENCE
-//NEED MODIFICATION
+<?php
 
-class HomeController {
+include_once __DIR__ . "/../Controllers/Controller.php";
+include_once __DIR__ . "/../Models/User.php";
 
-public function index() {
-    $items = $this->model('Item')->getForUser($_SESSION['user_id']);
-    $this->view('home/index', ['items' => $items]);
-}
+class HomeController extends Controller {
 
-public function create() {
-    if (isset($_POST['action'])) {
-        $newItem = $this->model('Item');
-        $newItem->name = $_POST['name'];
-        $newItem->user_id = $_SESSION['user_id'];
-        $newItem->create();
-        header('location:/home/index');
-    } else {
-        $this->view('home/create');
+    function route() {
+        parent::route();
+
+            //temporary
+            include_once __DIR__ . "/../Views/Home/index.php";
     }
 }
-
-public function detail($item_id) {
-    $theItem = $this->model('Item')->find($item_id);
-
-    if ($theItem->user_id != $_SESSION['user_id']) {
-        header('location:/home/index');
-        return;
-    }
-
-    $this->view('home/detail', ['theItem' => $theItem]);
-}
-
-public function edit($item_id) {
-    $theItem = $this->model('Item')->find($item_id);
-
-    if ($theItem->user_id != $_SESSION['user_id']) {
-        header('location:/home/index');
-        return;
-    }
-
-    if (isset($_POST['action'])) {
-        $theItem->name = $_POST['name'];
-        $theItem->update();
-        header('location:/home/index');
-    } else {
-        $this->view('home/edit', ['theItem' => $theItem]);
-    }
-}
-}
-
 ?>

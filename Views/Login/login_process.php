@@ -1,6 +1,6 @@
 <?php
-session_start();
-require 'db_connection.php';
+
+require '../../db_connection.php';
 
 $isLoggedIn = false;
 
@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $stmt->close();
             header('Location: ' . getRedirectPage($group_id));
+
         } else {
             $isLoggedIn = false;
             $stmt->close();
@@ -48,11 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 function getRedirectPage($group_id) {
     if ($group_id === 1) {
-        return '../client/index.php';
+        //return '../client/index.php';
+        return '../Home/index.php';
     } elseif ($group_id === 2) {
-        return '../moderator/index.php';
+        //return '../moderator/index.php';
+        return '../Home/index.php';
     } elseif ($group_id === 3) {
-        return '../admin/index.php';
+        //return '../admin/index.php';
+        return '../Home/index.php';
     } else {
         return 'login.php';
     }

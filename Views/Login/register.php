@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <?php
-        session_start();
         include('../../navbar.php');
     ?>
     <title>SHMEWELRY Registration</title>

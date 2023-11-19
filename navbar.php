@@ -1,6 +1,12 @@
-<?php    
-    // Check if the user is logged in
-    $isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+
+<?php
+
+// Include the database connection file
+include_once(__DIR__ . "/db_connection.php");
+
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -154,25 +160,22 @@ section {
             <tr>
                 <td><a href="../../../SHMewelry/index.php">Home</a></td>
                 <td class="dropdown">
-                    <a href="#">Bracelets &#9662;</a>
+
+                     <a href="#">Bracelets &#9662;</a>
                     <div class="dropdown-content">
                         <a href="#"> All Bracelets</a>
                         <?php
-                            // Include the database connection file
-                            include_once("db_connection.php");
+                        // Fetch unique materials from the Product table
+                        $sql = "SELECT DISTINCT Material FROM product";
+                        $result = $conn->query($sql);
 
-                            // Fetch unique materials from the Product table
-                            $sql = "SELECT DISTINCT Material FROM product";
-                            $result = $conn->query($sql);
-
-                            // Display the materials as dropdown items
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<a href='#'>" . $row["Material"] . "</a>";
-                                }
+                        // Display the materials as dropdown items
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<a href='#'>" . $row["Material"] . "</a>";
                             }
+                        }
                         ?>
-                    
                     </div>
                 </td>
                 <td class="dropdown">
@@ -181,7 +184,7 @@ section {
                         <a href="#"> All Rings</a>
                         <?php
                             // Include the database connection file
-                            include_once("db_connection.php");
+                            //include_once("db_connection.php");
 
                             // Fetch unique materials from the Product table
                             $sql = "SELECT DISTINCT Material FROM product";
@@ -202,7 +205,7 @@ section {
                         <a href="#"> All Necklaces</a>
                         <?php
                             // Include the database connection file
-                            include_once("db_connection.php");
+                            //include_once("db_connection.php");
 
                             // Fetch unique materials from the Product table
                             $sql = "SELECT DISTINCT Material FROM product";
@@ -223,7 +226,7 @@ section {
                         <a href="#"> All Earrings</a>
                         <?php
                             // Include the database connection file
-                            include_once("db_connection.php");
+                            //include_once("db_connection.php");
 
                             // Fetch unique materials from the Product table
                             $sql = "SELECT DISTINCT Material FROM product";

@@ -7,11 +7,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <header>
-        <?php include('../../navbar.php'); ?>
-    </header>
+        <?php //include_once __DIR__ . "/../../navbar.php"; ?>
+    </header> 
 </head>
-
 <body>
+
 
 
     <div class="container my-5">
@@ -35,12 +35,12 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                include '../../Models/Product.php';
-                $productModel = new Product();
-                $products = $productModel->getAllProducts();
+            <?php
 
-                foreach ($products as $product) {
+            include(__DIR__ . '/../../navbar.php');
+            // Check if $data is defined and not empty
+            if (isset($data) && is_array($data) && !empty($data)) {
+                foreach ($data as $product) {
                     echo '<tr>
                         <th scope="row">' . $product['PRODUCT_ID'] . '</th>
                         <td>' . $product['NAME'] . '</td>
@@ -53,14 +53,19 @@
                         <td>' . $product['SIZE'] . '</td>
                         <td>' . $product['STOCK'] . '</td>
                         <td>' . $product['PRODUCT_IMAGE'] . '</td>
-                        <td><button class="btn btn-primary"><a href="edit.php?editid=' . $product['PRODUCT_ID'] . '" class="text-light">Edit</a></button></td>
-                        <td><button class="btn btn-danger"><a href="remove.php?removeid=' . $product['PRODUCT_ID'] . '" class="text-light">Remove</a></button></td>
+                        
+                        <td><button class="btn btn-primary"><a href="?controller=product&action=edit&id=' . $product['PRODUCT_ID'] . '" class="text-light">Edit</a></button></td>
+                        <td><button class="btn btn-danger"><a href="?controller=product&action=remove&id=' . $product['PRODUCT_ID'] . '" class="text-light">Remove</a></button></td>
                     </tr>';
                 }
-                ?>
+            } else {
+                echo '<tr><td colspan="13">No data available</td></tr>';
+            }
+            ?>
+            
             </tbody>
         </table>
-        <button class="btn btn-primary my-5"><a href="add.php" class="text-light">ADD NEW PRODUCT TO CATALOG</a></button>
+        <a href="?controller=product&action=add" class="btn btn-primary my-5">ADD NEW PRODUCT TO CATALOG</a>
     </div>
 
     <!-- Bootstrap JS (optional, for Bootstrap components) -->
@@ -69,7 +74,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 
     <footer>
-        <?php include_once("../../footer.html"); ?>
+    <?php //include_once __DIR__ . "/../../footer.html"; ?>
     </footer>
 </body>
 

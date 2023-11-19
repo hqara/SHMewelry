@@ -5,9 +5,7 @@
 </head>
 <body>
     <h2>Client Registration</h2>
-    <?php
-        session_start();
-    ?>
+
     <form method="post" action="register_process.php">
         <label for="fname">First Name:</label>
         <input type="text" id="fname" name="fname" required><br><br>
