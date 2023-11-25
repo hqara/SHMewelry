@@ -8,14 +8,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
     <header>
         <?php //include_once __DIR__ . "/../../navbar.php"; ?>
-    </header> 
+    </header>
 </head>
+
 <body>
-
-
-
     <div class="container my-5">
-        <h1>MANAGE PRODUCTS</h1>
+        <h1 class="py-4">MANAGE PRODUCTS</h1>
         <table class="table">
             <thead>
                 <tr>
@@ -35,37 +33,47 @@
                 </tr>
             </thead>
             <tbody>
-            <?php
+                <?php
+                // Check if $data is defined and not empty
+                if (isset($data) && is_array($data) && !empty($data)) {
+                    foreach ($data as $product) {
+                        echo '<tr>
+                            <th scope="row">' . $product['PRODUCT_ID'] . '</th>
+                            <td>' . $product['NAME'] . '</td>
+                            <td>' . $product['DESCRIPTION'] . '</td>
+                            <td>' . $product['PRICE'] . '</td>
+                            <td>' . $product['MANUFACTURER'] . '</td>
+                            <td>' . $product['COLOR'] . '</td>
+                            <td>' . $product['MATERIAL'] . '</td>
+                            <td>' . $product['TYPE'] . '</td>
+                            <td>' . $product['SIZE'] . '</td>
+                            <td>' . $product['STOCK'] . '</td>
+                            <td>' . $product['PRODUCT_IMAGE'] . '</td>
+                            
+                            <td>
+                            <form method="post" action="index.php?controller=product&action=edit&id=' . $product['PRODUCT_ID'] . '">
+                                <input type="hidden" name="product_id" value="' . $product['PRODUCT_ID'] . '">
+                                <button type="submit" class="btn btn-primary" name="edit">Edit</button>
+                            </form>
+                            </td>
 
-            include(__DIR__ . '/../../navbar.php');
-            // Check if $data is defined and not empty
-            if (isset($data) && is_array($data) && !empty($data)) {
-                foreach ($data as $product) {
-                    echo '<tr>
-                        <th scope="row">' . $product['PRODUCT_ID'] . '</th>
-                        <td>' . $product['NAME'] . '</td>
-                        <td>' . $product['DESCRIPTION'] . '</td>
-                        <td>' . $product['PRICE'] . '</td>
-                        <td>' . $product['MANUFACTURER'] . '</td>
-                        <td>' . $product['COLOR'] . '</td>
-                        <td>' . $product['MATERIAL'] . '</td>
-                        <td>' . $product['TYPE'] . '</td>
-                        <td>' . $product['SIZE'] . '</td>
-                        <td>' . $product['STOCK'] . '</td>
-                        <td>' . $product['PRODUCT_IMAGE'] . '</td>
-                        
-                        <td><button class="btn btn-primary"><a href="?controller=product&action=edit&id=' . $product['PRODUCT_ID'] . '" class="text-light">Edit</a></button></td>
-                        <td><button class="btn btn-danger"><a href="?controller=product&action=remove&id=' . $product['PRODUCT_ID'] . '" class="text-light">Remove</a></button></td>
-                    </tr>';
+                            <td>
+                            <form method="post" action="index.php?controller=product&action=delete">
+                                <input type="hidden" name="product_id" value="' . $product['PRODUCT_ID'] . '">
+                                <button type="submit" class="btn btn-danger" name="delete">Remove</button>
+                            </form>
+                            </td>
+                        </tr>';
+                    }
+                } else {
+                    echo '<tr><td colspan="13">No data available</td></tr>';
                 }
-            } else {
-                echo '<tr><td colspan="13">No data available</td></tr>';
-            }
-            ?>
-            
+                ?>
             </tbody>
         </table>
-        <a href="?controller=product&action=add" class="btn btn-primary my-5">ADD NEW PRODUCT TO CATALOG</a>
+        <form method="post" action="index.php?controller=product&action=add">
+            <button type="submit" class="btn btn-primary" name="add">ADD NEW PRODUCT TO CATALOG</button>
+        </form>
     </div>
 
     <!-- Bootstrap JS (optional, for Bootstrap components) -->
@@ -74,7 +82,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 
     <footer>
-    <?php //include_once __DIR__ . "/../../footer.html"; ?>
+        <?php //include_once __DIR__ . "/../../footer.html"; ?>
     </footer>
 </body>
 

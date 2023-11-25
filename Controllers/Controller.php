@@ -4,8 +4,8 @@ class Controller{
 
     function validateSessionUser() {
         return;
-		//if(!isset($_SESSION['user']))
-		//header("Location: ?controller=login");
+//		if(!isset($_SESSION['user']))
+//			header("Location: ?controller=login");
 
     }
 	
@@ -17,8 +17,7 @@ class Controller{
     function render($controller, $view, $data = []) {
         extract($data);
 
-        require "Views/$controller/$view.php";
-
+        include "Views/$controller/$view.php";
     }
 }
 

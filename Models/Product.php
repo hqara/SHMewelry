@@ -19,7 +19,6 @@ public $product_image;
 function __construct($id = -1) {
     global $conn;
 
-    // Check if $id is a positive integer
     if ($id > 0) {
         // fetch product details from the database
         $sql = "SELECT * FROM `PRODUCT` WHERE PRODUCT_ID = ?";
@@ -88,8 +87,7 @@ function __construct($id = -1) {
     }
 }
 
-
-public static function list(){
+public static function list() {
     global $conn;
     $sql = 'SELECT * FROM `PRODUCT`';
     $stmt = $conn->prepare($sql);
@@ -97,7 +95,6 @@ public static function list(){
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
-
 
 
 public static function view() {
@@ -146,6 +143,11 @@ public static function create() {
         $stock = $_POST['stock'];
         $product_image = $_POST['product_image'];
 
+        // Validate and sanitize user input
+        $name = htmlspecialchars($name);
+        $description = htmlspecialchars($description);
+        // Add similar validations for other fields
+
         // Prepare and execute the SQL query
         $sql = 'INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         $stmt = $conn->prepare($sql);
@@ -161,6 +163,7 @@ public static function create() {
 
         // Check for errors in executing the statement
         if ($stmt->error) {
+            // Handle the error (e.g., display an error message or redirect to an error page)
             die('Error executing statement: ' . $stmt->error);
         }
 
@@ -170,69 +173,108 @@ public static function create() {
         // Close the statement
         $stmt->close();
 
-        // Return the ID of the inserted product
-        return $insertedProductId;
+        // Redirect to a success page or do other post-creation actions
+        header("Location: index.php?controller=product&action=list");
+        exit();
     }
 
     // Return false if the 'create' key is not present in the $_POST array
     return false;
 }
 
-public static function update(){  
-    global $conn;
 
-    if (isset($_POST['update'])) {
-        // Get form data
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $manufacturer = $_POST['manufacturer'];
-        $color = $_POST['color'];
-        $material = $_POST['material'];
-        $type = $_POST['type'];
-        $size = $_POST['size'];
-        $stock = $_POST['stock'];
-        $product_image = $_POST['product_image'];
 
-        $sql = 'UPDATE PRODUCT SET NAME = ?, DESCRIPTION = ?, PRICE = ?, MANUFACTURER = ?, COLOR = ?, MATERIAL = ?, TYPE = ?, SIZE = ?, STOCK = ?, PRODUCT_IMAGE = ? WHERE PRODUCT_ID = ?';
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ssdsssssisi', $name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image, $product_id);
-        $stmt->execute();
-        return $stmt->affected_rows;
-    }
-}
-/*
+
 public static function update() {
     global $conn;
 
-    // Check if the 'update' key is present in the $_POST array
+    // Check if the 'update' key is set in the POST data
     if (isset($_POST['update'])) {
-        // Get form data
-        $product_id = $_POST['product_id'];
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-        $price = $_POST['price'];
-        $manufacturer = $_POST['manufacturer'];
-        $color = $_POST['color'];
-        $material = $_POST['material'];
-        $type = $_POST['type'];
-        $size = $_POST['size'];
-        $stock = $_POST['stock'];
-        $product_image = $_POST['product_image'];
+        // Check if 'product_id' key is set
+        if (isset($_POST['product_id'])) {
+            // Get form data
+            $product_id = $_POST['product_id'];
+            $name = $_POST['name'];
+            $description = $_POST['description'];
+            $price = $_POST['price'];
+            $manufacturer = $_POST['manufacturer'];
+            $color = $_POST['color'];
+            $material = $_POST['material'];
+            $type = $_POST['type'];
+            $size = $_POST['size'];
+            $stock = $_POST['stock'];
+            $product_image = $_POST['product_image'];
+
+            // Prepare and execute the SQL update statement
+            $sql = 'UPDATE PRODUCT SET NAME = ?, DESCRIPTION = ?, PRICE = ?, MANUFACTURER = ?, COLOR = ?, MATERIAL = ?, TYPE = ?, SIZE = ?, STOCK = ?, PRODUCT_IMAGE = ? WHERE PRODUCT_ID = ?';
+            $stmt = $conn->prepare($sql);
+            
+            // Check if the prepare statement was successful
+            if (!$stmt) {
+                // Handle the case when the prepare statement fails
+                return 0;
+            }
+            
+            $stmt->bind_param('ssdsssssisi', $name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image, $product_id);
+            $stmt->execute();
+
+            // Check for errors during the execution of the SQL statement
+            if ($stmt->errno) {
+                // Handle the case when an error occurs
+
+                // Close the statement
+                $stmt->close();
+                
+                return 0;
+            }
+
+            // Close the statement
+            $stmt->close();
+
+            // Redirect 
+            header("Location: ?controller=Product&action=list");
+            exit();
+        }
+    }
+    // Handle the case when 'update' key is not set
+    return 0;
+}
+
+
+
+public static function delete() {
+    global $conn;
+
+    if (isset($_POST['delete'])) {
+        // Get product_id from the POST data
+        $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : null;
+
+        // Validate $product_id (ensure it's a positive integer, for example)
 
         // Prepare and execute the SQL query
-        $sql = 'UPDATE PRODUCT SET NAME = ?, DESCRIPTION = ?, PRICE = ?, MANUFACTURER = ?, COLOR = ?, MATERIAL = ?, TYPE = ?, SIZE = ?, STOCK = ?, PRODUCT_IMAGE = ? WHERE PRODUCT_ID = ?';
+        $sql = 'DELETE FROM PRODUCT WHERE PRODUCT_ID = ?';
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ssdsssssisi', $name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image, $product_id);
+        $stmt->bind_param('i', $product_id);
         $stmt->execute();
 
-        // Return the number of affected rows
-        return $stmt->affected_rows;
+        // Check for errors in executing the statement
+        if ($stmt->error) {
+            // Handle the error (e.g., display an error message or redirect to an error page)
+            die('Error executing statement: ' . $stmt->error);
+        }
+
+        // Close the statement
+        $stmt->close();
+
+        // Redirect 
+        header("Location: index.php?controller=product&action=list");
+        exit();
+        }
+    
+        // Return false if the 'delete' key is not present in the $_POST array
+        return 0;
     }
 
-    // Return 0 if the 'update' key is not present in the $_POST array
-    return 0;
-    }*/
 }
 
 ?>
