@@ -96,7 +96,8 @@ public static function list() {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-
+//MISSING SEARCH FUNCTION FOR SEARCH BAR
+//NOT USED, MIGHT NEED TO BE UPDATED
 public static function view() {
     global $conn;
 
@@ -142,11 +143,6 @@ public static function create() {
         $size = $_POST['size'];
         $stock = $_POST['stock'];
         $product_image = $_POST['product_image'];
-
-        // Validate and sanitize user input
-        $name = htmlspecialchars($name);
-        $description = htmlspecialchars($description);
-        // Add similar validations for other fields
 
         // Prepare and execute the SQL query
         $sql = 'INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -232,7 +228,7 @@ public static function update() {
             $stmt->close();
 
             // Redirect 
-            header("Location: ?controller=Product&action=list");
+            header("Location: index.php?controller=Product&action=list");
             exit();
         }
     }
@@ -276,5 +272,7 @@ public static function delete() {
     }
 
 }
+
+
 
 ?>

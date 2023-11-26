@@ -33,6 +33,7 @@
                 </tr>
             </thead>
             <tbody>
+                
                 <?php
                 // Check if $data is defined and not empty
                 if (isset($data) && is_array($data) && !empty($data)) {
@@ -71,6 +72,7 @@
                 ?>
             </tbody>
         </table>
+        
         <form method="post" action="index.php?controller=product&action=add">
             <button type="submit" class="btn btn-primary" name="add">ADD NEW PRODUCT TO CATALOG</button>
         </form>

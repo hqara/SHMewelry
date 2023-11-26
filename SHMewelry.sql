@@ -150,69 +150,139 @@ INSERT INTO `GROUP` (GROUP_NAME) VALUES
 
 -- Insert values into the RIGHTS table with corresponding RIGHTS_ID:
 INSERT INTO RIGHTS (ACTION_NAME, CLASS_NAME) VALUES
-    ('Create', 'User'),     -- RIGHTS_ID = 1
-    ('Read', 'User'),       -- RIGHTS_ID = 2
-    ('Update', 'User'),     -- RIGHTS_ID = 3
-    ('Delete', 'User'),     -- RIGHTS_ID = 4
-    ('Create', 'Address'),  -- RIGHTS_ID = 5
-    ('Read', 'Address'),    -- RIGHTS_ID = 6
-    ('Update', 'Address'),  -- RIGHTS_ID = 7
-    ('Delete', 'Address'),  -- RIGHTS_ID = 8
-    ('Create', 'Product'),  -- RIGHTS_ID = 9
-    ('Read', 'Product'),    -- RIGHTS_ID = 10
-    ('Update', 'Product'),  -- RIGHTS_ID = 11
-    ('Delete', 'Product'),  -- RIGHTS_ID = 12
-    ('Create', 'Orders'),    -- RIGHTS_ID = 13
-    ('Read', 'Orders'),      -- RIGHTS_ID = 14
-    ('Update', 'Orders'),    -- RIGHTS_ID = 15
-    ('Delete', 'Orders');    -- RIGHTS_ID = 16
+    ('create', 'user'),     -- RIGHTS_ID = 1
+    ('read', 'user'),       -- RIGHTS_ID = 2
+    ('update', 'user'),     -- RIGHTS_ID = 3
+    ('delete', 'user'),     -- RIGHTS_ID = 4
+    ('add', 'user'),        -- RIGHTS_ID = 5
+    ('edit', 'user'),       -- RIGHTS_ID = 6
+    ('view', 'user'),       -- RIGHTS_ID = 7
+    ('list', 'user'),       -- RIGHTS_ID = 8
+    ('save', 'user'),       -- RIGHTS_ID = 9
+    ('remove', 'user'),     -- RIGHTS_ID = 10
+    ('create', 'address'),  -- RIGHTS_ID = 11
+    ('read', 'address'),    -- RIGHTS_ID = 12
+    ('update', 'address'),  -- RIGHTS_ID = 13
+    ('delete', 'address'),  -- RIGHTS_ID = 14
+    ('add', 'address'),     -- RIGHTS_ID = 15
+    ('edit', 'address'),    -- RIGHTS_ID = 16
+    ('view', 'address'),    -- RIGHTS_ID = 17
+    ('list', 'address'),    -- RIGHTS_ID = 18
+    ('save', 'address'),    -- RIGHTS_ID = 19
+    ('remove', 'address'),  -- RIGHTS_ID = 20
+    ('create', 'product'),  -- RIGHTS_ID = 21
+    ('read', 'product'),    -- RIGHTS_ID = 22
+    ('update', 'product'),  -- RIGHTS_ID = 23
+    ('delete', 'product'),  -- RIGHTS_ID = 24
+    ('add', 'product'),     -- RIGHTS_ID = 25
+    ('edit', 'product'),    -- RIGHTS_ID = 26
+    ('view', 'product'),    -- RIGHTS_ID = 27
+    ('list', 'product'),    -- RIGHTS_ID = 28
+    ('save', 'product'),    -- RIGHTS_ID = 29
+    ('remove', 'product'),  -- RIGHTS_ID = 30
+    ('create', 'orders'),   -- RIGHTS_ID = 31
+    ('read', 'orders'),     -- RIGHTS_ID = 32
+    ('update', 'orders'),   -- RIGHTS_ID = 33
+    ('delete', 'orders'),   -- RIGHTS_ID = 34
+    ('add', 'orders'),      -- RIGHTS_ID = 35
+    ('edit', 'orders'),     -- RIGHTS_ID = 36
+    ('view', 'orders'),     -- RIGHTS_ID = 37
+    ('list', 'orders'),     -- RIGHTS_ID = 38
+    ('save', 'orders'),     -- RIGHTS_ID = 39
+    ('remove', 'orders'),   -- RIGHTS_ID = 40
+    ('search', 'product');  -- RIGHTS_ID = 41
 
 -- Insert values into the GROUP_RIGHTS table
--- ADMIN (ID=3) can use CRUD for all Orders, Product, User tables 
--- but only READ for Address table
+
+-- ADMIN (ID=3) rights
 INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
     (3, 1),  -- Create User
     (3, 2),  -- Read User
     (3, 3),  -- Update User
     (3, 4),  -- Delete User
-    (3, 6),  -- Read Address
-    (3, 9),  -- Create Product
-    (3, 10), -- Read Product
-    (3, 11), -- Update Product
-    (3, 12), -- Delete Product
-    (3, 13), -- Create Orders
-    (3, 14), -- Read Orders
-    (3, 15), -- Update Orders
-    (3, 16); -- Delete Orders
+    (3, 5),  -- Add User
+    (3, 6),  -- Edit User
+    (3, 7),  -- View User
+    (3, 8),  -- List User
+    (3, 9),  -- Save User
+    (3, 10), -- Remove User
+    (3, 12), -- Read Address
+    (3, 17), -- View Address
+    (3, 21), -- Create Product
+    (3, 22), -- Read Product
+    (3, 23), -- Update Product
+    (3, 24), -- Delete Product
+    (3, 25), -- Add Product
+    (3, 26), -- Edit Product
+    (3, 27), -- View Product
+    (3, 28), -- List Product
+    (3, 29), -- Save Product
+    (3, 30), -- Remove Product
+    (3, 41), -- Search Product
+    (3, 32), -- Read Orders
+    (3, 33), -- Update Orders
+    (3, 34), -- Delete Orders
+    (3, 36), -- Edit Orders
+    (3, 37), -- View Orders
+    (3, 38), -- List Orders
+    (3, 40); -- Remove Orders
 
--- MODERATOR (ID=2) can use CRUD for all Orders and Product tables, 
--- READ and DELETE for User table, and can only VIEW Address table
+-- MODERATOR (ID=2) rights
 INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
     (2, 2),  -- Read User
     (2, 4),  -- Delete User
-    (2, 6),  -- Read Address
-    (2, 9),  -- Create Product
-    (2, 10), -- Read Product
-    (2, 11), -- Update Product
-    (2, 12), -- Delete Product
-    (2, 13), -- Create Orders
-    (2, 14), -- Read Orders
-    (2, 15), -- Update Orders
-    (2, 16); -- Delete Orders
+    (2, 7),  -- View User
+    (2, 9),  -- Save User
+    (2, 10),  -- Remove User
+    (2, 12), -- Read Address
+    (2, 17), -- View Address
+    (2, 21), -- Create Product
+    (2, 22), -- Read Product
+    (2, 23), -- Update Product
+    (2, 24), -- Delete Product
+    (2, 25), -- Add Product
+    (2, 26), -- Edit Product
+    (2, 27), -- View Product
+    (2, 28), -- List Product
+    (2, 29), -- Save Product
+    (2, 30), -- Remove Product
+    (2, 41), -- Search Product
+    (2, 32), -- Read Orders
+    (2, 33), -- Update Orders
+    (2, 34), -- Delete Orders
+    (2, 36), -- Edit Orders
+    (2, 37), -- View Orders
+    (2, 38), -- List Orders
+    (2, 40); -- Remove Orders
 
--- CLIENT (ID=1) can use CREATE, READ, and DELETE for User and Orders tables,
--- CREATE, READ, and UPDATE for Address table, and ONLY READ for Product table
+-- CLIENT (ID=1) rights
 INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
     (1, 1),  -- Create User
     (1, 2),  -- Read User
+    (1, 3),  -- Update User
     (1, 4),  -- Delete User
-    (1, 5),  -- Create Address
-    (1, 6),  -- Read Address
-    (1, 7),  -- Update Address
-    (1, 10), -- Read Product
-    (1, 13), -- Create Order
-    (1, 14), -- Read Order
-    (1, 16); -- Delete Order
+    (1, 7),  -- View User
+    (1, 9),  -- Save User
+    (1, 10), -- Remove User
+    (1, 11),  -- Create Address
+    (1, 12),  -- Read Address
+    (1, 13),  -- Update Address
+    (1, 14),  -- Delete Address
+    (1, 15),  -- Add Address
+    (1, 16),  -- Edit Address
+    (1, 17),  -- View Address
+    (1, 19),  -- Save Address
+    (1, 20),  -- Remove Address
+    (1, 22),  -- Read Product
+    (1, 27),  -- View Product
+    (1, 41),  -- Search Product
+    (1, 31),  -- Create Orders
+    (1, 32),  -- Read Orders
+    (1, 34),  -- Delete Orders
+    (1, 35),  -- Add Orders
+    (1, 37),  -- View Orders
+    (1, 38),  -- List Orders
+    (1, 40);  -- Remove Orders
 
 -- Insert values into the USER table (sample data using MD5 hash function for password)
 INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES
@@ -245,13 +315,13 @@ INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TY
 
 -- Insert values into the ORDER table (only client's sample data)
 INSERT INTO ORDERS (TOTAL_PRICE, ORDER_DATE, ORDER_STATUS, EXPECTED_DELIVERY, USER_ID) VALUES
-    (999.99, '2023-10-20', 'Processed', '2023-10-25', 1), -- John Doe's order id#1
-    (599.99, '2023-10-19', 'Shipped', '2023-10-24', 4), -- Bob Brown's order id#2
-    (799.99, '2023-10-18', 'Delivered', '2023-10-23', 5), -- Eva Williams'order id#3
-    (23.25, '2023-11-08', 'Shipped', '2023-11-11', 1),    -- John Doe's order id#4
-    (44.34, '2023-11-01', 'Delivered', '2023-11-06', 1),  -- John Doe's order id#5
-    (109.95, '2023-11-08', 'Shipped', '2023-11-11', 1),    -- John Doe's order id#6
-    (299.95, '2023-11-09', 'Processed', '2023-11-12', 1);  -- John Doe's order id#7
+    (1599.98, '2023-10-20', 'Processed', '2023-10-25', 1), -- John Doe's order id#1
+    (399.99, '2023-10-19', 'Shipped', '2023-10-24', 4), -- Bob Brown's order id#2
+    (1199.97, '2023-10-18', 'Delivered', '2023-10-23', 5), -- Eva Williams'order id#3
+    (799.98, '2023-11-08', 'Shipped', '2023-11-11', 1),    -- John Doe's order id#4
+    (799.98, '2023-11-01', 'Delivered', '2023-11-06', 1),  -- John Doe's order id#5
+    (1599.98, '2023-11-08', 'Shipped', '2023-11-11', 1),    -- John Doe's order id#6
+    (599.97, '2023-11-09', 'Processed', '2023-11-12', 1);  -- John Doe's order id#7
 
 -- Insert values into the ORDER_PRODUCTS table (only client's sample data)
 INSERT INTO ORDER_PRODUCTS (ORDER_ID, PRODUCT_ID, QTY, USER_ID) VALUES
