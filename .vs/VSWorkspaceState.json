@@ -1,14 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Controllers",
-    "\\Models",
-    "\\Views",
-    "\\Views\\Admin",
-    "\\Views\\Client",
-    "\\Views\\Login",
-    "\\Views\\Moderator"
+    ""
   ],
-  "SelectedNode": "\\SHMewelry.sql",
+  "SelectedNode": "\\C:\\xampp\\htdocs\\SHMewelry",
   "PreviewInSolutionExplorer": false
 }
