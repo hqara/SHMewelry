@@ -340,4 +340,3 @@ INSERT INTO USER_PRODUCT (USER_ID, PRODUCT_ID, QTY) VALUES
     (1, 1, 2),  -- John Doe adds 2 Diamond Rings to the cart
     (1, 3, 1),  -- John Doe adds 1 Sapphire Bracelet to the cart
     (4, 2, 3);  -- Bob Brown adds 3 Pearl Necklaces to the cart
-

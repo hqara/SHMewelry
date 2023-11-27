@@ -6,18 +6,27 @@ class Controller{
         return;
 //		if(!isset($_SESSION['user']))
 //			header("Location: ?controller=login");
-
     }
 	
-	function route(){
+	function route() {
 		$this->validateSessionUser();
-
+       // global $controller, $view;
+        //$this->render($controller, $view);
 	}
 
     function render($controller, $view, $data = []) {
         extract($data);
-
-        include "Views/$controller/$view.php";
+        $dirString = dirname(__FILE__) . "/../Views/$controller/{$view}.php";
+        
+        if (file_exists($dirString))
+        {
+            include_once $dirString;
+        }
+        else
+        {
+            var_dump($dirString);
+            include_once dirname(__FILE__) . "/../404.php";
+        }
     }
 }
 

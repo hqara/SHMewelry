@@ -3,7 +3,7 @@
 include_once __DIR__ . "/../Controllers/Controller.php";
 include_once __DIR__ . "/../Models/User.php";
 
-class HomeController extends Controller {
+class LoginController extends Controller {
 
     function route() {
         parent::route(); // Call the route method of the parent Controller class
@@ -17,19 +17,17 @@ class HomeController extends Controller {
         ];
 
         // view validation
-        if ($view == "list")
+        if ($view == "login" || $view == "register")
         {
-            $this->render('Home', $view, $data);
+            $this->render('Login', $view, $data);
 
         }
         else
         {
-            $this->render('Home', 'index', $data);
+            $this->render('Login', 'login', $data);
 
         }
     }
-
-    // You can add other methods specific to the HomeController if needed
 }
 
 ?>

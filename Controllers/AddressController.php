@@ -15,8 +15,8 @@ class AddressController extends Controller {
         $addressModel = new Address();
 
         if ($action == "list") {
-            $addresss = Address::$action();
-            $this->render("Address", $action, $addresses);
+            $address = Address::$action();
+            $this->render("Address", $action, $address);
         } else if ($action == "create" || $action == "update") {
             $result = $addressModel->$action();
         } else if ($action == "add") {

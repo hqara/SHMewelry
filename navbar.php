@@ -165,6 +165,7 @@ section {
                     <div class="dropdown-content">
                         <a href="#"> All Bracelets</a>
                         <?php
+                        global $conn;
                         // Fetch unique materials from the Product table
                         $sql = "SELECT DISTINCT Material FROM product";
                         $result = $conn->query($sql);
