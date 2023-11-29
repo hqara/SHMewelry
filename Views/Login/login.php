@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <?php
-        include_once('../../navbar.php');
+        include_once __DIR__ . '/../../navbar.php';
     ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,7 +64,7 @@
                     <td><a href="#"> Forgot Password?</a></td>
                 </tr>
                 <tr>
-                    <td>Don't have an Account? <a href="register.php">Register</a></td>
+                    <td>Don't have an Account? <a href="index.php?controller=login&view=register">Register</a></td>
                 </tr>
             </table>
         </form>
@@ -75,7 +75,7 @@
 
 <footer>
     <?php
-        include_once("../../footer.html");
+        include_once dirname(__FILE__) .  "/../../footer.html";
     ?>
 </footer>
 </html>

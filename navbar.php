@@ -145,7 +145,7 @@ section {
                             function openLoginPage() {
                                 console.log('Opening login page');
                                 // Replace 'login.php' with the actual path to the login page
-                                window.location.href = '../../../../SHMewelry/Views/Login/login.php';
+                                window.location.href = 'index.php?controller=login&view=login';
                             }
                         </script>
                     </td>
@@ -158,12 +158,12 @@ section {
     <nav>
         <table>
             <tr>
-                <td><a href="../../../SHMewelry/index.php">Home</a></td>
+                <td><a href="index.php?controller=home&view=home">Home</a></td>
                 <td class="dropdown">
 
                      <a href="#">Bracelets &#9662;</a>
                     <div class="dropdown-content">
-                        <a href="#"> All Bracelets</a>
+                        <a href="index.php?view=list&controller=home&type=bracelet"> All Bracelets</a>
                         <?php
                         global $conn;
                         // Fetch unique materials from the Product table
@@ -173,7 +173,7 @@ section {
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='#'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?view=list&controller=home&type=bracelet&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>
@@ -182,7 +182,7 @@ section {
                 <td class="dropdown">
                     <a href="#">Rings &#9662;</a>
                     <div class="dropdown-content">
-                        <a href="#"> All Rings</a>
+                        <a href="index.php?view=list&controller=home&type=ring"> All Rings</a>
                         <?php
                             // Include the database connection file
                             //include_once("db_connection.php");
@@ -194,7 +194,7 @@ section {
                             // Display the materials as dropdown items
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    echo "<a href='#'>" . $row["Material"] . "</a>";
+                                    echo "<a href='index.php?view=list&controller=home&type=ring&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                                 }
                             }
                         ?>
@@ -203,7 +203,7 @@ section {
                 <td class="dropdown">
                     <a href="#">Necklaces &#9662;</a>
                     <div class="dropdown-content">
-                        <a href="#"> All Necklaces</a>
+                        <a href="index.php?view=list&controller=home&type=necklace"> All Necklaces</a>
                         <?php
                             // Include the database connection file
                             //include_once("db_connection.php");
@@ -215,7 +215,7 @@ section {
                             // Display the materials as dropdown items
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    echo "<a href='#'>" . $row["Material"] . "</a>";
+                                    echo "<a href='index.php?view=list&controller=home&type=necklace&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                                 }
                             }
                         ?>
@@ -224,7 +224,7 @@ section {
                 <td class="dropdown">
                     <a href="#">Earrings &#9662;</a>
                     <div class="dropdown-content">
-                        <a href="#"> All Earrings</a>
+                        <a href="index.php?view=list&controller=home&type=earring"> All Earrings</a>
                         <?php
                             // Include the database connection file
                             //include_once("db_connection.php");
@@ -236,7 +236,7 @@ section {
                             // Display the materials as dropdown items
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
-                                    echo "<a href='#'>" . $row["Material"] . "</a>";
+                                    echo "<a href='index.php?view=list&controller=home&type=earring&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                                 }
                             }
                         ?>
@@ -250,13 +250,7 @@ section {
     <section>
         
     </section>
-    
     </br>
     </br>
-
-
-
-    
-
 </body>
 </html>

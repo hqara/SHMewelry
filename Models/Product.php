@@ -126,7 +126,128 @@ public static function view() {
     // Return null if the 'view' key is not present in the $_POST array
     return null;
 }
+public static function buildProductPage()
+{
+    $row_count = 0;
+    $result = array();
+    if (isset($_GET['material']))
+    {
+        $result = Product::viewByJewelrySubtype();
+    }
+    else
+    {
+        $result = Product::viewByJewelryType();
+    }
 
+    if ($result == null)
+    {
+        echo '<center><h5>Sorry, we don\'t have what you\'re looking for.</h5></center>';
+        return;
+    }
+
+    // statically building the results on the page
+    // TODO: DIRECT TO ANOTHER PAGE WITH THE ITEM IN DETAIL
+    // WITH OPTION TO ADD TO BAG
+    foreach ($result as $row)
+    {
+        if ($row_count % 4 == 0)
+        {
+            echo '<div class="row">';
+        }
+        echo <<<ECHO
+        <div class="col-md-3">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    <div class="product-imitation">
+                        <img src="Images/AboutUs.jpg" alt="image">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-price">
+                            {$row['PRICE']}
+                        </span>
+                        <small class="text-muted">{$row['MATERIAL']}</small>
+                        <a href="#" class="product-name">{$row['NAME']}</a>
+                        <div class="small m-t-xs">
+                            {$row['DESCRIPTION']}
+                        </div>
+                        <div class="m-t text-righ">
+                            <a href="#" class="btn btn-xs btn-blue">Info<i
+                                    class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        ECHO;
+
+        // this makes sure every row <div> only has a maximum of 4 products. 
+        // the second condition ensures the div is closed even if the last index is not a multiple of 4. 
+        if ($row_count % 4 == 3 || $row_count == count($result) - 1)
+        {
+            echo '</div>';
+        }
+        
+        $row_count++;
+    }
+}
+
+private static function viewByJewelryType()
+{
+    global $conn;
+    $type = isset($_GET['type']) ? $_GET['type'] : 'ring';
+    
+    $sql = "SELECT * FROM `PRODUCT` WHERE `TYPE` = ?";
+    //$result = $conn->query($sql);
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $type);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+
+    if ($result->num_rows > 0) 
+    {
+        $rows = array();
+        while ($row = $result->fetch_assoc()) 
+        {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    return null;
+}
+
+private static function viewByJewelrySubtype()
+{
+    global $conn;
+
+    $type = isset($_GET['type']) ? $_GET['type'] : 'ring';
+    $material = isset($_GET['material']) ? $_GET['material'] : 'gold';
+
+    $sql = "SELECT * FROM `PRODUCT` WHERE `TYPE` = ? AND `MATERIAL` = ?;";
+    //$result = $conn->query($sql);
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ss', $type, $material);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+
+    if ($result->num_rows > 0) 
+    {
+        $rows = array();
+        while ($row = $result->fetch_assoc()) 
+        {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    return null;
+}
 
 public static function create() {
     global $conn;

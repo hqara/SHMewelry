@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <?php
-        include('../../navbar.php');
+        include dirname(__FILE__) . '/../../navbar.php';
     ?>
     <title>SHMEWELRY Registration</title>
     <style>
@@ -94,7 +94,7 @@
 </body>
 <footer>
     <?php
-        include_once("../../footer.html");
+        include_once dirname(__FILE__) . "/../../footer.html";
     ?>
 </footer>
 </html>
