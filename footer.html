@@ -1,41 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-            footer {
-                background-color: #6ac5fe;
-                color: #fff;
-                padding: 10px;
-                text-align: left;
-            }
 
-            table {
-                border-collapse: collapse;
-                width: 100%;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            th, td {
-                padding: 10px;
-            }
-        </style>
-    </head>
-    <body>
-        <footer>
-            <table>
-                <tr>
-                    <td class="wider-column2">
-                        <p>Copyright &copy; 2023 SHMewelry Website</p>
-                    </td>
-                    <td>
-                        <a href="support.php"> Need Help?</a>
-                    </td>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
 
-                </tr>
-            </table>
-        </footer>
-    </body>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header, footer {
+            flex-shrink: 0;
+        }
+
+        footer {
+            background-color: #6ac5fe;
+            color: #fff;
+            padding: 10px;
+            text-align: left;
+            flex-shrink: 0;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+
+        .wider-column2 {
+            width: 92% 
+        }
+    </style>
+</head>
+
+<body>
+    <footer>
+        <table>
+            <tr>
+                <td class="wider-column2">
+                    <p>Copyright &copy; 2023 SHMewelry Website</p>
+                </td>
+                <td>
+                    <a href="support.php">Need Help?</a>
+                </td>
+            </tr>
+        </table>
+    </footer>
+</body>
+
 </html>

@@ -1,7 +1,4 @@
-<?php
-    session_start();
-    include('navbar.php'); 
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +19,9 @@
     </style>
 </head>
 <body>
+    <?php
+        include_once dirname(__FILE__) .  "/navbar.php";
+    ?>
     <div class="center">
         <div class="faq">
             <h1>User Support</h1>

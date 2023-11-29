@@ -1,3 +1,17 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header, footer {
+    flex-shrink: 0; 
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -11,33 +25,35 @@ header {
     padding: 10px;
 }
 
-nav {
+a {
+    text-decoration: no-underline;
+}
+
+nav, nav .dropdown {
     background-color: #fff;
     padding: 10px;
     text-align: center;
-    position: relative;
+    position: initial;
     z-index: 100;
 }
 
-    nav a {
-        margin-right: 20px;
-        text-decoration: none;
-        color: #808080;
-        font-weight: bold;
-        transition: color 0.3s;
-    }
+nav a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #808080;
+    font-weight: bold;
+    transition: color 0.3s;
+}
 
-        nav a:hover {
-            color: #6ac5fe;
-            position: relative;
-            z-index: 1;
-        }
-
+nav a:hover {
+    color: #6ac5fe;
+    position: relative;
+    z-index: 1;
+}
 
 section {
     padding: 20px;
 }
-
 
 table {
     border-collapse: collapse;
@@ -49,7 +65,7 @@ th, td {
 }
 
 .wider-column {
-    width: 900px;
+    width: 80%;
 }
 
 .wider-column2 {
@@ -61,18 +77,30 @@ section {
     padding: 3px;
 }
 
-.dropdown {
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:active, a:focus {
+    color: black;
+}
+
+
+.dropdown, .dropdown button {
     position: relative;
-    
     z-index: 1;
 }
 
-.dropdown-content {
+
+.dropdown-content, button .dropdown-content {
+    top: 100%; 
     display: none;
     position: absolute;
     background-color: #fff;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    
+    min-width: 160px; 
+    z-index: 2;
 }
 
 .dropdown:hover .dropdown-content {
@@ -81,7 +109,17 @@ section {
 
 .dropdown-content a {
     display: block;
+    width: 100%;
     padding: 10px;
     text-decoration: none;
-    color: #333;
+    margin-right: 20px;
+    color: #808080;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.dropdown-content a:hover {
+    color: #6ac5fe;
+    position: relative;
+    transition: color 0.3s;
 }

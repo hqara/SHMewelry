@@ -66,6 +66,52 @@ class Orders {
             $this->userId = 0;
         }
     }
+    
+    public static function list() {
+        global $conn;
+    
+        // Check if group ID is present in the session
+        $groupId = isset($_SESSION['group_id']) ? $_SESSION['group_id'] : null;
+    
+        if ($groupId == 1) {
+            // For My Orders (group_id = 1)
+            $sql = "SELECT * FROM `ORDERS` WHERE USER_ID = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('i', $_SESSION['user_id']);
+        } else {
+            // For Manage Orders (group_id = 2 or 3)
+            $sql = "SELECT * FROM `ORDERS`";
+            $stmt = $conn->prepare($sql);
+        }
+    
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        // Return the fetched result
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    
+    public static function read() {
+        global $conn;
+
+        if (isset($_POST['read'])) {
+            $orderId = isset($_POST['order_id']) ? $_POST['order_id'] : null;
+
+            $sql = "SELECT * FROM `ORDERS` WHERE ORDER_ID = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('i', $orderId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            // Return the fetched result
+            return $result->fetch_all(MYSQLI_ASSOC);
+         }else {
+            // Handle the case where order_id is not provided
+            return null;
+        }
+    }
+    
 
     public static function view() {
         global $conn;
@@ -123,19 +169,7 @@ class Orders {
         return 0;
     }
     
-    
-    
-    public static function list() {
-        global $conn;
-        $sql = "SELECT * FROM `ORDERS`";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        // Return the fetched result
-        return $result->fetch_all(MYSQLI_ASSOC);
-
-    }
+   
 
     // NOTE: create order function method will NEED to be reviewed/modified, considering: 
     // When order is confirmed, delete automatically user_product (cart) values AND also 
@@ -243,27 +277,6 @@ class Orders {
     }
 
 
-       /*
-                        // Check if the order status is "Shipped" or "Delivered"
-                        if ($order->orderStatus !== 'Shipped' && $order->orderStatus !== 'Delivered') {
-                            // Display the cancel button
-                            echo '<button class="btn btn-danger">
-                                    <a href="cancel_order.php?order_id=' . $order->orderId . '" class="text-light">Cancel Order</a>
-                                </button>';
-                        } else {
-                            // Order is shipped or delivered, disable the cancel button with dark grey background
-                            echo '<button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">
-                                    Cancel Order
-                                </button>';
-                        }
-
-                        echo '</td>
-                        </tr>';
-                       
-
-   
- */
-
  public static function delete() {
     global $conn;
 
@@ -284,7 +297,6 @@ class Orders {
 
             if ($orderStatus === 'Shipped' || $orderStatus === 'Delivered') {
                 echo "Order cannot be deleted if the status is 'SHIPPED' or 'DELIVERED'";
-                // Do nothing
                 return false;
             }
         }
@@ -302,7 +314,7 @@ class Orders {
     }
 
     // Return false if delete button is not clicked or order_id is not set in the POST data
-    return 0;
+    return false;
 }
 
 

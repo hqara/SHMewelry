@@ -89,20 +89,6 @@
             </div>
         </div>
 
-        
-        <!---
-        TO MODIFY LATER
-        <div class="form-group row justify-content-center">
-            <label for="product_image" class="col-sm-2 col-form-label text-left">Product Image</label>
-            <div class="col-sm-6">
-                <input type="file" class="form-control-file" name="product_image" autocomplete="off" value="<?php echo $product->product_image; ?>">
-                <?php //if (!empty($product->product_image)): ?>
-                <img src="<?php //echo $product->product_image; ?>" alt="Product Image" class="img-fluid mt-2">
-                <?php //endif; ?>
-            </div>
-        </div>
-        -->
-
         <div class="form-group row justify-content-center">
             <div class="col-sm-6">
                 <button type="submit" class="btn btn-primary" name="update">UPDATE</button>

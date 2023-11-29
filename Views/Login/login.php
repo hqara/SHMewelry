@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php
-        include_once __DIR__ . '/../../navbar.php';
-    ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SHMewelry</title>
@@ -25,6 +22,9 @@
     </style>
 </head>
 <body>
+    <?php
+        include_once dirname(__FILE__) .  "/../../navbar.php";
+    ?>
     <div class="login-box">
         <h2 class="center">Login</h2>
         <?php

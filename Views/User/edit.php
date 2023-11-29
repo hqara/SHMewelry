@@ -15,9 +15,18 @@
 
 <body>
     <div class="container my-5 text-center">
+    
+        <div class="alert alert-info text-center" style="background-color: #E6F3F8; border-color: #6AC5FE;">
+            <strong>Try using:</strong><br/>
+            Admin Group ID = 3<br/>
+            Moderator Group ID = 2<br/>
+            Client Group ID = 1<br/>
+        </div>
+
         <h1 class="py-4">Edit User ID=<?php echo $user->user_id; ?> Permissions</h1>
         <form method="post"  action="index.php?controller=user&action=update">
         <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>">
+   
 
         <div class="form-group row justify-content-center">
             <label for="group_id" class="col-sm-2 col-form-label text-left">Group ID</label>
@@ -32,6 +41,7 @@
                 <button type="button" class="btn btn-primary" name="back" onclick="window.history.back();">GO BACK</button>
             </div>
         </div>
+
 
         </form>
     </div>

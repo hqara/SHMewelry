@@ -29,4 +29,3 @@ class OrdersController extends Controller {
 }
 
 ?>
-
