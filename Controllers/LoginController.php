@@ -1,31 +1,30 @@
 <?php
 
-include_once __DIR__ . "/../Controllers/Controller.php";
-include_once __DIR__ . "/../Models/User.php";
+include_once __DIR__ . "/Controller.php";
+include_once __DIR__ . "/../Models/Login.php";
 
 class LoginController extends Controller {
 
     function route() {
         parent::route(); // Call the route method of the parent Controller class
-        global $view;
-        //FEEL FREE TO MODIFY - I GAVE UP!
-        // Additional logic for the home controller
-        // You can set data and call render as needed
-        $data = [
-            'message' => 'Welcome to the home page!',
-            // Add other data as needed
-        ];
 
-        // view validation
-        if ($view == "login" || $view == "register")
-        {
-            $this->render('Login', $view, $data);
+        $action = isset($_GET['action']) ? $_GET['action'] : "login";
+        $id = isset($_GET['id']) ? intval($_GET['id']) : -1;
 
-        }
-        else
-        {
-            $this->render('Login', 'login', $data);
+        $loginModel = new Login(); 
+        $data = []; // Define $data here
 
+        // Call the login or register method based on the action
+        if ($action == "login") {
+            $loginModel->$action(); 
+            $this->render('Login', $action, $data);  
+        } else if ($action == "create" || $action == "update") {
+            $result = $loginModel->$action();
+        } elseif ($action == "register"|| $action == "reset") {
+            $this->render("Login", $action, array());
+        } else {
+            $login = new Login($id);
+            $this->render("Login", $action, array('login' => $login));
         }
     }
 }

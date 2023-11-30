@@ -28,15 +28,9 @@
     ?>
     </header>
     <div class="login-box">
-        <?php
-            if (isset($_SESSION['login_error'])) {
-                echo "<p class='error'>" . $_SESSION['login_error'] . "</p>";
-                unset($_SESSION['login_error']);
-            }
-        ?>
-        <h2 class="center">Login</h2>
-   
-        <form method="post" action="index.php?controller=login&action=login">
+        <h2 class="center">Reset My Password</h2>
+        <form method="post" action="index.php?controller=user&action=reset">
+        <!---<input type="hidden" name="username" value="<?php //echo $user->email; ?>"> -->
             <table class="center">
                 <tr>
                     <td>
@@ -50,7 +44,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="password">Password:</label>
+                        <label for="password">New Password:</label>
                     </td>
                 </tr>
                 <tr>
@@ -60,14 +54,8 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="Sign In">
+                        <input type="submit" name="update" value="Update">
                     </td>
-                </tr>
-                <tr>
-                    <td><a style="text-decoration:underline" href="index.php?controller=login&action=reset"> Forgot Password?</a></td>
-                </tr>
-                <tr>
-                    <td>Don't have an Account? <a style="text-decoration:underline" href="index.php?controller=login&action=register">Register</a></td>
                 </tr>
             </table>
         </form>

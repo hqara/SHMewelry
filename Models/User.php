@@ -97,8 +97,9 @@ class User {
         return $result->fetch_assoc();
     }
     
-    
+
     public static function register() {
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fname = $_POST['fname'];
             $lname = $_POST['lname'];
@@ -112,7 +113,7 @@ class User {
             if ($hashedPassword === false) {
                 // Password hashing failed
                 $_SESSION['registration_error'] = "Password hashing failed";
-                header('Location: ../Views/Login/register.php'); // FOR NOW
+                header('Location: index.php?controller=home&action=register'); // FOR NOW
                 exit;
             }
     
@@ -122,15 +123,15 @@ class User {
     
             if ($stmt->execute()) {
                 $_SESSION['registration_success'] = "Registration successful!";
-                header('Location: ../Views/Login/login.php'); // FOR NOW
+                header('Location: index.php?controller=home&action=login'); // FOR NOW
             } else {
                 $_SESSION['registration_error'] = "Error: " . $stmt->error;
-                header('Location: register.php');
+                header('Location: index.php?controller=home&action=register');
             }
     
             $stmt->close();
         } else {
-            header('Location: ../Views/Login/register.php'); // FOR NOW
+            header('Location: index.php?controller=home&action=register');
         }
     }
     
@@ -162,24 +163,24 @@ class User {
                     $_SESSION['group_id'] = $group_id;
     
                     $stmt->close();
-                    header('Location: ' . getRedirectPage($group_id));
+                    header('Location: index.php?controller=home&action=index');
                 } else {
                     $isLoggedIn = false;
                     $stmt->close();
                     $_SESSION['login_error'] = "Invalid username or password";
-                    header('Location: login.php');
+                    header('Location: index.php?controller=home&action=login');
                 }
             } else {
                 $isLoggedIn = false;
     
                 $stmt->close();
                 $_SESSION['login_error'] = "Invalid username or password";
-                header('Location: login.php');
+                header('Location: index.php?controller=home&action=login');
             }
         }
     }
 
-    
+    /*
     function getRedirectPage($group_id) {
         if ($group_id === 1) {
             // return '../client/index.php';
@@ -194,6 +195,7 @@ class User {
             return 'login.php';
         }
     }
+    */
 
     
     public static function create() {

@@ -186,12 +186,12 @@ section {
                             </button>
                             <script>
                                 function redirectToProfile() {
-                                    window.location.href = '../../../../SHMewelry/Views/Login/login.php';
+                                    window.location.href = 'index.php?controller=login&action=login';
                                 }
 
                                 function openLoginPage() {
                                     console.log('Opening login page');
-                                    window.location.href = 'index.php?controller=login&view=login';
+                                    window.location.href = 'index.php?controller=login&action=login';
                                 }
                             </script>
                             <div class="dropdown-content">
