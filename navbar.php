@@ -45,10 +45,11 @@ header {
     color: #ffffff;
     display: flex;
     align-items: center;
+    padding: 10px;
 }
 
 .right-box {
-    padding-left: 100px;
+    padding-right: 100px;
 }
 
 .right-box table {
@@ -57,6 +58,10 @@ header {
 
 .right-box input {
     margin-right: 10px;
+}
+
+.dropdown-home {
+    margin-left: 100px;
 }
 
 .dropdown {
@@ -69,6 +74,7 @@ header {
     position: absolute;
     background-color: #fff;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    width:160px;
 }
 
 .dropdown .profile-dropdown{
@@ -204,7 +210,7 @@ section {
 <nav>
 <table>
             <tr>
-                <td><a href="index.php?controller=home&view=index">Home</a></td>
+                <td><a class="dropdown-home" href="index.php?controller=home&view=index">Home</a></td>
                 <td class="dropdown">
                     <a href="index.php?controller=home&view=list&type=bracelet">Bracelets &#9662;</a>
                     <div class="dropdown-content">

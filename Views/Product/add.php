@@ -8,15 +8,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-
-    <header>
-        <?php //include('../../navbar.php'); ?>
-    </header>
+    <link rel="stylesheet" href="path/to/font-awesome.min.css">
 </head>
-
 <body>
+</header>
+    <?php include_once __DIR__ . "/../../navbar.php"; ?>
+</header>
+
     <div class="container my-5 text-center">
-        <h1 class="py-4">Add New Product to Catalog</h1>
+        <h1 class="py-2">Add New Product to Catalog</h1>
         <form method="post" action="index.php?controller=product&action=create">
 
             <div class="form-group row justify-content-center">
@@ -97,11 +97,10 @@
             </div>
         </form>
     </div>
+    <footer>
+        <?php include_once __DIR__ . "/../../footer.html"; ?>
+    </footer>
 </body>
-
-<footer>
-    <?php //include_once("../../footer.html"); ?>
-</footer>
 
 </html>
 

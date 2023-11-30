@@ -13,7 +13,7 @@
 <body>
     <center>
     
-    <table style="background-color: #e6f3f8; width: 1100px;">
+    <table style="background-color: #e6f3f8; width: 70%; height: auto; padding:25px">
         <tr>
             <th><img src="/../SHMewelry/Images/AboutUs2.jpg" height = "390"></th>
             <td><h1>About Us </h1>
@@ -26,42 +26,44 @@
     
     </center>
     <center>
+    <div class="container" style="display:block; padding:10px; width: 70%">
     <form action="#" method="post">
     <table >
         <tr>
             
             <th colspan="2"><h1>Contact Us</h1></th>
             <td></td>
-            <td rowspan = "8"><img src="/../SHMewelry/Images/AboutUs.jpg" height = "370"></td>
+            <td rowspan = "8"><img src="/../SHMewelry/Images/AboutUs.jpg" height = "415" margin-top="20px"></td>
         </tr>
         <tr>
             <td>First Name:</td>
             <td>Last Name:</td>
         </tr>
         <tr>
-            <td><input type="text" name="firstName" size="54"></td>
-            <td><input type="text" name="lastName" size="54"></td>
+            <td><input type="text" name="firstName"  size="40"></td>
+            <td><input type="text" name="lastName" size="40"></td>
         </tr>
         <tr>
             <td>Email:</td>
             
         </tr>
         <tr>
-            <td colspan="2"><input type="email" name="email" size="115"></td>
+            <td colspan="2"><input style="width: 100%" type="email" name="email" size="115"></td>
             
         </tr>
         <tr>
             <td>Message:</td>
         </tr>
         <tr>
-            <td colspan="2"><textarea name="message" rows="5" cols="106"></textarea></td>
+            <td colspan="2"><textarea style="width: 100%" name="message" rows="5" cols="106"></textarea></td>
         </tr>
 
         <tr>
-            <td colspan="2"><input type="submit" value="Send Message" style="height: 40px;width: 803px; background-color: #6ac5fe; color:#fff;border: 1px solid transparent;"></td>
+            <td colspan="2"><input type="submit" value="Send Message" style="width: 100%;height: 40px; background-color: #6ac5fe; color:#fff;border: 1px solid transparent;"></td>
         </tr>
     </table>
     </form>
+    </div>  
     </center>
 </body>
 <footer>

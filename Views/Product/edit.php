@@ -7,15 +7,16 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-
-    <header>
-        <?php include('../../navbar.php'); ?>
-    </header>
+    <link rel="stylesheet" href="path/to/font-awesome.min.css">
 </head>
 
 <body>
+</header>
+    <?php include_once __DIR__ . "/../../navbar.php"; ?>
+</header>
+
     <div class="container my-5 text-center">
-        <h1 class="py-4">Edit Product#<?php echo $product->product_id; ?></h1>
+        <h1 class="py-2">Edit Product#<?php echo $product->product_id; ?></h1>
         <form method="post" action="index.php?controller=product&action=update">
             <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
 
@@ -98,10 +99,8 @@
 
         </form>
     </div>
+    <footer>
+        <?php include_once __DIR__ . "/../../footer.html"; ?>
+    </footer>
 </body>
-
-<footer>
-    <?php include_once("../../footer.html"); ?>
-</footer>
-
 </html>

@@ -7,15 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <header>
-        <?php //include('../../navbar.php'); ?>
-    </header>
+    <!-- Bootstrap -->
 </head>
 
 <body class="justify-content-start">
+</header>
+    <?php include_once __DIR__ . "/../../navbar.php"; ?>
+</header>
     <div class="container my-5">
-        <h1 class="py-4 text-center mx-auto">Thank You for Your Order!</h1>
-        <h2 class="py-4 text-center mx-auto">Your Order has been Confirmed</h2>
+        <h1 class="py-2 text-center mx-auto">Thank You for Your Order!</h1>
+        <h2 class="py-2 text-center mx-auto">Your Order has been Confirmed</h2>
         <form method="POST" action="index.php?controller=orders&action=create">
             <input name="order_id" type="hidden" value="<?php echo $order['ORDER_ID']; ?>" disabled>
         <?php
@@ -42,14 +43,9 @@
         ?>
     </div>
 
-    <!-- Bootstrap JS (optional, for Bootstrap components) -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+    <footer>
+        <?php include_once __DIR__ . "/../../footer.html"; ?>
+    </footer>
 </body>
-
-<footer>
-    <?php include_once("../../footer.html"); ?>
-</footer>
 
 </html>

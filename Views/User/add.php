@@ -7,14 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <header>
-        <?php include('../../navbar.php'); ?>
-    </header>
 </head>
-
 <body>
+</header>
+    <?php include_once __DIR__ . "/../../navbar.php"; ?>
+</header>
     <div class="container my-5 text-center">
-        <h1 class="py-4">Create New User</h1>
+        <h1 class="py-2">Create New User</h1>
         <form method="post" action="index.php?controller=user&action=create">
             <div class="form-group row justify-content-center">
                 <label for="fname" class="col-sm-2 col-form-label text-left">First Name</label>
@@ -75,10 +74,9 @@
         });
     </script>
 
+    <footer>
+        <?php include_once __DIR__ . "/../../footer.html"; ?>
+    </footer>
+
 </body>
-
-<footer>
-    <?php include_once("../../footer.html"); ?>
-</footer>
-
 </html>
