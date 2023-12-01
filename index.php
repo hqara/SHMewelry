@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 $controller = (isset($_GET['controller'])) ? $_GET['controller'] : "home";
-$view = isset($_GET["view"]) ? $_GET["view"] : "index";
+$action = isset($_GET["action"]) ? $_GET["action"] : "index";
 
 $controller = ucfirst($controller);
 $controllerClassName = $controller . "Controller";
@@ -19,7 +19,7 @@ if (file_exists($controllerPath) && $controller != "") // so it doesn't include 
 }
 else
 {
-    include "404.php";
+    include_once "404.php";
 }
 
 ?>

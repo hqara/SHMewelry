@@ -21,6 +21,8 @@ class ProductController extends Controller {
             $result = $productModel->$action();
         } else if ($action == "add") {
             $this->render("Product", $action, array());
+        } else if ($action == 'read'){
+            $this->render("Product", $action);
         } else {
             $product = new Product($id);
             $this->render("Product", $action, array('product' => $product));

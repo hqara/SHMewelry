@@ -9,25 +9,15 @@ class HomeController extends Controller {
     function route() {
         parent::route(); // Call the route method of the parent Controller class
         
-        global $view;
+        //global $action;
 
         $data = [
             'message' => 'Welcome to the home page!',
             // Add other data as needed
         ];
 
+        $this->render('Home', 'index', $data);
 
-        // view validation
-        if ($view == "list")
-        {
-            $this->render('Home', $view, $data);
-
-        }
-        else
-        {
-            $this->render('Home', 'index', $data);
-
-        }
     }
         
         // You can add other methods specific to the HomeController if needed

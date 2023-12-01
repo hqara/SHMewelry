@@ -315,147 +315,88 @@ INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TY
 
 INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
 VALUES 
-('Archer Ring', 'Beautiful archer-themed ring', 499.99, 'JewelCrafters', 'Silver', 'Silver', 'Ring', 'one-size', 100, 'ring1.jpg'),
-
-('Archer Bracelet', 'Stylish archer-themed bracelet', 299.99, 'FashionGems', 'Gold', 'Gold', 'Bracelet', 'one-size', 75, 'bracelet2.jpg'),
-
-('Archer Necklace', 'Elegant archer-themed necklace', 969.99, 'LuxuryJewels', 'RoseGold', 'RoseGold', 'Necklace', 'one-size', 50, 'necklace3.jpg'),
-
-('Archer Earring', 'Chic archer-themed earring', 199.99, 'GlamourGems', 'Copper', 'Copper', 'Earring', 'one-size', 120, 'earring4.jpg'),
-
-('Archer Ring', 'Exquisite archer-themed ring', 599.99, 'RoyalJewelers', 'Silver', 'Silver', 'Ring', 'one-size', 90, 'ring5.jpg'),
-
-('Archer Bracelet', 'Trendy archer-themed bracelet', 399.99, 'ModernStyles', 'Gold', 'Gold', 'Bracelet', 'one-size', 60, 'bracelet6.jpg'),
-
-('Archer Necklace', 'Luxurious archer-themed necklace', 799.99, 'EliteCrafts', 'RoseGold', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace7.jpg'),
-
-('Archer Earring', 'Elegant archer-themed earring', 294.99, 'ChicDesigns', 'Copper', 'Copper', 'Earring', 'one-size', 150, 'earring8.jpg'),
-
-('Archer Ring', 'Classy archer-themed ring', 594.99, 'TimelessJewels', 'Silver', 'Silver', 'Ring', 'one-size', 80, 'ring9.jpg'),
-
-('Archer Bracelet', 'Unique archer-themed bracelet', 394.99, 'ArtisanCrafts', 'Gold', 'Gold', 'Bracelet', 'one-size', 45, 'bracelet10.jpg');
+    ('Archer Ring', 'Beautiful archer-themed ring', 499.99, 'JewelCrafters', 'Silver', 'Silver', 'Ring', 'one-size', 100, 'ring1.jpg'),
+    ('Archer Bracelet', 'Stylish archer-themed bracelet', 299.99, 'FashionGems', 'Gold', 'Gold', 'Bracelet', 'one-size', 75, 'bracelet2.jpg'),
+    ('Archer Necklace', 'Elegant archer-themed necklace', 969.99, 'LuxuryJewels', 'RoseGold', 'RoseGold', 'Necklace', 'one-size', 50, 'necklace3.jpg'),
+    ('Archer Earring', 'Chic archer-themed earring', 199.99, 'GlamourGems', 'Copper', 'Copper', 'Earring', 'one-size', 120, 'earring4.jpg'),
+    ('Archer Ring', 'Exquisite archer-themed ring', 599.99, 'RoyalJewelers', 'Silver', 'Silver', 'Ring', 'one-size', 90, 'ring5.jpg'),
+    ('Archer Bracelet', 'Trendy archer-themed bracelet', 399.99, 'ModernStyles', 'Gold', 'Gold', 'Bracelet', 'one-size', 60, 'bracelet6.jpg'),
+    ('Archer Necklace', 'Luxurious archer-themed necklace', 799.99, 'EliteCrafts', 'RoseGold', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace7.jpg'),
+    ('Archer Earring', 'Elegant archer-themed earring', 294.99, 'ChicDesigns', 'Copper', 'Copper', 'Earring', 'one-size', 150, 'earring8.jpg'),
+    ('Archer Ring', 'Classy archer-themed ring', 594.99, 'TimelessJewels', 'Silver', 'Silver', 'Ring', 'one-size', 80, 'ring9.jpg'),
+    ('Archer Bracelet', 'Unique archer-themed bracelet', 394.99, 'ArtisanCrafts', 'Gold', 'Gold', 'Bracelet', 'one-size', 45, 'bracelet10.jpg');
 
 
 INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
 VALUES 
-('Monarchy Collection Ring', 'Exquisite royal-themed ring', 799.99, 'RoyalJewelers', 'White', 'Silver', 'Ring', 'one-size', 80, 'ring11.jpg'),
-
-('Monarchy Collection Bracelet', 'Regal royal-themed bracelet', 499.99, 'LuxuryGems', 'Blue', 'Gold', 'Bracelet', 'one-size', 60, 'bracelet12.jpg'),
-
-('Monarchy Collection Necklace', 'Opulent royal-themed necklace', 999.99, 'EliteCrafts', 'Green', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace13.jpg'),
-
-('Monarchy Collection Earring', 'Elegant royal-themed earring', 399.99, 'ChicDesigns', 'Red', 'Copper', 'Earring', 'one-size', 120, 'earring14.jpg'),
-
-('Monarchy Collection Ring', 'Majestic royal-themed ring', 899.99, 'TimelessJewels', 'White', 'Silver', 'Ring', 'one-size', 70, 'ring15.jpg'),
-
-('Monarchy Collection Bracelet', 'Sumptuous royal-themed bracelet', 599.99, 'ModernStyles', 'Blue', 'Gold', 'Bracelet', 'one-size', 45, 'bracelet16.jpg'),
-
-('Monarchy Collection Necklace', 'Grand royal-themed necklace', 1299.99, 'LuxuryJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 20, 'necklace17.jpg'),
-
-('Monarchy Collection Earring', 'Charming royal-themed earring', 499.99, 'GlamourGems', 'Red', 'Copper', 'Earring', 'one-size', 100, 'earring18.jpg'),
-
-('Monarchy Collection Ring', 'Royal-inspired ring with diamonds', 999.99, 'DiamondCrafters', 'White', 'Silver', 'Ring', 'one-size', 60, 'ring19.jpg'),
-
-('Monarchy Collection Bracelet', 'Elegant royal-themed bracelet with gems', 699.99, 'GemArtisans', 'Blue', 'Gold', 'Bracelet', 'one-size', 35, 'bracelet20.jpg');
+    ('Monarchy Collection Ring', 'Exquisite royal-themed ring', 799.99, 'RoyalJewelers', 'White', 'Silver', 'Ring', 'one-size', 80, 'ring11.jpg'),
+    ('Monarchy Collection Bracelet', 'Regal royal-themed bracelet', 499.99, 'LuxuryGems', 'Blue', 'Gold', 'Bracelet', 'one-size', 60, 'bracelet12.jpg'),
+    ('Monarchy Collection Necklace', 'Opulent royal-themed necklace', 999.99, 'EliteCrafts', 'Green', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace13.jpg'),
+    ('Monarchy Collection Earring', 'Elegant royal-themed earring', 399.99, 'ChicDesigns', 'Red', 'Copper', 'Earring', 'one-size', 120, 'earring14.jpg'),
+    ('Monarchy Collection Ring', 'Majestic royal-themed ring', 899.99, 'TimelessJewels', 'White', 'Silver', 'Ring', 'one-size', 70, 'ring15.jpg'),
+    ('Monarchy Collection Bracelet', 'Sumptuous royal-themed bracelet', 599.99, 'ModernStyles', 'Blue', 'Gold', 'Bracelet', 'one-size', 45, 'bracelet16.jpg'),
+    ('Monarchy Collection Necklace', 'Grand royal-themed necklace', 1299.99, 'LuxuryJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 20, 'necklace17.jpg'),
+    ('Monarchy Collection Earring', 'Charming royal-themed earring', 499.99, 'GlamourGems', 'Red', 'Copper', 'Earring', 'one-size', 100, 'earring18.jpg'),
+    ('Monarchy Collection Ring', 'Royal-inspired ring with diamonds', 999.99, 'DiamondCrafters', 'White', 'Silver', 'Ring', 'one-size', 60, 'ring19.jpg'),
+    ('Monarchy Collection Bracelet', 'Elegant royal-themed bracelet with gems', 699.99, 'GemArtisans', 'Blue', 'Gold', 'Bracelet', 'one-size', 35, 'bracelet20.jpg');
 
 INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
 VALUES 
-('Industrial Collection Ring', 'Robust industrial-themed ring', 599.99, 'SilverCrafters', 'Gray', 'Silver', 'Ring', 'one-size', 70, 'ring41.jpg'),
-
-('Industrial Collection Bracelet', 'Modern industrial-themed bracelet', 344.99, 'MetalWorks', 'Silver', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),
-
-('Industrial Collection Necklace', 'Sleek industrial-themed necklace', 744.99, 'TechStyle', 'Black', 'Gold', 'Necklace', 'one-size', 30, 'necklace43.jpg'),
-
-('Industrial Collection Earring', 'Innovative industrial-themed earring', 299.99, 'InnovateDesigns', 'Gunmetal', 'Gold', 'Earring', 'one-size', 100, 'earring44.jpg'),
-
-('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Gray', 'Silver', 'Ring', 'one-size', 60, 'ring45.jpg');
+    ('Industrial Collection Ring', 'Robust industrial-themed ring', 599.99, 'SilverCrafters', 'Gray', 'Silver', 'Ring', 'one-size', 70, 'ring41.jpg'),
+    ('Industrial Collection Bracelet', 'Modern industrial-themed bracelet', 344.99, 'MetalWorks', 'Silver', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),
+    ('Industrial Collection Necklace', 'Sleek industrial-themed necklace', 744.99, 'TechStyle', 'Black', 'Gold', 'Necklace', 'one-size', 30, 'necklace43.jpg'),
+    ('Industrial Collection Earring', 'Innovative industrial-themed earring', 299.99, 'InnovateDesigns', 'Gunmetal', 'Gold', 'Earring', 'one-size', 100, 'earring44.jpg'),
+    ('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Gray', 'Silver', 'Ring', 'one-size', 60, 'ring45.jpg');
 
 
 INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
 VALUES 
-('Spear Collection Ring', 'Bold spear-themed ring', 69.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 70, 'ring21.jpg'),
-
-('Spear Collection Bracelet', 'Daring spear-themed bracelet', 39.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 50, 'bracelet22.jpg'),
-
-('Spear Collection Necklace', 'Striking spear-themed necklace', 79.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace23.jpg'),
-
-('Spear Collection Earring', 'Fierce spear-themed earring', 29.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 100, 'earring24.jpg'),
-
-('Spear Collection Ring', 'Powerful spear-themed ring', 79.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 60, 'ring25.jpg'),
-
-('Spear Collection Bracelet', 'Mighty spear-themed bracelet', 49.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 40, 'bracelet26.jpg'),
-
-('Spear Collection Necklace', 'Commanding spear-themed necklace', 99.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 25, 'necklace27.jpg'),
-
-('Spear Collection Earring', 'Intense spear-themed earring', 34.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 80, 'earring28.jpg'),
-
-('Spear Collection Ring', 'Sleek spear-themed ring', 59.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 50, 'ring29.jpg'),
-
-('Spear Collection Bracelet', 'Vibrant spear-themed bracelet', 44.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 35, 'bracelet30.jpg'),
-
-('Spear Collection Necklace', 'Elegant spear-themed necklace', 89.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 20, 'necklace31.jpg'),
-
-('Spear Collection Earring', 'Dynamic spear-themed earring', 37.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 90, 'earring32.jpg'),
-
-('Spear Collection Ring', 'Glamorous spear-themed ring', 74.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 45, 'ring33.jpg'),
-
-('Spear Collection Bracelet', 'Sculpted spear-themed bracelet', 54.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 30, 'bracelet34.jpg'),
-
-('Spear Collection Necklace', 'Sleek spear-themed necklace', 94.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 15, 'necklace35.jpg'),
-
-('Spear Collection Earring', 'Graceful spear-themed earring', 31.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 110, 'earring36.jpg'),
-
-('Spear Collection Ring', 'Elegant spear-themed ring', 64.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 40, 'ring37.jpg'),
-
-('Spear Collection Bracelet', 'Unique spear-themed bracelet', 42.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 25, 'bracelet38.jpg'),
-
-('Spear Collection Necklace', 'Distinctive spear-themed necklace', 84.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 10, 'necklace39.jpg'),
-
-('Spear Collection Earring', 'Chic spear-themed earring', 27.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 120, 'earring40.jpg');
+    ('Spear Collection Ring', 'Bold spear-themed ring', 69.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 70, 'ring21.jpg'),
+    ('Spear Collection Bracelet', 'Daring spear-themed bracelet', 39.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 50, 'bracelet22.jpg'),
+    ('Spear Collection Necklace', 'Striking spear-themed necklace', 79.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace23.jpg'),
+    ('Spear Collection Earring', 'Fierce spear-themed earring', 29.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 100, 'earring24.jpg'),
+    ('Spear Collection Ring', 'Powerful spear-themed ring', 79.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 60, 'ring25.jpg'),
+    ('Spear Collection Bracelet', 'Mighty spear-themed bracelet', 49.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 40, 'bracelet26.jpg'),
+    ('Spear Collection Necklace', 'Commanding spear-themed necklace', 99.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 25, 'necklace27.jpg'),
+    ('Spear Collection Earring', 'Intense spear-themed earring', 34.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 80, 'earring28.jpg'),
+    ('Spear Collection Ring', 'Sleek spear-themed ring', 59.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 50, 'ring29.jpg'),
+    ('Spear Collection Bracelet', 'Vibrant spear-themed bracelet', 44.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 35, 'bracelet30.jpg'),
+    ('Spear Collection Necklace', 'Elegant spear-themed necklace', 89.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 20, 'necklace31.jpg'),
+    ('Spear Collection Earring', 'Dynamic spear-themed earring', 37.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 90, 'earring32.jpg'),
+    ('Spear Collection Ring', 'Glamorous spear-themed ring', 74.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 45, 'ring33.jpg'),
+    ('Spear Collection Bracelet', 'Sculpted spear-themed bracelet', 54.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 30, 'bracelet34.jpg'),
+    ('Spear Collection Necklace', 'Sleek spear-themed necklace', 94.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 15, 'necklace35.jpg'),
+    ('Spear Collection Earring', 'Graceful spear-themed earring', 31.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 110, 'earring36.jpg'),
+    ('Spear Collection Ring', 'Elegant spear-themed ring', 64.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 40, 'ring37.jpg'),
+    ('Spear Collection Bracelet', 'Unique spear-themed bracelet', 42.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 25, 'bracelet38.jpg'),
+    ('Spear Collection Necklace', 'Distinctive spear-themed necklace', 84.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 10, 'necklace39.jpg'),
+    ('Spear Collection Earring', 'Chic spear-themed earring', 27.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 120, 'earring40.jpg');
 
 INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
 VALUES 
-('Industrial Collection Ring', 'Robust industrial-themed ring', 599.99, 'SilverCrafters', 'Gray', 'Silver', 'Ring', 'one-size', 70, 'ring41.jpg'),
-
-('Industrial Collection Bracelet', 'Modern industrial-themed bracelet', 394.99, 'MetalWorks', 'Silver', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),
-
-('Industrial Collection Necklace', 'Sleek industrial-themed necklace', 794.99, 'TechStyle', 'Black', 'Gold', 'Necklace', 'one-size', 30, 'necklace43.jpg'),
-
-('Industrial Collection Earring', 'Innovative industrial-themed earring', 299.99, 'InnovateDesigns', 'Gunmetal', 'Gold', 'Earring', 'one-size', 100, 'earring44.jpg'),
-
-('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Gray', 'Silver', 'Ring', 'one-size', 60, 'ring45.jpg');
+    ('Industrial Collection Ring', 'Robust industrial-themed ring', 599.99, 'SilverCrafters', 'Gray', 'Silver', 'Ring', 'one-size', 70, 'ring41.jpg'),
+    ('Industrial Collection Bracelet', 'Modern industrial-themed bracelet', 394.99, 'MetalWorks', 'Silver', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),
+    ('Industrial Collection Necklace', 'Sleek industrial-themed necklace', 794.99, 'TechStyle', 'Black', 'Gold', 'Necklace', 'one-size', 30, 'necklace43.jpg'),
+    ('Industrial Collection Earring', 'Innovative industrial-themed earring', 299.99, 'InnovateDesigns', 'Gunmetal', 'Gold', 'Earring', 'one-size', 100, 'earring44.jpg'),
+    ('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Gray', 'Silver', 'Ring', 'one-size', 60, 'ring45.jpg');
 
 INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
 VALUES 
-('Venus Ring', 'Elegant Venus-themed ring', 899.99, 'CelestialJewels', 'Pink', 'RoseGold', 'Ring', 'one-size', 80, 'venus_ring1.jpg'),
-
-('Venus Bracelet', 'Chic Venus-themed bracelet', 599.99, 'StarGazers', 'Blue', 'Silver', 'Bracelet', 'one-size', 60, 'venus_bracelet2.jpg'),
-
-('Venus Necklace', 'Graceful Venus-themed necklace', 1299.99, 'CosmicCrafts', 'White', 'Gold', 'Necklace', 'one-size', 30, 'venus_necklace3.jpg'),
-
-('Venus Earring', 'Stylish Venus-themed earring', 4999.99, 'GalacticGems', 'Silver', 'Silver', 'Earring', 'one-size', 120, 'venus_earring4.jpg'),
-
-('Venus Ring', 'Romantic Venus-themed ring', 999.99, 'HeavenlyDesigns', 'Red', 'RoseGold', 'Ring', 'one-size', 70, 'venus_ring5.jpg'),
-
-('Venus Bracelet', 'Trendy Venus-themed bracelet', 799.99, 'OrbitJewelry', 'Purple', 'Gold', 'Bracelet', 'one-size', 45, 'venus_bracelet6.jpg'),
-
-('Venus Necklace', 'Enchanting Venus-themed necklace', 1499.99, 'GalaxyGems', 'Silver', 'Silver', 'Necklace', 'one-size', 20, 'venus_necklace7.jpg'),
-
-('Venus Earring', 'Elegant Venus-themed earring', 599.99, 'StellarStyles', 'Gold', 'Gold', 'Earring', 'one-size', 100, 'venus_earring8.jpg'),
-
-('Venus Ring', 'Dazzling Venus-themed ring', 1199.99, 'CelestialJewels', 'Pink', 'RoseGold', 'Ring', 'one-size', 60, 'venus_ring9.jpg'),
-
-('Venus Bracelet', 'Charming Venus-themed bracelet', 899.99, 'StarGazers', 'Blue', 'Silver', 'Bracelet', 'one-size', 35, 'venus_bracelet10.jpg'),
-
-('Venus Necklace', 'Luxurious Venus-themed necklace', 1799.99, 'CosmicCrafts', 'White', 'Gold', 'Necklace', 'one-size', 15, 'venus_necklace11.jpg'),
-
-('Venus Earring', 'Sophisticated Venus-themed earring', 699.99, 'GalacticGems', 'Silver', 'Silver', 'Earring', 'one-size', 90, 'venus_earring12.jpg'),
-
-('Venus Ring', 'Classy Venus-themed ring', 1099.99, 'HeavenlyDesigns', 'Red', 'RoseGold', 'Ring', 'one-size', 50, 'venus_ring13.jpg'),
-
-('Venus Bracelet', 'Modern Venus-themed bracelet', 9999.99, 'OrbitJewelry', 'Purple', 'Gold', 'Bracelet', 'one-size', 25, 'venus_bracelet14.jpg'),
-
-('Venus Necklace', 'Radiant Venus-themed necklace', 1599.99, 'GalaxyGems', 'Silver', 'Silver', 'Necklace', 'one-size', 10, 'venus_necklace15.jpg');
+    ('Venus Ring', 'Elegant Venus-themed ring', 899.99, 'CelestialJewels', 'Pink', 'RoseGold', 'Ring', 'one-size', 80, 'venus_ring1.jpg'),
+    ('Venus Bracelet', 'Chic Venus-themed bracelet', 599.99, 'StarGazers', 'Blue', 'Silver', 'Bracelet', 'one-size', 60, 'venus_bracelet2.jpg'),
+    ('Venus Necklace', 'Graceful Venus-themed necklace', 1299.99, 'CosmicCrafts', 'White', 'Gold', 'Necklace', 'one-size', 30, 'venus_necklace3.jpg'),
+    ('Venus Earring', 'Stylish Venus-themed earring', 4999.99, 'GalacticGems', 'Silver', 'Silver', 'Earring', 'one-size', 120, 'venus_earring4.jpg'),
+    ('Venus Ring', 'Romantic Venus-themed ring', 999.99, 'HeavenlyDesigns', 'Red', 'RoseGold', 'Ring', 'one-size', 70, 'venus_ring5.jpg'),
+    ('Venus Bracelet', 'Trendy Venus-themed bracelet', 799.99, 'OrbitJewelry', 'Purple', 'Gold', 'Bracelet', 'one-size', 45, 'venus_bracelet6.jpg'),
+    ('Venus Necklace', 'Enchanting Venus-themed necklace', 1499.99, 'GalaxyGems', 'Silver', 'Silver', 'Necklace', 'one-size', 20, 'venus_necklace7.jpg'),
+    ('Venus Earring', 'Elegant Venus-themed earring', 599.99, 'StellarStyles', 'Gold', 'Gold', 'Earring', 'one-size', 100, 'venus_earring8.jpg'),
+    ('Venus Ring', 'Dazzling Venus-themed ring', 1199.99, 'CelestialJewels', 'Pink', 'RoseGold', 'Ring', 'one-size', 60, 'venus_ring9.jpg'),
+    ('Venus Bracelet', 'Charming Venus-themed bracelet', 899.99, 'StarGazers', 'Blue', 'Silver', 'Bracelet', 'one-size', 35, 'venus_bracelet10.jpg'),
+    ('Venus Necklace', 'Luxurious Venus-themed necklace', 1799.99, 'CosmicCrafts', 'White', 'Gold', 'Necklace', 'one-size', 15, 'venus_necklace11.jpg'),
+    ('Venus Earring', 'Sophisticated Venus-themed earring', 699.99, 'GalacticGems', 'Silver', 'Silver', 'Earring', 'one-size', 90, 'venus_earring12.jpg'),
+    ('Venus Ring', 'Classy Venus-themed ring', 1099.99, 'HeavenlyDesigns', 'Red', 'RoseGold', 'Ring', 'one-size', 50, 'venus_ring13.jpg'),
+    ('Venus Bracelet', 'Modern Venus-themed bracelet', 9999.99, 'OrbitJewelry', 'Purple', 'Gold', 'Bracelet', 'one-size', 25, 'venus_bracelet14.jpg'),
+    ('Venus Necklace', 'Radiant Venus-themed necklace', 1599.99, 'GalaxyGems', 'Silver', 'Silver', 'Necklace', 'one-size', 10, 'venus_necklace15.jpg');
 
 -- Insert values into the ORDER table (only client's sample data)
 INSERT INTO ORDERS (TOTAL_PRICE, ORDER_DATE, ORDER_STATUS, EXPECTED_DELIVERY, USER_ID) VALUES

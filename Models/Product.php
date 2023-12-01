@@ -171,7 +171,7 @@ public static function buildProductPage()
                             {$row['DESCRIPTION']}
                         </div>
                         <div class="m-t text-righ">
-                            <a href="#" class="btn btn-xs btn-blue">Info<i
+                            <a href="index.php?controller=product&action=product_detail&id={$row['PRODUCT_ID']}" class="btn btn-xs btn-blue">Info<i
                                     class="fa fa-long-arrow-right"></i> </a>
                         </div>
                     </div>
@@ -248,6 +248,98 @@ private static function viewByJewelrySubtype()
 
     return null;
 }
+
+public static function buildProductDetailPage()
+{
+    global $conn;
+    $id = isset($_GET['id']) ? $_GET['id'] : -1;
+
+    $sql = "SELECT * FROM `PRODUCT` WHERE PRODUCT_ID = ?;";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+
+    if ($result->num_rows > 0) 
+    {
+        $rows = array();
+        while ($row = $result->fetch_assoc()) 
+        {
+            $rows[] = $row;
+        }
+
+        echo <<<ECHO
+        <div class="container bootdey">
+            <div class="col-md-12">
+                <section class="panel">
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <div class="pro-img-details">
+                                <img src="Images/AboutUs.jpg" alt>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="pro-d-title">
+                                <h2>
+                                    <strong>{$rows[0]['NAME']}</strong>
+                                </h2>
+                                <h3>
+                                    \${$rows[0]['PRICE']}
+                                </h3>
+                            </h4>
+                            <hr>
+                            <h4><strong> {$rows[0]['SIZE']} </strong></h4>
+                            <p>
+                                {$rows[0]['DESCRIPTION']}
+                            </p>
+                            <div class="product_meta">
+                                <span class="posted_in">
+                                    <strong>Material:</strong>
+                                    <a rel="tag" href="index.php?controller=product&action=read&material={$rows[0]['MATERIAL']}&type={$rows[0]['TYPE']}">{$rows[0]['MATERIAL']}</a> 
+                                </span>
+                                <span class="posted_in">
+                                    <strong>Color:</strong>
+                                    <a rel="tag" href="index.php?controller=product&action=read&type={$rows[0]['TYPE']}">{$rows[0]['TYPE']}</a>
+                                </span>
+                                <span class="posted_in">
+                                    <strong>Manufacturer:</strong>
+                                    <p>{$rows[0]['MANUFACTURER']}</>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <div class="container">
+                                    <div class="tor">
+                                        <div class="col-xs-3 col-xs-offset-3">
+                                            <div class="input-group number-spinner">
+                                                <span class="input-group-btn data-dwn">
+                                                    <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                                                </span>
+                                                <input type="text" class="form-control text-center" value="1" min="1" max="10" name="quantity" id="quantity">
+                                                <span class="input-group-btn data-up">
+                                                    <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>
+                                <button class="btn btn-round btn-danger" type="button">
+                                    <i class="fa fa-shopping-cart"></i>Add to Cart
+                                </button>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        ECHO;
+    }
+}
+
 
 public static function create() {
     global $conn;

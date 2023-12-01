@@ -14,9 +14,9 @@ class Controller{
         //$this->render($controller, $view);
 	}
 
-    function render($controller, $view, $data = []) {
+    function render($controller, $action, $data = []) {
         extract($data);
-        $dirString = dirname(__FILE__) . "/../Views/$controller/{$view}.php";
+        $dirString = dirname(__FILE__) . "/../Views/$controller/{$action}.php";
         
         if (file_exists($dirString))
         {

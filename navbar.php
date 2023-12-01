@@ -166,7 +166,7 @@ section {
     <header>
         <div class="header-container">
             <div class="left-box">
-                <h1><a href="index.php?controller=home&action=index">SHMewelry</a></h1>
+                <h1><a href="index.php?controller=product&action=index">SHMewelry</a></h1>
             </div>
             <div class="right-box">
                 <table>
@@ -196,9 +196,9 @@ section {
                             </script>
                             <div class="dropdown-content">
                                 <a class="profile" href="index.php?controller=user&action=read">My Profile</a>
-                                <a class="profile" href="index.php?controller=orders&action=list">Manage Orders/My Orders</a>
-                                <a class="profile" href="index.php?controller=product&action=list">Manage Products</a>
-                                <a class="profile" href="index.php?controller=user&action=list">Manage Users and Permissions</a>
+                                <a class="profile" href="index.php?controller=orders&action=read">Manage Orders/My Orders</a>
+                                <a class="profile" href="index.php?controller=product&action=read">Manage Products</a>
+                                <a class="profile" href="index.php?controller=user&action=read">Manage Users and Permissions</a>
                                 <a class="profile" href="index.php?controller=user&action=exit">Logout</a>
                             </div>
                         </td>
@@ -210,11 +210,11 @@ section {
 <nav>
 <table>
             <tr>
-                <td><a class="dropdown-home" href="index.php?controller=home&view=index">Home</a></td>
+                <td><a class="dropdown-home" href="index.php?controller=product&action=index">Home</a></td>
                 <td class="dropdown">
-                    <a href="index.php?controller=home&view=list&type=bracelet">Bracelets &#9662;</a>
+                    <a href="index.php?controller=product&action=read&type=bracelet">Bracelets &#9662;</a>
                     <div class="dropdown-content">
-                        <a href="index.php?controller=home&view=list&type=bracelet"> All Bracelets</a>
+                        <a href="index.php?controller=product&action=read&type=bracelet"> All Bracelets</a>
                         <?php
                         global $conn;
                         // Fetch unique materials from the Product table
@@ -224,16 +224,16 @@ section {
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='index.php?controller=home&type=bracelet&view=list&material={$row["Material"]}'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?controller=product&type=bracelet&action=read&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>
                     </div>
                 </td>
                 <td class="dropdown">
-                    <a href="index.php?controller=home&view=list&type=ring">Rings &#9662;</a>
+                    <a href="index.php?controller=product&action=read&type=ring">Rings &#9662;</a>
                     <div class="dropdown-content">
-                        <a href='index.php?controller=home&view=list&type=ring'>All Rings</a>
+                        <a href='index.php?controller=product&action=read&type=ring'>All Rings</a>
                         <?php
 
                         // Fetch unique materials from the Product table
@@ -243,16 +243,16 @@ section {
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='index.php?controller=home&type=ring&view=list&material={$row["Material"]}'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?controller=product&type=ring&action=read&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>
                     </div>
                 </td>
                 <td class="dropdown">
-                    <a href="index.php?controller=home&view=list&type=necklace">Necklaces &#9662;</a>
+                    <a href="index.php?controller=product&action=read&type=necklace">Necklaces &#9662;</a>
                     <div class="dropdown-content">
-                        <a href='index.php?controller=home&view=list&type=necklace'>All Necklaces</a>
+                        <a href='index.php?controller=product&action=read&type=necklace'>All Necklaces</a>
                         <?php
 
                         // Fetch unique materials from the Product table
@@ -262,16 +262,16 @@ section {
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='index.php?controller=home&type=necklace&view=list&material={$row["Material"]}'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?controller=product&type=necklace&action=read&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>
                     </div>
                 </td>
                 <td class="dropdown">
-                    <a href="index.php?controller=home&view=list&type=earring">Earrings &#9662;</a>
+                    <a href="index.php?controller=product&action=read&type=earring">Earrings &#9662;</a>
                     <div class="dropdown-content">
-                        <a href='index.php?controller=home&view=list&type=earring'>All Earrings</a>
+                        <a href='index.php?controller=product&action=read&type=earring'>All Earrings</a>
                         <?php
 
                         // Fetch unique materials from the Product table
@@ -281,7 +281,7 @@ section {
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='index.php?controller=home&type=earring&view=list&material={$row["Material"]}'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?controller=product&type=earring&action=read&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>
