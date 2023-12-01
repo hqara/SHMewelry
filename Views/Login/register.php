@@ -33,7 +33,7 @@
         ?>
         <h2 class="center">SHMEWELRY Registration</h2>
        
-        <form method="post" action="index.php?controller=login&action=register">
+        <form method="post" action="Controllers/RegisterController.php">
             <table class="center">
                 <tr>
                     <td>
