@@ -98,6 +98,30 @@ public static function list() {
 
 //MISSING SEARCH FUNCTION FOR SEARCH BAR
 
+public static function view(){
+    global $conn;
+    $id = isset($_GET['id']) ? $_GET['id'] : -1;
+
+    $sql = "SELECT * FROM `PRODUCT` WHERE PRODUCT_ID = ?;";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+
+    if ($result->num_rows > 0) {
+        $rows = array();
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    return null;
+}
+
 
 public static function read()
 {
@@ -109,12 +133,7 @@ public static function read()
     } else {
         $result = Product::viewByJewelryType();
     }
-
-    if ($result == null) {
-        echo '<center><h5>Sorry, we don\'t have what you\'re looking for.</h5></center>';
-        return null;
-    }
-
+    
     return $result;
 }
 
@@ -169,33 +188,6 @@ private static function viewByJewelrySubtype(){
 
     return null;
 }
-
-
-public static function view(){
-    global $conn;
-    $id = isset($_GET['id']) ? $_GET['id'] : -1;
-
-    $sql = "SELECT * FROM `PRODUCT` WHERE PRODUCT_ID = ?;";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
-
-    if ($result->num_rows > 0) {
-        $rows = array();
-        while ($row = $result->fetch_assoc()) {
-            $rows[] = $row;
-        }
-
-        return $rows;
-    }
-
-    return null;
-}
-
-
 
 
 public static function create() {

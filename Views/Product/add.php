@@ -55,16 +55,26 @@
             </div>
 
             <div class="form-group row justify-content-center">
-                <label for="material" class="col-sm-2 col-form-label text-left">Material</label>
+                <label for="type" class="col-sm-2 col-form-label text-left">Material</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="material" name="material" autocomplete="off" required>
+                    <select id="type" name="material" required class="form-control">
+                        <option value="Gold">Gold</option>
+                        <option value="Rosegold">Rosegold</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Copper">Copper</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group row justify-content-center">
                 <label for="type" class="col-sm-2 col-form-label text-left">Type</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="type" name="type" autocomplete="off" required>
+                    <select id="type" name="type" required class="form-control">
+                        <option value="Bracelet">Bracelet</option>
+                        <option value="Ring">Ring</option>
+                        <option value="Necklace">Necklace</option>
+                        <option value="Earring">Earring</option>
+                    </select>
                 </div>
             </div>
 

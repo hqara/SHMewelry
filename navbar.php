@@ -78,7 +78,7 @@ var_dump($_SESSION);
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='index.php?controller=product&type=bracelet&action=read&material={$row["Material"]}'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?controller=product&action=read&type=bracelet&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>
@@ -97,7 +97,7 @@ var_dump($_SESSION);
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='index.php?controller=product&type=ring&action=read&material={$row["Material"]}'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?controller=product&action=read&type=ring&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>
@@ -116,7 +116,7 @@ var_dump($_SESSION);
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='index.php?controller=product&type=necklace&action=read&material={$row["Material"]}'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?controller=product&action=read&type=necklace&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>
@@ -135,7 +135,7 @@ var_dump($_SESSION);
                         // Display the materials as dropdown items
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<a href='index.php?controller=product&type=earring&action=read&material={$row["Material"]}'>" . $row["Material"] . "</a>";
+                                echo "<a href='index.php?controller=product&action=read&type=earring&material={$row["Material"]}'>" . $row["Material"] . "</a>";
                             }
                         }
                         ?>

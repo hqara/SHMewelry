@@ -26,6 +26,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/product_detail.css">
+    <link rel="stylesheet" href="CSS/shared.css">
 </head>
 
 <body>
@@ -55,6 +56,12 @@
                         <h4><strong><?php echo $product['SIZE']; ?></strong></h4>
                         <p><?php echo $product['DESCRIPTION']; ?></p>
                         <div class="product_meta">
+
+                            <span class="posted_in">
+                                <strong>Color:</strong>
+                                <?php echo isset($product['COLOR']) ? $product['COLOR'] : ''; ?>
+                            </span>
+
                             <span class="posted_in">
                                 <strong>Material:</strong>
                                 <?php if (isset($product['MATERIAL'])) : ?>
@@ -62,20 +69,23 @@
                                 <?php endif; ?>
                             </span>
                             <span class="posted_in">
-                                <strong>Color:</strong>
+                                <strong>Type:</strong>
                                 <?php if (isset($product['TYPE'])) : ?>
                                     <a rel="tag" href="index.php?controller=product&action=read&type=<?php echo $product['TYPE']; ?>"><?php echo $product['TYPE']; ?></a>
                                 <?php endif; ?>
                             </span>
+
                             <span class="posted_in">
                                 <strong>Manufacturer:</strong>
                                 <?php echo isset($product['MANUFACTURER']) ? $product['MANUFACTURER'] : ''; ?>
                             </span>
                         </div>
-                        <div class="form-group">
+                     
+                        <div class="form-group center-content">
+                        <div class="tor">
                             <label for="quantity">Quantity</label>
                             <div class="container">
-                                <div class="tor">
+                               
                                     <div class="col-xs-3 col-xs-offset-3">
                                         <div class="input-group number-spinner">
                                             <span class="input-group-btn data-dwn">
@@ -90,6 +100,8 @@
                                 </div>
                             </div>
                         </div>
+                                </tr>
+                                </table>
                         <p>
                             <button class="btn btn-round btn-danger" type="button">
                                 <i class="fa fa-shopping-cart"></i>Add to Cart

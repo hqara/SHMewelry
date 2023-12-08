@@ -4,7 +4,7 @@ include_once __DIR__ . "/Controller.php";
 include_once __DIR__ . "/../Models/Product.php";
 
 class ProductController extends Controller {
-    
+
     function route() {
         parent::route();
 
@@ -14,9 +14,13 @@ class ProductController extends Controller {
         // Initialize the Product model
         $productModel = new Product();
 
-        if ($action == "list" || $action == "view" ||$action == "read") {
-            $products = Product::$action();
-            $this->render("Product", $action, $products);
+        if ($action == "list" || $action == "view" || $action == "read") {
+            $products = $productModel->$action();
+            if (!empty($products)) {
+                $this->render("Product", $action, $products);
+            } else {
+                $this->render("Product", $action, array());
+            }
         } else if ($action == "create" || $action == "update" || $action == "delete") {
             $result = $productModel->$action();
         } else if ($action == "add") {

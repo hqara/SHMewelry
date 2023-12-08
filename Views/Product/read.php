@@ -19,7 +19,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/product_listing.css">
-
+    <link rel="stylesheet" href="CSS/shared.css">
 </head>
 
 
@@ -31,8 +31,8 @@
     <?php
     // Check if $data is defined and not empty
     if (isset($data) && is_array($data) && !empty($data)) {
-        foreach ($data as $key => $product) {
-            if ($key % 4 == 0) {
+        foreach ($data as $row=> $product) {
+            if ($row % 4 == 0) {
                 echo '<div class="row">';
             }
             echo <<<ECHO
@@ -47,7 +47,7 @@
                                 {$product['PRICE']}
                             </span>
                             <small class="text-muted">{$product['MATERIAL']}</small>
-                            <a href="#" class="product-name">{$product['NAME']}</a>
+                            <a href="index.php?controller=product&action=view&id={$product['PRODUCT_ID']}" class="product-name">{$product['NAME']}</a>
                             <div class="small m-t-xs">
                                 {$product['DESCRIPTION']}
                             </div>
@@ -63,16 +63,28 @@
 
             // this makes sure every row <div> only has a maximum of 4 products.
             // the second condition ensures the div is closed even if the last index is not a multiple of 4.
-            if ($key % 4 == 3 || $key == count($data) - 1) {
+            if ($row % 4 == 3 || $row == count($data) - 1) {
                 echo '</div>';
             }
         }
     }
+    else {
+        echo '<center>
+                <table style="background-color: #e6f3f8; width: 90%; height: auto; margin: 100px;">
+                    <tr> 
+                        <td style="padding:25px">
+                            <p style="text-align:center;">Sorry, we don\'t have what you\'re looking for.</p>
+                        </td>
+                    </tr>
+                </table>
+            </center>';
+
+    }
     ?>
 
     </div>
-    <footer>
-        <?php include_once __DIR__ . "/../../footer.html"; ?>
-    </footer>
+
+    <?php include_once __DIR__ . "/../../footer.html"; ?>
+
 </body>
 </html>
