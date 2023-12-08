@@ -14,15 +14,13 @@ class ProductController extends Controller {
         // Initialize the Product model
         $productModel = new Product();
 
-        if ($action == "list") {
+        if ($action == "list" || $action == "view" ||$action == "read") {
             $products = Product::$action();
             $this->render("Product", $action, $products);
         } else if ($action == "create" || $action == "update" || $action == "delete") {
             $result = $productModel->$action();
         } else if ($action == "add") {
             $this->render("Product", $action, array());
-        } else if ($action == 'read'){
-            $this->render("Product", $action);
         } else {
             $product = new Product($id);
             $this->render("Product", $action, array('product' => $product));

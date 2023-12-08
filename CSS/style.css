@@ -29,10 +29,11 @@ header {
     color: #ffffff;
     display: flex;
     align-items: center;
+    padding: 10px;
 }
 
 .right-box {
-    padding-left: 100px;
+    padding-right: 100px;
 }
 
 .right-box table {
@@ -41,6 +42,10 @@ header {
 
 .right-box input {
     margin-right: 10px;
+}
+
+.dropdown-home {
+    margin-left: 100px;
 }
 
 .dropdown {
@@ -53,15 +58,17 @@ header {
     position: absolute;
     background-color: #fff;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    width: 160px;
 }
 
-.dropdown .profile-dropdown{
+.dropdown .profile-dropdown {
     position: relative;
     z-index: 1;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
+    z-index: 100;
 }
 
 .dropdown-content a {
@@ -132,4 +139,11 @@ th, td {
 section {
     background-color: #6ac5fe;
     padding: 3px;
+}
+
+.logo {
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    text-align: center;
 }

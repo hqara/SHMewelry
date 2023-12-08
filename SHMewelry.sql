@@ -45,9 +45,11 @@ CREATE TABLE ADDRESS (
     PROVINCE VARCHAR(35),
     POSTAL_CODE VARCHAR(10),
     COUNTRY VARCHAR(35),
+    IS_DEFAULT BOOLEAN, 
     USER_ID INT,
     FOREIGN KEY (USER_ID) REFERENCES USER(USER_ID) ON DELETE CASCADE
 );
+
 
 
 -- Create the USER_ADDRESS table to represent the many-to-many relationship
@@ -117,17 +119,6 @@ CHECK (GROUP_ID IN (1, 2, 3));
 ALTER TABLE USER
 ADD CONSTRAINT unique_email
 UNIQUE (EMAIL);
-
-
--- Add a CHECK constraint to allow only addresses for users in group_id=1 (Client) to insert into ADDRESS
--- ALTER TABLE ADDRESS
--- ADD CONSTRAINT check_client_address
--- CHECK (USER_ID IN (SELECT USER_ID FROM USER WHERE GROUP_ID = 1));
-
--- Add a CHECK constraint to allow only users from group_id=1 (Client) to insert into USER_PRODUCT
--- ALTER TABLE USER_PRODUCT
--- ADD CONSTRAINT check_client_user_product
--- CHECK (USER_ID IN (SELECT USER_ID FROM USER WHERE GROUP_ID = 1));
 
 -- Add constraints to the GROUP_RIGHTS table
 ALTER TABLE GROUP_RIGHTS
@@ -293,11 +284,16 @@ INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES
     ('Eva', 'Williams', 'evawilliams@example.com', MD5('client'), 1); -- Client, password: client
 
 -- Insert values into the ADDRESS table (only client's sample data)
-INSERT INTO ADDRESS (STREET_ADDRESS, CITY, PROVINCE, POSTAL_CODE, COUNTRY, USER_ID)
+INSERT INTO ADDRESS (STREET_ADDRESS, CITY, PROVINCE, POSTAL_CODE, COUNTRY, USER_ID, IS_DEFAULT)
 VALUES
-    ('123 Main St', 'New York', 'NY', '10001', 'USA', 1), -- John Doe's address
-    ('456 Elm St', 'Los Angeles', 'CA', '90001', 'USA', 4), -- Bob Brown's address
-    ('789 Oak St', 'Chicago', 'IL', '60601', 'USA', 5); -- Eva Williams' address
+    ('123 Main St', 'New York', 'NY', '10001', 'USA', 1, true), -- John Doe's default address
+    ('456 Elm St', 'Los Angeles', 'CA', '90001', 'USA', 1, false), -- John Doe's non-default address
+    ('789 Oak St', 'Chicago', 'IL', '60601', 'USA', 1, false), -- John Doe's non-default address
+    ('101 Pine St', 'San Francisco', 'CA', '94101', 'USA', 4, true), -- Bob Brown's default address
+    ('202 Maple St', 'Seattle', 'WA', '98101', 'USA', 4, false), -- Bob Brown's non-default address
+    ('303 Cedar St', 'Dallas', 'TX', '75201', 'USA', 5, true), -- Eva Williams' default address
+    ('404 Birch St', 'Miami', 'FL', '33101', 'USA', 5, false); -- Eva Williams' non-default address
+
 
     -- Insert values into the USER_ADDRESS table (sample data)
 INSERT INTO USER_ADDRESS (USER_ID, ADDRESS_ID) VALUES
@@ -311,10 +307,7 @@ INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TY
     ('Pearl Necklace', 'Elegant pearl necklace', 599.99, 'Pearl Jewelry', 'White', 'Rosegold', 'Necklace', 'one-size', 45, 'necklace1.jpg'),
     ('Sapphire Bracelet', 'Stunning sapphire bracelet', 799.99, 'Sapphire Co.', 'Blue', 'Silver', 'Bracelet', 'one-size', 58, 'bracelet1.jpg'),
     ('Emerald Earrings', 'Dazzling emerald earrings', 399.99, 'Emerald Jewelry', 'Green', 'Gold', 'Earring', 'one-size', 12, 'earring1.jpg'),
-    ('Copper Bracelet', 'Unique copper bracelet', 199.99, 'Copper Creations', 'Red', 'Copper', 'Bracelet', 'one-size', 25, 'bracelet2.jpg');
-
-INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
-VALUES 
+    ('Copper Bracelet', 'Unique copper bracelet', 199.99, 'Copper Creations', 'Red', 'Copper', 'Bracelet', 'one-size', 25, 'bracelet2.jpg'),
     ('Archer Ring', 'Beautiful archer-themed ring', 499.99, 'JewelCrafters', 'Silver', 'Silver', 'Ring', 'one-size', 100, 'ring1.jpg'),
     ('Archer Bracelet', 'Stylish archer-themed bracelet', 299.99, 'FashionGems', 'Gold', 'Gold', 'Bracelet', 'one-size', 75, 'bracelet2.jpg'),
     ('Archer Necklace', 'Elegant archer-themed necklace', 969.99, 'LuxuryJewels', 'RoseGold', 'RoseGold', 'Necklace', 'one-size', 50, 'necklace3.jpg'),
@@ -324,11 +317,7 @@ VALUES
     ('Archer Necklace', 'Luxurious archer-themed necklace', 799.99, 'EliteCrafts', 'RoseGold', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace7.jpg'),
     ('Archer Earring', 'Elegant archer-themed earring', 294.99, 'ChicDesigns', 'Copper', 'Copper', 'Earring', 'one-size', 150, 'earring8.jpg'),
     ('Archer Ring', 'Classy archer-themed ring', 594.99, 'TimelessJewels', 'Silver', 'Silver', 'Ring', 'one-size', 80, 'ring9.jpg'),
-    ('Archer Bracelet', 'Unique archer-themed bracelet', 394.99, 'ArtisanCrafts', 'Gold', 'Gold', 'Bracelet', 'one-size', 45, 'bracelet10.jpg');
-
-
-INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
-VALUES 
+    ('Archer Bracelet', 'Unique archer-themed bracelet', 394.99, 'ArtisanCrafts', 'Gold', 'Gold', 'Bracelet', 'one-size', 45, 'bracelet10.jpg'),
     ('Monarchy Collection Ring', 'Exquisite royal-themed ring', 799.99, 'RoyalJewelers', 'White', 'Silver', 'Ring', 'one-size', 80, 'ring11.jpg'),
     ('Monarchy Collection Bracelet', 'Regal royal-themed bracelet', 499.99, 'LuxuryGems', 'Blue', 'Gold', 'Bracelet', 'one-size', 60, 'bracelet12.jpg'),
     ('Monarchy Collection Necklace', 'Opulent royal-themed necklace', 999.99, 'EliteCrafts', 'Green', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace13.jpg'),
@@ -338,19 +327,12 @@ VALUES
     ('Monarchy Collection Necklace', 'Grand royal-themed necklace', 1299.99, 'LuxuryJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 20, 'necklace17.jpg'),
     ('Monarchy Collection Earring', 'Charming royal-themed earring', 499.99, 'GlamourGems', 'Red', 'Copper', 'Earring', 'one-size', 100, 'earring18.jpg'),
     ('Monarchy Collection Ring', 'Royal-inspired ring with diamonds', 999.99, 'DiamondCrafters', 'White', 'Silver', 'Ring', 'one-size', 60, 'ring19.jpg'),
-    ('Monarchy Collection Bracelet', 'Elegant royal-themed bracelet with gems', 699.99, 'GemArtisans', 'Blue', 'Gold', 'Bracelet', 'one-size', 35, 'bracelet20.jpg');
-
-INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
-VALUES 
+    ('Monarchy Collection Bracelet', 'Elegant royal-themed bracelet with gems', 699.99, 'GemArtisans', 'Blue', 'Gold', 'Bracelet', 'one-size', 35, 'bracelet20.jpg'),
     ('Industrial Collection Ring', 'Robust industrial-themed ring', 599.99, 'SilverCrafters', 'Gray', 'Silver', 'Ring', 'one-size', 70, 'ring41.jpg'),
     ('Industrial Collection Bracelet', 'Modern industrial-themed bracelet', 344.99, 'MetalWorks', 'Silver', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),
     ('Industrial Collection Necklace', 'Sleek industrial-themed necklace', 744.99, 'TechStyle', 'Black', 'Gold', 'Necklace', 'one-size', 30, 'necklace43.jpg'),
     ('Industrial Collection Earring', 'Innovative industrial-themed earring', 299.99, 'InnovateDesigns', 'Gunmetal', 'Gold', 'Earring', 'one-size', 100, 'earring44.jpg'),
-    ('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Gray', 'Silver', 'Ring', 'one-size', 60, 'ring45.jpg');
-
-
-INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
-VALUES 
+    ('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Gray', 'Silver', 'Ring', 'one-size', 60, 'ring45.jpg'),
     ('Spear Collection Ring', 'Bold spear-themed ring', 69.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 70, 'ring21.jpg'),
     ('Spear Collection Bracelet', 'Daring spear-themed bracelet', 39.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 50, 'bracelet22.jpg'),
     ('Spear Collection Necklace', 'Striking spear-themed necklace', 79.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 30, 'necklace23.jpg'),
@@ -370,18 +352,12 @@ VALUES
     ('Spear Collection Ring', 'Elegant spear-themed ring', 64.99, 'WarriorCrafts', 'White', 'Silver', 'Ring', 'one-size', 40, 'ring37.jpg'),
     ('Spear Collection Bracelet', 'Unique spear-themed bracelet', 42.99, 'AdventurousDesigns', 'Blue', 'Gold', 'Bracelet', 'one-size', 25, 'bracelet38.jpg'),
     ('Spear Collection Necklace', 'Distinctive spear-themed necklace', 84.99, 'CombatJewels', 'Green', 'RoseGold', 'Necklace', 'one-size', 10, 'necklace39.jpg'),
-    ('Spear Collection Earring', 'Chic spear-themed earring', 27.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 120, 'earring40.jpg');
-
-INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
-VALUES 
+    ('Spear Collection Earring', 'Chic spear-themed earring', 27.99, 'BattleGems', 'Red', 'Copper', 'Earring', 'one-size', 120, 'earring40.jpg'),
     ('Industrial Collection Ring', 'Robust industrial-themed ring', 599.99, 'SilverCrafters', 'Gray', 'Silver', 'Ring', 'one-size', 70, 'ring41.jpg'),
     ('Industrial Collection Bracelet', 'Modern industrial-themed bracelet', 394.99, 'MetalWorks', 'Silver', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),
     ('Industrial Collection Necklace', 'Sleek industrial-themed necklace', 794.99, 'TechStyle', 'Black', 'Gold', 'Necklace', 'one-size', 30, 'necklace43.jpg'),
     ('Industrial Collection Earring', 'Innovative industrial-themed earring', 299.99, 'InnovateDesigns', 'Gunmetal', 'Gold', 'Earring', 'one-size', 100, 'earring44.jpg'),
-    ('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Gray', 'Silver', 'Ring', 'one-size', 60, 'ring45.jpg');
-
-INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) 
-VALUES 
+    ('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Gray', 'Silver', 'Ring', 'one-size', 60, 'ring45.jpg'),
     ('Venus Ring', 'Elegant Venus-themed ring', 899.99, 'CelestialJewels', 'Pink', 'RoseGold', 'Ring', 'one-size', 80, 'venus_ring1.jpg'),
     ('Venus Bracelet', 'Chic Venus-themed bracelet', 599.99, 'StarGazers', 'Blue', 'Silver', 'Bracelet', 'one-size', 60, 'venus_bracelet2.jpg'),
     ('Venus Necklace', 'Graceful Venus-themed necklace', 1299.99, 'CosmicCrafts', 'White', 'Gold', 'Necklace', 'one-size', 30, 'venus_necklace3.jpg'),

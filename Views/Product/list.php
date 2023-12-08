@@ -16,6 +16,13 @@
 
     <div class="container my-5">
         <h1 class="py-2">MANAGE PRODUCTS</h1>
+
+        </br>
+        <form method="post" action="index.php?controller=product&action=add">
+            <button type="submit" class="btn btn-primary" name="add">ADD NEW PRODUCT TO CATALOG</button>
+        </form>
+        </br>
+
         <table class="table">
             <thead>
                 <tr>
@@ -75,9 +82,6 @@
             </tbody>
         </table>
         
-        <form method="post" action="index.php?controller=product&action=add">
-            <button type="submit" class="btn btn-primary" name="add">ADD NEW PRODUCT TO CATALOG</button>
-        </form>
     </div>
 
     <footer>

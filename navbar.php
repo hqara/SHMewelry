@@ -12,162 +12,15 @@ var_dump($_SESSION);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="path/to/font-awesome.min.css">
-
-    <style>
-   html, body {
-    height: 100%;
-    margin: 0;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fff;
-    overflow-x: hidden;
-}
-
-header {
-    background-color: #fff;
-    color: #333;
-    padding: 10px;
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.left-box {
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
-
-.right-box {
-    padding-right: 100px;
-}
-
-.right-box table {
-    margin-left: auto;
-}
-
-.right-box input {
-    margin-right: 10px;
-}
-
-.dropdown-home {
-    margin-left: 100px;
-}
-
-.dropdown {
-    position: relative;
-    display: table-cell;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    width:160px;
-}
-
-.dropdown .profile-dropdown{
-    position: relative;
-    z-index: 1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-    z-index: 100;
-}
-
-.dropdown-content a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #808080;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.dropdown-content a:hover {
-    color: #6ac5fe;
-    transition: color 0.3s;
-    
-}
-
-a {
-    text-decoration: none;
-    color: black;
-    padding: 10px;
-    text-align: center;
-}
-
-nav {
-    max-width: 100%;
-}
-
-nav a {
-    text-decoration: none;
-    color: #808080;
-    font-weight: bold;
-    transition: color 0.3s;
-    padding: 10px;
-    display: inline-block;
-}
-
-nav a:hover {
-    color: #6ac5fe;
-}
-
-section {
-    padding: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-table td {
-    max-width: 100%;
-    flex-direction: column;
-    align-items: center;
-}
-
-th, td {
-    padding: 10px;
-}
-
-.wider-column {
-    width: 80%;
-}
-
-.wider-column2 {
-    width: 92%;
-}
-
-section {
-    background-color: #6ac5fe;
-    padding: 3px;
-}
-
-
-    </style>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="CSS/shared.css">
 </head>
 
 <body>
     <header>
         <div class="header-container">
             <div class="left-box">
-                <h1><a href="index.php?controller=product&action=index">SHMewelry</a></h1>
+                <h1><a class="logo" href="index.php?controller=home&action=index">SHMewelry</a></h1>
             </div>
             <div class="right-box">
                 <table>
@@ -197,9 +50,9 @@ section {
                             </script>
                             <div class="dropdown-content">
                                 <a class="profile" href="index.php?controller=user&action=read">My Profile</a>
-                                <a class="profile" href="index.php?controller=orders&action=read">Manage Orders/My Orders</a>
-                                <a class="profile" href="index.php?controller=product&action=read">Manage Products</a>
-                                <a class="profile" href="index.php?controller=user&action=read">Manage Users and Permissions</a>
+                                <a class="profile" href="index.php?controller=orders&action=list">Manage Orders/My Orders</a>
+                                <a class="profile" href="index.php?controller=product&action=list">Manage Products</a>
+                                <a class="profile" href="index.php?controller=user&action=list">Manage Users and Permissions</a>
                                 <a class="profile" href="index.php?controller=user&action=exit">Logout</a>
                             </div>
                         </td>
@@ -211,7 +64,7 @@ section {
 <nav>
 <table>
             <tr>
-                <td><a class="dropdown-home" href="index.php?controller=product&action=index">Home</a></td>
+                <td><a class="dropdown-home" href="index.php?controller=home&action=index">Home</a></td>
                 <td class="dropdown">
                     <a href="index.php?controller=product&action=read&type=bracelet">Bracelets &#9662;</a>
                     <div class="dropdown-content">

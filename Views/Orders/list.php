@@ -15,8 +15,8 @@
         <?php
         
         // Replace this with the actual value from the session
-        $_SESSION['group_id']=2;  // 1 for Client, 2 or 3 for Moderator/Admin
-        $_SESSION['user_id']=1;
+        //$_SESSION['group_id']=2;  // 1 for Client, 2 or 3 for Moderator/Admin
+        //$_SESSION['user_id']=1;
 
         // Check the user's group_id
         $userGroupId= $_SESSION['group_id'];
@@ -24,7 +24,7 @@
         if ($userGroupId == 1) {
             // Display for group_id = 1 (My Orders)
             echo '<h1 class="py-2">My Orders</h1>';
-            echo '<table class="null">
+            echo '<table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Order ID</th>

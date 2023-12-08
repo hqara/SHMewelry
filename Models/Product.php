@@ -97,64 +97,31 @@ public static function list() {
 }
 
 //MISSING SEARCH FUNCTION FOR SEARCH BAR
-//NOT USED, MIGHT NEED TO BE UPDATED
-public static function view() {
-    global $conn;
 
-    // Check if the 'view' key is present in the $_POST array
-    if (isset($_POST['view'])) {
-        // Retrieve the product_id from the $_POST array
-        $product_id = $_POST['product_id'];
 
-        // Prepare and execute the SQL query
-        $sql = 'SELECT * FROM `PRODUCT` WHERE PRODUCT_ID = ?';
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('i', $product_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+public static function read()
+{
+    $row_count = 0;
+    $result = array();
 
-        // Check if there are rows returned
-        if ($result->num_rows > 0) {
-            // Return the associative array representing the product
-            return $result->fetch_assoc();
-        }
+    if (isset($_GET['material'])) {
+        $result = Product::viewByJewelrySubtype();
+    } else {
+        $result = Product::viewByJewelryType();
+    }
 
-        // Return null if no rows are found
+    if ($result == null) {
+        echo '<center><h5>Sorry, we don\'t have what you\'re looking for.</h5></center>';
         return null;
     }
 
-    // Return null if the 'view' key is not present in the $_POST array
-    return null;
-}
-public static function buildProductPage()
-{
-   $row_count = 0;
-   $result = array();
-   if (isset($_GET['material']))
-   {
-       $result = Product::viewByJewelrySubtype();
-   }
-   else
-   {
-       $result = Product::viewByJewelryType();
-   }
-
-
-   if ($result == null)
-   {
-       echo '<center><h5>Sorry, we don\'t have what you\'re looking for.</h5></center>';
-       return null;
-   }
-
-
-   return $result;
+    return $result;
 }
 
-private static function viewByJewelryType()
-{
+private static function viewByJewelryType(){
     global $conn;
     $type = isset($_GET['type']) ? $_GET['type'] : 'ring';
-    
+
     $sql = "SELECT * FROM `PRODUCT` WHERE `TYPE` = ?";
     //$result = $conn->query($sql);
 
@@ -164,11 +131,9 @@ private static function viewByJewelryType()
     $result = $stmt->get_result();
     $stmt->close();
 
-    if ($result->num_rows > 0) 
-    {
+    if ($result->num_rows > 0) {
         $rows = array();
-        while ($row = $result->fetch_assoc()) 
-        {
+        while ($row = $result->fetch_assoc()) {
             $rows[] = $row;
         }
 
@@ -178,8 +143,7 @@ private static function viewByJewelryType()
     return null;
 }
 
-private static function viewByJewelrySubtype()
-{
+private static function viewByJewelrySubtype(){
     global $conn;
 
     $type = isset($_GET['type']) ? $_GET['type'] : 'ring';
@@ -194,11 +158,9 @@ private static function viewByJewelrySubtype()
     $result = $stmt->get_result();
     $stmt->close();
 
-    if ($result->num_rows > 0) 
-    {
+    if ($result->num_rows > 0) {
         $rows = array();
-        while ($row = $result->fetch_assoc()) 
-        {
+        while ($row = $result->fetch_assoc()) {
             $rows[] = $row;
         }
 
@@ -208,37 +170,31 @@ private static function viewByJewelrySubtype()
     return null;
 }
 
-public static function buildProductDetailPage()
-{
-   global $conn;
-   $id = isset($_GET['id']) ? $_GET['id'] : -1;
 
+public static function view(){
+    global $conn;
+    $id = isset($_GET['id']) ? $_GET['id'] : -1;
 
-   $sql = "SELECT * FROM `PRODUCT` WHERE PRODUCT_ID = ?;";
+    $sql = "SELECT * FROM `PRODUCT` WHERE PRODUCT_ID = ?;";
 
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
 
-   $stmt = $conn->prepare($sql);
-   $stmt->bind_param('i', $id);
-   $stmt->execute();
-   $result = $stmt->get_result();
-   $stmt->close();
+    if ($result->num_rows > 0) {
+        $rows = array();
+        while ($row = $result->fetch_assoc()) {
+            $rows[] = $row;
+        }
 
+        return $rows;
+    }
 
-   if ($result->num_rows > 0)
-   {
-       $rows = array();
-       while ($row = $result->fetch_assoc())
-       {
-           $rows[] = $row;
-       }
-
-
-   return $rows;
-   }
-
-
-   return null;
+    return null;
 }
+
 
 
 
