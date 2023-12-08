@@ -4,6 +4,7 @@ include_once(__DIR__ . "/db_connection.php");
 
 // Check if the user is logged in
 $isLoggedIn = isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
+var_dump($_SESSION);
 ?>
 
 <!DOCTYPE html>
