@@ -1,7 +1,3 @@
-<?php
-include_once __DIR__ . "/../../Models/Product.php";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
