@@ -317,7 +317,7 @@ INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TY
     ('Archer Butterfly Necklace', 'Luxurious butterfly-themed necklace', 799.99, 'EliteCrafts', 'Blue', 'Silver', 'Necklace', 'one-size', 30, 'necklace7.jpg'),                 -- 12
     ('Archer Floral Earring', 'Elegant floral-themed earring', 294.99, 'ChicDesigns', 'Clear', 'Silver', 'Earring', 'one-size', 150, 'earring8.jpg'),                           -- 13
     ('Archer Blue Ring', 'Classy blue-themed ring', 594.99, 'TimelessJewels', 'Blue', 'Silver', 'Ring', 'one-size', 80, 'ring9.jpg'),                                           -- 14
-    ('Archer Bracelet', 'Unique archer-themed bracelet', 394.99, 'ArtisanCrafts', 'Gold', 'Gold', 'Bracelet', 'one-size', 45, 'bracelet10.jpg'),                                -- 15        
+    ('Archer Bracelet', 'Unique archer-themed bracelet', 394.99, 'ArtisanCrafts', 'Clear', 'RoseGold', 'Bracelet', 'one-size', 45, 'bracelet10.jpg'),                           -- 15        
     ('Monarchy Collection Ring', 'Exquisite heart royal-themed ring', 799.99, 'RoyalJewelers', 'Pink', 'RoseGold', 'Ring', 'one-size', 80, 'ring11.jpg'),                       -- 16 
     ('Monarchy Collection Bracelet', 'Tennis royal-themed bracelet', 499.99, 'LuxuryGems', 'Clear', 'Silver', 'Bracelet', 'one-size', 60, 'bracelet12.jpg'),                    -- 17
     ('Monarchy Collection Necklace', 'Opulent heart royal-themed necklace', 999.99, 'EliteCrafts', 'Red', 'Silver', 'Necklace', 'one-size', 30, 'necklace13.jpg'),              -- 18
@@ -332,12 +332,12 @@ INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TY
     ('Industrial Collection Bracelet', 'Modern industrial-themed bracelet', 344.99, 'MetalWorks', 'Rose', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),            -- 27
     ('Nature Collection Necklace', 'Nature tree-themed necklace', 744.99, 'NatureMotif', 'Clear', 'Silver', 'Necklace', 'one-size', 30, 'necklace43.jpg'),                      -- 28
     ('Nature Collection Earring', 'Nature floral-themed earring', 299.99, 'NatureMotif', 'Pink', 'RoseGold', 'Earring', 'one-size', 100, 'earring44.jpg'),                      -- 29
-    ('Nature Collection Ring', 'Nature heart-shaped ring', 699.99, 'NatureMotif', 'Clear', 'Gold', 'Ring', 'one-size', 60, 'ring45.jpg'),                                       -- 30
+    ('Nature Collection Ring', 'Nature heart-shaped ring', 699.99, 'NatureMotif', 'Clear', 'RoseGold', 'Ring', 'one-size', 60, 'ring45.jpg'),                                   -- 30
     ('Spear Collection Ring', 'Bold spear-themed ring', 69.99, 'WarriorCrafts', 'Clear', 'Silver', 'Ring', 'one-size', 70, 'ring21.jpg'),                                       -- 31
     ('Heart Collection Bracelet', 'Daring heart-shaped bracelet', 39.99, 'AdventurousDesigns', 'Pink', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet22.jpg'),               -- 32
-    ('Floral Collection Necklace', 'Striking floral-themed necklace', 79.99, 'FloralJewels', 'Clear', 'Silver', 'Necklace', 'one-size', 30, 'necklace23.jpg'),                  -- 33
-    ('Heart Collection Earring', 'Fierce heart-themed earring', 29.99, 'HeartGems', 'Clear', 'Gold', 'Earring', 'one-size', 100, 'earring24.jpg'),                              -- 34
-    ('Spear Collection Ring', 'Powerful heart-themed ring', 79.99, 'WarriorCrafts', 'White', 'Gold', 'Ring', 'one-size', 60, 'ring25.jpg'),                                     -- 35
+    ('Floral Collection Necklace', 'Striking floral-themed necklace', 79.99, 'FloralJewels', 'Clear', 'Gold', 'Necklace', 'one-size', 30, 'necklace23.jpg'),                    -- 33
+    ('Heart Collection Earring', 'Fierce heart-themed earring', 29.99, 'HeartGems', 'Clear', 'RoseGold', 'Earring', 'one-size', 100, 'earring24.jpg'),                          -- 34
+    ('Spear Collection Ring', 'Powerful heart-themed ring', 79.99, 'WarriorCrafts', 'White', 'RoseGold', 'Ring', 'one-size', 60, 'ring25.jpg'),                                 -- 35
     ('Spear Collection Bracelet', 'Mighty spear-themed bracelet', 49.99, 'AdventurousDesigns', 'Clear', 'Silver', 'Bracelet', 'one-size', 40, 'bracelet26.jpg'),                -- 36
     ('Spear Collection Necklace', 'Sapphire oval-shaped necklace', 99.99, 'HeartJewels', 'Sapphire', 'Silver', 'Necklace', 'one-size', 25, 'necklace27.jpg'),                   -- 37
     ('Monarchy Collection Earring', 'Intense square-shaped earring', 34.99, 'GlamourGems', 'Clear', 'Silver', 'Earring', 'one-size', 80, 'earring28.jpg'),                      -- 38
