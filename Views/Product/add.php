@@ -8,16 +8,15 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="path/to/font-awesome.min.css">
 </head>
 <body>
-</header>
+
     <?php include_once __DIR__ . "/../../navbar.php"; ?>
-</header>
+
 
     <div class="container my-5 text-center">
         <h1 class="py-2">Add New Product to Catalog</h1>
-        <form method="post" action="index.php?controller=product&action=create">
+        <form method="post" action="index.php?controller=product&action=create" enctype="multipart/form-data">
 
             <div class="form-group row justify-content-center">
                 <label for="name" class="col-sm-2 col-form-label text-left">Name</label>
@@ -95,7 +94,7 @@
             <div class="form-group row justify-content-center">
                 <label for="product_image" class="col-sm-2 col-form-label text-left">Product Image</label>
                 <div class="col-sm-6">
-                    <input type="file" class="form-control-file" name="product_image" autocomplete="off">
+                    <input type="file" class="form-control-file" id="product_image" name="product_image" accept="image/*" required>
                 </div>
             </div>
 
@@ -107,10 +106,10 @@
             </div>
         </form>
     </div>
-    <footer>
-        <?php include_once __DIR__ . "/../../footer.html"; ?>
-    </footer>
+
+
+    <?php include_once __DIR__ . "/../../footer.html"; ?>
+
 </body>
 
 </html>
-

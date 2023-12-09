@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>Product Detail</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
@@ -19,10 +19,6 @@
 
     <!-- Custom JavaScript -->
     <script src="app/scripts/number_input.js"></script>
-    <script type="text/javascript"></script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="path/to/font-awesome.min.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/product_detail.css">
@@ -37,19 +33,19 @@
             <section class="panel">
                 <div class="panel-body">
                     <div class="col-md-6">
-                        <div class="pro-img-details">
-                            <img src="Images/AboutUs.jpg" alt>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h4 class="pro-d-title">
-                            <?php
+                    <?php
                             // Check if $data is defined and not empty
                             if (isset($data) && is_array($data) && !empty($data)) {
                                 $product = $data[0]; // Assuming you want the first product from the array
                                 ?>
+                        <div class="pro-img-details">
+                            <img src="assets/images/<?php echo $product['PRODUCT_IMAGE']; ?>" alt="<?php echo $product['PRODUCT_IMAGE']; ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="pro-d-title">
                                 <h2><strong><?php echo $product['NAME']; ?></strong></h2>
-                                <h3><?php echo $product['PRICE']; ?></h3>
+                                <h3>$<?php echo $product['PRICE']; ?></h3>
                             <?php } ?>
                         </h4>
                         <hr>
@@ -80,12 +76,11 @@
                                 <?php echo isset($product['MANUFACTURER']) ? $product['MANUFACTURER'] : ''; ?>
                             </span>
                         </div>
-                     
+
                         <div class="form-group center-content">
-                        <div class="tor">
-                            <label for="quantity">Quantity</label>
-                            <div class="container">
-                               
+                            <div class="tor">
+                                <label for="quantity">Quantity</label>
+                                <div class="container">
                                     <div class="col-xs-3 col-xs-offset-3">
                                         <div class="input-group number-spinner">
                                             <span class="input-group-btn data-dwn">
@@ -100,11 +95,9 @@
                                 </div>
                             </div>
                         </div>
-                                </tr>
-                                </table>
                         <p>
                             <button class="btn btn-round btn-danger" type="button">
-                                <i class="fa fa-shopping-cart"></i>Add to Cart
+                                <i class="fa fa-shopping-cart"></i> Add to Cart
                             </button>
                         </p>
                     </div>
@@ -115,4 +108,5 @@
 
     <?php include_once __DIR__ . "/../../footer.html"; ?>
 </body>
+
 </html>

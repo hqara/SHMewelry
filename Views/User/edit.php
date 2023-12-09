@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,12 +10,12 @@
 </head>
 
 <body>
-<header>
-    <?php include_once __DIR__ . "/../../navbar.php"; ?>
-</header>
+    <header>
+        <?php include_once __DIR__ . "/../../navbar.php"; ?>
+    </header>
 
     <div class="container my-5 text-center">
-    
+
         <div class="alert alert-info text-center" style="background-color: #E6F3F8; border-color: #6AC5FE;">
             <strong>Try using:</strong><br/>
             Admin Group ID = 3<br/>
@@ -25,24 +24,56 @@
         </div>
 
         <h1 class="py-2">Edit User ID=<?php echo $user->user_id; ?> Permissions</h1>
-        <form method="post"  action="index.php?controller=user&action=update">
-        <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>">
-   
+        <form method="post" action="index.php?controller=user&action=update">
+            <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>">
+            <input type="hidden" name="group_id" value="<?php echo $user->group_id; ?>">
 
-        <div class="form-group row justify-content-center">
-            <label for="group_id" class="col-sm-2 col-form-label text-left">Group ID</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" id="group_id" name="group_id" autocomplete="off" value="<?php echo $user->group_id; ?>">
+            <div class="form-group row justify-content-center">
+                <label for="group_id" class="col-sm-2 col-form-label text-left">Belongs to: </label>
+                <div class="col-sm-6">
+                        <label><?php echo $user->group_id; ?></label>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group row justify-content-center">
-            <div class="col-sm-6">
-                <button type="submit" class="btn btn-primary" name="update">UPDATE</button>
-                <button type="button" class="btn btn-primary" name="back" onclick="window.history.back();">GO BACK</button>
+            <!-- Group Dropdown -->
+            <div class="form-group row justify-content-center">
+                <label for="group" class="col-sm-2 col-form-label text-left">Group</label>
+                <div class="col-sm-6">
+                    <select id="group_id" name="group_id" required class="form-control">
+                        <?php
+                        // Fetch user's group ID and group names using a JOIN between USER and GROUP tables
+                        $sql = "SELECT DISTINCT u.GROUP_ID, g.GROUP_NAME FROM USER u
+                                JOIN `GROUP` g ON u.GROUP_ID = g.GROUP_ID";
+                        $result = $conn->query($sql);
+
+                        $defaultGroupDisplayed = false;
+
+                        // Display group names as dropdown items
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $group_id = $row['GROUP_ID'];
+                                $group_name = $row['GROUP_NAME'];
+
+                                // Check if the group_id is the default and has not been displayed yet
+                                if ($user->group_id === $group_id && !$defaultGroupDisplayed) {
+                                    echo "<option value='$group_id' selected>$group_name</option>";
+                                    $defaultGroupDisplayed = true;
+                                } else {
+                                    echo "<option value='$group_id'>$group_name</option>";
+                                }
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
             </div>
-        </div>
 
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary" name="update">UPDATE</button>
+                    <button type="button" class="btn btn-primary" name="back" onclick="window.history.back();">GO BACK</button>
+                </div>
+            </div>
 
         </form>
     </div>
@@ -50,4 +81,5 @@
         <?php include_once __DIR__ . "/../../footer.html"; ?>
     </footer>
 </body>
+
 </html>

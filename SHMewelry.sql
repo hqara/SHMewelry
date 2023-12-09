@@ -303,11 +303,11 @@ INSERT INTO USER_ADDRESS (USER_ID, ADDRESS_ID) VALUES
 
 -- Insert values into the PRODUCT table (sample data)
 INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) VALUES
-    ('Diamond Ring', 'Beautiful diamond ring', 999.99, 'Diamond Co.', 'White', 'Gold', 'Ring', 'one-size', 60, 'ring1.jpg'),
-    ('Pearl Necklace', 'Elegant pearl necklace', 599.99, 'Pearl Jewelry', 'White', 'Rosegold', 'Necklace', 'one-size', 45, 'necklace1.jpg'),
-    ('Sapphire Bracelet', 'Stunning sapphire bracelet', 799.99, 'Sapphire Co.', 'Blue', 'Silver', 'Bracelet', 'one-size', 58, 'bracelet1.jpg'),
-    ('Emerald Earrings', 'Dazzling emerald earrings', 399.99, 'Emerald Jewelry', 'Green', 'Gold', 'Earring', 'one-size', 12, 'earring1.jpg'),
-    ('Copper Bracelet', 'Unique copper bracelet', 199.99, 'Copper Creations', 'Red', 'Copper', 'Bracelet', 'one-size', 25, 'bracelet2.jpg'),
+    ('Diamond Ring', 'Beautiful diamond ring', 999.99, 'Diamond Co.', 'White', 'Silver', 'Ring', 'one-size', 60, 'ring1.jpg'),
+    ('Pearl Necklace', 'Elegant pearl necklace', 599.99, 'Pearl Charm Jewelry', 'Pink', 'Rosegold', 'Necklace', 'one-size', 45, 'necklace1.jpg'),
+    ('Sapphire Bracelet', 'Stunning sapphire bracelet', 799.99, 'Pandora Co.', 'Green', 'Gold', 'Bracelet', 'one-size', 58, 'bracelet1.jpg'),
+    ('Emerald Earrings', 'Dazzling emerald earrings', 399.99, 'Heart Silver Jewelry', 'Pink', 'Silver', 'Earring', 'one-size', 12, 'earring1.jpg'),
+    ('Copper Bracelet', 'Unique copper bracelet', 199.99, 'Copper Creations', 'Clear', 'Copper', 'Bracelet', 'one-size', 25, 'bracelet2.jpg'),
     ('Archer Ring', 'Beautiful archer-themed ring', 499.99, 'JewelCrafters', 'Silver', 'Silver', 'Ring', 'one-size', 100, 'ring1.jpg'),
     ('Archer Bracelet', 'Stylish archer-themed bracelet', 299.99, 'FashionGems', 'Gold', 'Gold', 'Bracelet', 'one-size', 75, 'bracelet2.jpg'),
     ('Archer Necklace', 'Elegant archer-themed necklace', 969.99, 'LuxuryJewels', 'RoseGold', 'RoseGold', 'Necklace', 'one-size', 50, 'necklace3.jpg'),

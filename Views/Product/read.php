@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Product Listing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
@@ -40,11 +39,11 @@
                 <div class="ibox">
                     <div class="ibox-content product-box">
                         <div class="product-imitation">
-                            <img src="Images/AboutUs.jpg" alt="image">
+                            <img src="assets/images/{$product['PRODUCT_IMAGE']}" alt="{$product['PRODUCT_IMAGE']}">
                         </div>
                         <div class="product-desc">
                             <span class="product-price">
-                                {$product['PRICE']}
+                               {$product['PRICE']}
                             </span>
                             <small class="text-muted">{$product['MATERIAL']}</small>
                             <a href="index.php?controller=product&action=view&id={$product['PRODUCT_ID']}" class="product-name">{$product['NAME']}</a>

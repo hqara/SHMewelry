@@ -8,13 +8,12 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="path/to/font-awesome.min.css">
+
 </head>
 
 <body>
-    <header>
-        <?php include_once __DIR__ . "/../../navbar.php"; ?>
-    </header>
+
+    <?php include_once __DIR__ . "/../../navbar.php"; ?>
 
     <div class="container my-5 text-center">
         <h1 class="py-2">Edit Product#<?php echo $product->product_id; ?></h1>
@@ -149,9 +148,9 @@
         </form>
     </div>
 
-    <footer>
-        <?php include_once __DIR__ . "/../../footer.html"; ?>
-    </footer>
+
+    <?php include_once __DIR__ . "/../../footer.html"; ?>
+
 </body>
 
 </html>

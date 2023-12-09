@@ -204,42 +204,60 @@ public static function create() {
         $type = $_POST['type'];
         $size = $_POST['size'];
         $stock = $_POST['stock'];
-        $product_image = $_POST['product_image'];
 
-        // Prepare and execute the SQL query
-        $sql = 'INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        $stmt = $conn->prepare($sql);
+        // File upload handling
+        $targetDirectory = __DIR__ . "/../assets/images/";
+        $targetFile = $targetDirectory . basename($_FILES["product_image"]["name"]);
 
-        // Check for errors in preparing the statement
-        if (!$stmt) {
-            die('Error preparing statement: ' . $conn->error);
+        // Check file type and move the file
+        $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+        $allowedExtensions = array("jpg", "jpeg", "png");
+
+        if (in_array($imageFileType, $allowedExtensions)) {
+            if (move_uploaded_file($_FILES["product_image"]["tmp_name"], $targetFile)) {
+                // File uploaded successfully
+
+                // Prepare and execute the SQL query
+                $sql = 'INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TYPE, SIZE, STOCK, PRODUCT_IMAGE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                $stmt = $conn->prepare($sql);
+
+                // Check for errors in preparing the statement
+                if (!$stmt) {
+                    die('Error preparing statement: ' . $conn->error);
+                }
+
+                // Bind parameters and execute the statement
+                $stmt->bind_param('ssdsssssis', $name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, basename($targetFile));
+                $stmt->execute();
+
+                // Check for errors in executing the statement
+                if ($stmt->error) {
+                    // Handle the error (e.g., display an error message or redirect to an error page)
+                    die('Error executing statement: ' . $stmt->error);
+                }
+
+                // Get the ID of the inserted product
+                $insertedProductId = $stmt->insert_id;
+
+                // Close the statement
+                $stmt->close();
+
+                // Redirect to a success page or do other post-creation actions
+                header("Location: index.php?controller=product&action=list");
+                exit();
+            } else {
+                // File upload failed
+                die('Error uploading file.');
+            }
+        } else {
+            // Invalid file type
+            die('Invalid file type. Only JPG, JPEG, and PNG files are allowed.');
         }
-
-        // Bind parameters and execute the statement
-        $stmt->bind_param('ssdsssssis', $name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image);
-        $stmt->execute();
-
-        // Check for errors in executing the statement
-        if ($stmt->error) {
-            // Handle the error (e.g., display an error message or redirect to an error page)
-            die('Error executing statement: ' . $stmt->error);
-        }
-
-        // Get the ID of the inserted product
-        $insertedProductId = $stmt->insert_id;
-
-        // Close the statement
-        $stmt->close();
-
-        // Redirect to a success page or do other post-creation actions
-        header("Location: index.php?controller=product&action=list");
-        exit();
     }
 
     // Return false if the 'create' key is not present in the $_POST array
     return false;
 }
-
 
 
 
@@ -299,7 +317,6 @@ public static function update() {
 }
 
 
-
 public static function delete() {
     global $conn;
 
@@ -309,7 +326,20 @@ public static function delete() {
 
         // Validate $product_id (ensure it's a positive integer, for example)
 
-        // Prepare and execute the SQL query
+        // Get the file name associated with the product_id
+        $sql = 'SELECT PRODUCT_IMAGE FROM PRODUCT WHERE PRODUCT_ID = ?';
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $product_id);
+        $stmt->execute();
+        $stmt->bind_result($product_image);
+
+        // Fetch the result
+        $stmt->fetch();
+
+        // Close the statement
+        $stmt->close();
+
+        // Delete the product from the database
         $sql = 'DELETE FROM PRODUCT WHERE PRODUCT_ID = ?';
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('i', $product_id);
@@ -324,17 +354,23 @@ public static function delete() {
         // Close the statement
         $stmt->close();
 
+        // Delete the associated image file
+        $targetDirectory = __DIR__ . "/../assets/images/";
+        $targetFile = $targetDirectory . $product_image;
+
+        if (file_exists($targetFile)) {
+            unlink($targetFile);
+        }
+
         // Redirect 
         header("Location: index.php?controller=product&action=list");
         exit();
-        }
-    
-        // Return false if the 'delete' key is not present in the $_POST array
-        return 0;
     }
 
+    // Return false if the 'delete' key is not present in the $_POST array
+    return 0;
 }
 
-
+}
 
 ?>
