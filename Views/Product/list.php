@@ -22,22 +22,22 @@
         </form>
         </br>
 
-        <table class="table">
+        <table class="table" style="width:100%;">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
+                    <th scope="col" class="col-md-3">ID</th>
+                    <th scope="col" class="col-md-3">Name</th>
                     <th scope="col" class="col-md-3">Description</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Manufacturer</th>
-                    <th scope="col">Color</th>
-                    <th scope="col">Material</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Size</th>
-                    <th scope="col">Stock</th>
+                    <th scope="col" class="col-md-3">Price</th>
+                    <th scope="col" class="col-md-3">Manufacturer</th>
+                    <th scope="col" class="col-md-3">Color</th>
+                    <th scope="col" class="col-md-3">Material</th>
+                    <th scope="col" class="col-md-3">Type</th>
+                    <th scope="col" class="col-md-3">Size</th>
+                    <th scope="col" class="col-md-3">Stock</th>
                     <th scope="col" class="col-md-3">Image</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col" class="col-md-3"></th>
+                    <th scope="col" class="col-md-3"></th>
                 </tr>
             </thead>
             <tbody>

@@ -17,7 +17,7 @@
 
     <div class="container my-5 text-center">
         <h1 class="py-2">Edit Product#<?php echo $product->product_id; ?></h1>
-        <form method="post" action="index.php?controller=product&action=update">
+        <form method="post" action="index.php?controller=product&action=update" enctype="multipart/form-data">
             <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
 
             <div class="form-group row justify-content-center">
@@ -55,8 +55,9 @@
                 </div>
             </div>
 
-            <!-- Material Dropdown -->
-            <div class="form-group row justify-content-center">
+
+             <!-- Material Dropdown -->
+             <div class="form-group row justify-content-center">
                 <label for="material" class="col-sm-2 col-form-label text-left">Material</label>
                 <div class="col-sm-6">
                     <select id="material" name="material" required class="form-control">
@@ -85,6 +86,7 @@
                     </select>
                 </div>
             </div>
+
 
             <!-- Type Dropdown -->
             <div class="form-group row justify-content-center">
@@ -134,7 +136,19 @@
             <div class="form-group row justify-content-center">
                 <label for="product_image" class="col-sm-2 col-form-label text-left">Product Image</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="product_image" name="product_image" autocomplete="off" value="<?php echo $product->product_image; ?>">
+                    <input type="file" class="form-control-file" id="product_image" name="product_image" accept="image/*">
+                </div>
+            </div>
+            
+            <div class="form-group row justify-content-center">
+                    <label for="product_image" class="col-sm-2 col-form-label text-left">Current Image</label>
+                    <div class="col-sm-6">
+                    <?php
+                    if (!empty($product->product_image)) {
+                        echo $product->product_image;
+                        echo '<img src="/SHMewelry/assets/images/' . $product->product_image . '" alt="' . $product->product_image . '" width="150" style="border: 1px solid #6ac5fe; margin-right: 400px;">';
+                    }
+                    ?>
                 </div>
             </div>
 
@@ -147,7 +161,6 @@
 
         </form>
     </div>
-
 
     <?php include_once __DIR__ . "/../../footer.html"; ?>
 

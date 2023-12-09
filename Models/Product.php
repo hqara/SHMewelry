@@ -259,8 +259,6 @@ public static function create() {
     return false;
 }
 
-
-
 public static function update() {
     global $conn;
 
@@ -279,18 +277,44 @@ public static function update() {
             $type = $_POST['type'];
             $size = $_POST['size'];
             $stock = $_POST['stock'];
-            $product_image = $_POST['product_image'];
+
+            // Check if a new file has been uploaded
+            if (!empty($_FILES["product_image"]["name"])) {
+                // File upload handling
+                $targetDirectory = __DIR__ . "/../assets/images/";
+                $targetFile = $targetDirectory . basename($_FILES["product_image"]["name"]);
+
+                // Check file type and move the file
+                $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+                $allowedExtensions = array("jpg", "jpeg", "png");
+
+                if (in_array($imageFileType, $allowedExtensions)) {
+                    if (!move_uploaded_file($_FILES["product_image"]["tmp_name"], $targetFile)) {
+                        // File upload failed
+                        die('Error uploading file.');
+                    }
+                } else {
+                    // Invalid file type
+                    die('Invalid file type. Only JPG, JPEG, and PNG files are allowed.');
+                }
+
+                // Update the product with the new image file
+                $product_image = basename($targetFile);
+            } else {
+                // Keep the existing product image if no new file is uploaded
+                $product_image = $_POST['product_image'];
+            }
 
             // Prepare and execute the SQL update statement
             $sql = 'UPDATE PRODUCT SET NAME = ?, DESCRIPTION = ?, PRICE = ?, MANUFACTURER = ?, COLOR = ?, MATERIAL = ?, TYPE = ?, SIZE = ?, STOCK = ?, PRODUCT_IMAGE = ? WHERE PRODUCT_ID = ?';
             $stmt = $conn->prepare($sql);
-            
+
             // Check if the prepare statement was successful
             if (!$stmt) {
                 // Handle the case when the prepare statement fails
                 return 0;
             }
-            
+
             $stmt->bind_param('ssdsssssisi', $name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image, $product_id);
             $stmt->execute();
 
@@ -300,7 +324,7 @@ public static function update() {
 
                 // Close the statement
                 $stmt->close();
-                
+
                 return 0;
             }
 
@@ -317,59 +341,59 @@ public static function update() {
 }
 
 
-public static function delete() {
-    global $conn;
+    public static function delete() {
+        global $conn;
 
-    if (isset($_POST['delete'])) {
-        // Get product_id from the POST data
-        $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : null;
+        if (isset($_POST['delete'])) {
+         // Get product_id from the POST data
+            $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : null;
 
-        // Validate $product_id (ensure it's a positive integer, for example)
+            // Validate $product_id (ensure it's a positive integer, for example)
 
-        // Get the file name associated with the product_id
-        $sql = 'SELECT PRODUCT_IMAGE FROM PRODUCT WHERE PRODUCT_ID = ?';
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('i', $product_id);
-        $stmt->execute();
-        $stmt->bind_result($product_image);
+            // Get the file name associated with the product_id
+            $sql = 'SELECT PRODUCT_IMAGE FROM PRODUCT WHERE PRODUCT_ID = ?';
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('i', $product_id);
+            $stmt->execute();
+            $stmt->bind_result($product_image);
 
-        // Fetch the result
-        $stmt->fetch();
+            // Fetch the result
+            $stmt->fetch();
 
-        // Close the statement
-        $stmt->close();
+            // Close the statement
+            $stmt->close();
 
-        // Delete the product from the database
-        $sql = 'DELETE FROM PRODUCT WHERE PRODUCT_ID = ?';
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param('i', $product_id);
-        $stmt->execute();
+            // Delete the product from the database
+            $sql = 'DELETE FROM PRODUCT WHERE PRODUCT_ID = ?';
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('i', $product_id);
+            $stmt->execute();
 
-        // Check for errors in executing the statement
-        if ($stmt->error) {
-            // Handle the error (e.g., display an error message or redirect to an error page)
-            die('Error executing statement: ' . $stmt->error);
+            // Check for errors in executing the statement
+            if ($stmt->error) {
+                // Handle the error (e.g., display an error message or redirect to an error page)
+                die('Error executing statement: ' . $stmt->error);
+            }
+
+            // Close the statement
+            $stmt->close();
+
+            // Delete the associated image file
+            $targetDirectory = __DIR__ . "/../assets/images/";
+            $targetFile = $targetDirectory . $product_image;
+
+            if (file_exists($targetFile)) {
+                unlink($targetFile);
+            }
+
+            // Redirect 
+            header("Location: index.php?controller=product&action=list");
+            exit();
         }
 
-        // Close the statement
-        $stmt->close();
-
-        // Delete the associated image file
-        $targetDirectory = __DIR__ . "/../assets/images/";
-        $targetFile = $targetDirectory . $product_image;
-
-        if (file_exists($targetFile)) {
-            unlink($targetFile);
-        }
-
-        // Redirect 
-        header("Location: index.php?controller=product&action=list");
-        exit();
+        // Handle the case when 'delete' key is not set
+        return 0;
     }
-
-    // Return false if the 'delete' key is not present in the $_POST array
-    return 0;
-}
 
 }
 

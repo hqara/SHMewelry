@@ -14,6 +14,13 @@
 </header>
     <div class="container my-5">
         <h1 class="py-2">MANAGE USERS AND PERMISSIONS</h1>
+
+        </br>
+        <form method="post" action="index.php?controller=user&action=add">
+            <button type="submit" class="btn btn-primary" name="add">CREATE NEW USER ACCOUNT</button>
+        </form>
+        </br>
+        
         <table class="table">
             <thead>
                 <tr>
@@ -62,10 +69,6 @@
                 ?>
             </tbody>
         </table>
-
-        <form method="post" action="index.php?controller=user&action=add">
-            <button type="submit" class="btn btn-primary" name="add">CREATE NEW USER ACCOUNT</button>
-        </form>
     </div>
     <footer>
         <?php include_once __DIR__ . "/../../footer.html"; ?>

@@ -328,7 +328,7 @@ INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TY
     ('Monarchy Collection Earring', 'Charming royal-themed earring', 499.99, 'GlamourGems', 'Clear', 'Rosegold', 'Earring', 'one-size', 100, 'earring18.jpg'),                  -- 23
     ('Celestial Collection Ring', 'Elegant Moon ring with diamonds', 999.99, 'DiamondCrafters', 'Blue', 'Silver', 'Ring', 'one-size', 60, 'ring19.jpg'),                        -- 24
     ('Monarchy Collection Bracelet', 'Royal-themed bracelet with gems', 699.99, 'GemArtisans', 'Clear', 'Gold', 'Bracelet', 'one-size', 35, 'bracelet20.jpg'),                  -- 25
-    ('Industrial Collection Ring', 'Robust industrial-themed ring', 599.99, 'SilverCrafters', 'Clear', 'Silver', 'Ring', 'one-size', 70, 'ring41.jpg'),                         -- 26
+    ('Industrial Collection Ring', 'Robust industrial-themed ring', 599.99, 'SilverCrafters', 'Clear', 'Silver', 'Ring', 'one-size', 70, 'ring3.jpg'),                          -- 26
     ('Industrial Collection Bracelet', 'Modern industrial-themed bracelet', 344.99, 'MetalWorks', 'Rose', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),            -- 27
     ('Nature Collection Necklace', 'Nature tree-themed necklace', 744.99, 'NatureMotif', 'Clear', 'Silver', 'Necklace', 'one-size', 30, 'necklace43.jpg'),                      -- 28
     ('Nature Collection Earring', 'Nature floral-themed earring', 299.99, 'NatureMotif', 'Pink', 'RoseGold', 'Earring', 'one-size', 100, 'earring44.jpg'),                      -- 29
@@ -354,7 +354,7 @@ INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TY
     ('Spear Collection Necklace', 'Elegant double-circle necklace', 84.99, 'CombatJewels', 'Golden', 'Silver', 'Necklace', 'one-size', 10, 'necklace39.jpg'),                   -- 49
     ('Spear Collection Earring', 'Sleek diamond-shaped earring', 27.99, 'LuxuryGems', 'Clear', 'Silver', 'Earring', 'one-size', 120, 'earring40.jpg'),                          -- 50
     ('Heart Collection Ring', 'Double heart-themed ring', 599.99, 'HeartJewels', 'Clear', 'Silver', 'Ring', 'one-size', 70, 'ring41.jpg'),                                      -- 51 
-    ('Heart Collection Bracelet', 'Double heart-themed bracelet', 394.99, 'MetalWorks', 'Rose', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet42.jpg'),                      -- 52
+    ('Heart Collection Bracelet', 'Double heart-themed bracelet', 394.99, 'MetalWorks', 'Rose', 'RoseGold', 'Bracelet', 'one-size', 50, 'bracelet3.jpg'),                       -- 52
     ('Industrial Collection Necklace', 'Star industrial-themed necklace', 794.99, 'TechStyle', 'Clear', 'Silver', 'Necklace', 'one-size', 30, 'necklace45.jpg'),                -- 53
     ('Industrial Collection Earring', 'Innovative industrial-themed earring', 299.99, 'InnovateDesigns', 'Sapphire', 'Silver', 'Earring', 'one-size', 100, 'earring41.jpg'),    -- 54
     ('Industrial Collection Ring', 'Durable industrial-themed ring', 699.99, 'MetalMasters', 'Green', 'Silver', 'Ring', 'one-size', 60, 'ring42.jpg'),                          -- 55

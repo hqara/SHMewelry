@@ -39,7 +39,7 @@
                                 $product = $data[0]; // Assuming you want the first product from the array
                                 ?>
                         <div class="pro-img-details">
-                            <img src="assets/images/<?php echo $product['PRODUCT_IMAGE']; ?>" alt="<?php echo $product['PRODUCT_IMAGE']; ?>">
+                            <img src="assets/images/<?php echo $product['PRODUCT_IMAGE']; ?>" alt="<?php echo $product['PRODUCT_IMAGE'];?>">
                         </div>
                     </div>
                     <div class="col-md-6">
