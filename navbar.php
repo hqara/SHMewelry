@@ -23,7 +23,7 @@ var_dump($_SESSION);
         <div class="header-container">
             <div class="left-box">
                 <h1>
-                    <a style="text-decoration: none; color: black; padding: 10px; text-align: center; font-family: 'Lucida Handwriting', Times, serif; font-weight: bold;" href="index.php?controller=home&action=index">
+                    <a style="text-decoration: none; color: #4a8bb4; padding: 10px; text-align: center; font-family: 'Lucida Handwriting', Times, serif; font-weight: bold;" href="index.php?controller=home&action=index">
                         SHMewelry
                     </a>
                 </h1>

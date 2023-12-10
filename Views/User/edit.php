@@ -31,35 +31,35 @@
             </p>
         </div>
 
-        <h1 class="py-2">Grant User Permissions</h1>
+        <h1 class="py-2" style="padding:10px;">Grant User Permissions</h1>
         <form method="post" action="index.php?controller=user&action=update">
             <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>">
             <input type="hidden" name="group_id" value="<?php echo $user->group_id; ?>">
 
-            <div class="form-group row justify-content-center">
-                <label for="group_id" class="col-sm-2 col-form-label text-left">User ID:</label>
+            <div class="form-group row justify-content-center" style="display:flex; justify-content: center;" >
+                <label for="group_id" class="col-sm-2 col-form-label text-left">User ID</label>
                 <div class="col-sm-4">
                     <label><?php echo $user->user_id; ?></label>
                 </div>
             </div>
 
-            <div class="form-group row justify-content-center">
-                <label for="group_id" class="col-sm-2 col-form-label text-left">Full Name:</label>
+            <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">
+                <label for="group_id" class="col-sm-2 col-form-label text-left">Full Name</label>
                 <div class="col-sm-4">
                     <label><?php echo $user->fname; ?> <?php echo $user->lname; ?></label>
                 </div>
             </div>
 
-            <div class="form-group row justify-content-center">
-                <label for="group_id" class="col-sm-2 col-form-label text-left">Group ID:</label>
+            <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">
+                <label for="group_id" class="col-sm-2 col-form-label text-left">Group ID</label>
                 <div class="col-sm-4">
                     <label><?php echo $user->group_id; ?></label>
                 </div>
             </div>
 
             <!-- Group Dropdown -->
-            <div class="form-group row justify-content-center">
-                <label for="group_id" class="col-sm-2 col-form-label text-left">Role:</label>
+            <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">
+                <label for="group_id" class="col-sm-2 col-form-label text-left">Role</label>
                 <div class="col-sm-4">
                     <select id="group_id" name="group_id" required class="form-control">
                         <?php
@@ -89,10 +89,18 @@
                 </div>
             </div>
 
-            <div class="form-group row justify-content-center">
+            <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">
                 <div class="col-sm-6">
-                    <button type="submit" class="btn btn-primary" name="update">UPDATE</button>
-                    <button type="button" class="btn btn-primary" name="back" onclick="window.history.back();">GO BACK</button>
+                    <table>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-primary" style="display: flex; justify-content: flex-start;margin-left: 50px;" name="back" onclick="window.history.back();">GO BACK</button>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-primary"  name="update">UPDATE</button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </form>
