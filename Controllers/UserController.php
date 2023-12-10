@@ -19,6 +19,8 @@ class UserController extends Controller {
             $this->render("User", $action, $users);
         } else if ($action == "create" || $action == "update" || $action == "delete") {
             $result = $userModel->$action();
+        } else if ($action == "updateEmail" || $action == "updatePassword") {
+            $result = $this->handleUpdateAction($userModel);
         } else if ($action == "add") {
             $this->render("User", $action, array());
         } else {
@@ -26,7 +28,16 @@ class UserController extends Controller {
             $this->render("User", $action, array('user' => $user));
         }
     }
+
+    
+    private function handleUpdateAction($userModel) {
+        if (isset($_POST['updateEmail'])) {
+            return $userModel->updateEmail();
+        } elseif (isset($_POST['updatePassword'])) {
+            return $userModel->updatePassword();
+        }
+
+        return false;
+    }
 }
 ?>
-
-

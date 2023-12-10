@@ -115,59 +115,60 @@ class Orders {
 
     public static function view() {
         global $conn;
-    
+
         if (isset($_POST['view'])) {   
             // Get order_id from the POST data       
             $orderId = isset($_POST['order_id']) ? $_POST['order_id'] : null;
-            
+
             // Validate $orderId (ensure it's a positive integer, for example)
-    
-            // Prepare and execute the SQL query
+
             $sql = 'SELECT 
-                ORDER_PRODUCTS.QTY, 
-                PRODUCT.PRICE, 
-                PRODUCT.NAME, 
-                PRODUCT.SIZE, 
-                PRODUCT.MATERIAL, 
-                PRODUCT.TYPE, 
-                PRODUCT.COLOR,
-                USER.FNAME,
-                USER.LNAME,
-                USER.EMAIL,
-                ADDRESS.STREET_ADDRESS,
-                ADDRESS.CITY,
-                ADDRESS.PROVINCE,
-                ADDRESS.POSTAL_CODE,
-                ADDRESS.COUNTRY,
-                ORDERS.TOTAL_PRICE
-            FROM 
-                ORDER_PRODUCTS
-            JOIN 
-                PRODUCT ON ORDER_PRODUCTS.PRODUCT_ID = PRODUCT.PRODUCT_ID
-            JOIN
-                ORDERS ON ORDER_PRODUCTS.ORDER_ID = ORDERS.ORDER_ID
-            JOIN
-                USER ON ORDERS.USER_ID = USER.USER_ID
-            JOIN
-                ADDRESS ON USER.USER_ID = ADDRESS.USER_ID
-            WHERE 
-                ORDER_PRODUCTS.ORDER_ID = ?';
+            ORDER_PRODUCTS.QTY, 
+            PRODUCT.PRICE, 
+            PRODUCT.NAME, 
+            PRODUCT.SIZE, 
+            PRODUCT.MATERIAL, 
+            PRODUCT.TYPE, 
+            PRODUCT.COLOR,
+            USER.FNAME,
+            USER.LNAME,
+            USER.EMAIL,
+            ADDRESS.STREET_ADDRESS,
+            ADDRESS.CITY,
+            ADDRESS.PROVINCE,
+            ADDRESS.POSTAL_CODE,
+            ADDRESS.COUNTRY,
+            ORDERS.ORDER_ID,
+            ORDERS.TOTAL_PRICE
+        FROM 
+            ORDERS
+        JOIN 
+            USER ON ORDERS.USER_ID = USER.USER_ID
+        JOIN
+            ADDRESS ON USER.USER_ID = ADDRESS.USER_ID
+        JOIN
+            ORDER_PRODUCTS ON ORDERS.ORDER_ID = ORDER_PRODUCTS.ORDER_ID
+        JOIN
+            PRODUCT ON ORDER_PRODUCTS.PRODUCT_ID = PRODUCT.PRODUCT_ID
+        WHERE 
+            ORDER_PRODUCTS.ORDER_ID = ?';
         
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param('i', $orderId);
-            $stmt->execute();
-            $result = $stmt->get_result();
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $orderId);
+        $stmt->execute();
+        $result = $stmt->get_result();
         
-            // Fetch the result
-            $data = $result->fetch_all(MYSQLI_ASSOC);
-    
+        // Fetch the result
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+
             // Return the fetched data
             return $data;
         }
-    
+
         // Return false if no data is fetched
         return 0;
     }
+
     
    
 

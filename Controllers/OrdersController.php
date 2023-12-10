@@ -16,7 +16,11 @@ class OrdersController extends Controller {
 
         if ($action == "list" || $action == "view") {
             $orders = Orders::$action();
-            $this->render("Orders", $action, $orders);
+            if (!empty($orders)) {
+                $this->render("Orders", $action, $orders);
+            } else {
+                $this->render("Orders", $action, array());
+            }
         } else if ($action == "create" || $action == "update" || $action == "delete") {
             $result = $orderModel->$action();
         } else if ($action == "add") {

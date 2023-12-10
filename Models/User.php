@@ -291,6 +291,101 @@ class User {
         // Handle the case when 'update' key is not set or required keys are not present
         return 0;
     }    
+
+    
+    public static function updateEmail() {
+        global $conn;
+    
+        // Check if the 'updateEmail' key is set in the POST data
+        if (isset($_POST['updateEmail'])) {
+            // Check if 'user_id' and 'emailInput' keys are set
+            if (isset($_POST['user_id'], $_POST['emailInput'])) {
+                // Get form data
+                $user_id = $_POST['user_id'];
+                $new_email = $_POST['emailInput'];
+    
+                // Prepare and execute the SQL update statement
+                $sql = 'UPDATE USER SET EMAIL = ? WHERE USER_ID = ?';
+                $stmt = $conn->prepare($sql);
+    
+                // Check if the prepare statement was successful
+                if (!$stmt) {
+                    // Handle the case when the prepare statement fails
+                    return 0;
+                }
+    
+                $stmt->bind_param('si', $new_email, $user_id);
+                $stmt->execute();
+    
+                // Check for errors during the execution of the SQL statement
+                if ($stmt->errno) {
+                    // Handle the case when an error occurs
+    
+                    // Close the statement
+                    $stmt->close();
+    
+                    return 0;
+                }
+    
+                // Close the statement
+                $stmt->close();
+    
+                // Redirect 
+                header("Location: index.php?controller=user&action=list");
+                exit();
+            }
+        }
+    
+        // Handle the case when 'updateEmail' key is not set or required keys are missing
+        return 0;
+    }
+    
+    public static function updatePassword() {
+        global $conn;
+    
+        // Check if the 'updatePassword' key is set in the POST data
+        if (isset($_POST['updatePassword'])) {
+            // Check if 'user_id' and 'passwordInput' keys are set
+            if (isset($_POST['user_id'], $_POST['passwordInput'])) {
+                // Get form data
+                $user_id = $_POST['user_id'];
+                $new_password = password_hash($_POST['passwordInput'], PASSWORD_DEFAULT);
+    
+                // Prepare and execute the SQL update statement
+                $sql = 'UPDATE USER SET PASSWORD = ? WHERE USER_ID = ?';
+                $stmt = $conn->prepare($sql);
+    
+                // Check if the prepare statement was successful
+                if (!$stmt) {
+                    // Handle the case when the prepare statement fails
+                    return 0;
+                }
+    
+                $stmt->bind_param('si', $new_password, $user_id);
+                $stmt->execute();
+    
+                // Check for errors during the execution of the SQL statement
+                if ($stmt->errno) {
+                    // Handle the case when an error occurs
+    
+                    // Close the statement
+                    $stmt->close();
+    
+                    return 0;
+                }
+    
+                // Close the statement
+                $stmt->close();
+    
+                 // Redirect 
+                header("Location: index.php?controller=user&action=read");
+                exit();
+            }
+        }
+    
+        // Handle the case when 'updatePassword' key is not set or required keys are missing
+        return 0;
+    }
     
     public static function delete() {
         global $conn;
