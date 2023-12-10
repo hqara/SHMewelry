@@ -4,13 +4,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+   
+    <!-- Bootstrap CSS -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="CSS/shared.css">
 </head>
 <body>
-</header>
+
     <?php include_once __DIR__ . "/../../navbar.php"; ?>
-</header>
+
     <div class="container my-5">
         <?php
         
@@ -127,10 +132,8 @@
         }
         ?>
     </div>
+    
+    <?php include_once __DIR__ . "/../../footer.html"; ?>
 
-    <footer>
-        <?php include_once __DIR__ . "/../../footer.html"; ?>
-    </footer>
 </body>
-
 </html>

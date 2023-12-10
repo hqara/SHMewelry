@@ -3,15 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-</header>
+
     <?php include_once __DIR__ . "/../../navbar.php"; ?>
-</header>
     <div class="container my-5">
         <h1 class="py-2">MANAGE USERS AND PERMISSIONS</h1>
 
@@ -20,7 +19,7 @@
             <button type="submit" class="btn btn-primary" name="add">CREATE NEW USER ACCOUNT</button>
         </form>
         </br>
-        
+
         <table class="table">
             <thead>
                 <tr>

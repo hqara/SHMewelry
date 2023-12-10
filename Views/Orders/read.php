@@ -4,16 +4,19 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <!-- Bootstrap -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="CSS/shared.css">
 </head>
 
 <body class="justify-content-start">
-</header>
+    
     <?php include_once __DIR__ . "/../../navbar.php"; ?>
-</header>
+
     <div class="container my-5">
         <h1 class="py-2 text-center mx-auto">Thank You for Your Order!</h1>
         <h2 class="py-2 text-center mx-auto">Your Order has been Confirmed</h2>
@@ -43,9 +46,8 @@
         ?>
     </div>
 
-    <footer>
-        <?php include_once __DIR__ . "/../../footer.html"; ?>
-    </footer>
+    <?php include_once __DIR__ . "/../../footer.html"; ?>
+
 </body>
 
 </html>

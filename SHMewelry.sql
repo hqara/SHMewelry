@@ -181,7 +181,11 @@ INSERT INTO RIGHTS (ACTION_NAME, CLASS_NAME) VALUES
     ('list', 'orders'),     -- RIGHTS_ID = 38
     ('save', 'orders'),     -- RIGHTS_ID = 39
     ('remove', 'orders'),   -- RIGHTS_ID = 40
-    ('search', 'product');  -- RIGHTS_ID = 41
+    ('search', 'product'),  -- RIGHTS_ID = 41
+    ('shop', 'user'),       -- RIGHTS_ID = 42
+    ('cart', 'user'),       -- RIGHTS_ID = 43
+    ('checkout', 'user'),   -- RIGHTS_ID = 44
+    ('clear', 'user');      -- RIGHTS_ID = 45
 
 -- Insert values into the GROUP_RIGHTS table
 
@@ -216,7 +220,8 @@ INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
     (3, 36), -- Edit Orders
     (3, 37), -- View Orders
     (3, 38), -- List Orders
-    (3, 40); -- Remove Orders
+    (3, 40), -- Remove Orders
+    (3, 41); -- Search Products 
 
 -- MODERATOR (ID=2) rights
 INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
@@ -244,7 +249,8 @@ INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
     (2, 36), -- Edit Orders
     (2, 37), -- View Orders
     (2, 38), -- List Orders
-    (2, 40); -- Remove Orders
+    (2, 40), -- Remove Orders
+    (2, 41); -- Search Products 
 
 -- CLIENT (ID=1) rights
 INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
@@ -273,7 +279,12 @@ INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
     (1, 35),  -- Add Orders
     (1, 37),  -- View Orders
     (1, 38),  -- List Orders
-    (1, 40);  -- Remove Orders
+    (1, 40),  -- Remove Orders
+    (1, 41),  -- Search Products 
+    (1, 42),  -- Shop User
+    (1, 43),  -- Cart User
+    (1, 44),  -- CheckOut User
+    (1, 45);  -- Clear User
 
 -- Insert values into the USER table (sample data using MD5 hash function for password)
 INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES

@@ -96,7 +96,33 @@ public static function list() {
     return $result->fetch_all(MYSQLI_ASSOC);
 }
 
-//MISSING SEARCH FUNCTION FOR SEARCH BAR
+
+public static function search() {
+    global $conn;
+
+    $lookupTerm = isset($_POST['lookup']) ? $_POST['lookup'] : '';
+    if (!empty($lookupTerm)) {
+        $sql = "SELECT * FROM `product` WHERE `name` LIKE ?";
+        
+        $stmt = $conn->prepare($sql);
+        $lookupTerm = "%$lookupTerm%";
+        $stmt->bind_param('s', $lookupTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        if ($result->num_rows > 0) {
+            $rows = array();
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+
+            return $rows;
+        }
+    }
+
+    return null;
+}
 
 public static function view(){
     global $conn;

@@ -6,13 +6,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="CSS/shared.css">
 </head>
 
 <body>
-    <header>
-        <?php include_once __DIR__ . "/../../navbar.php"; ?>
-    </header>
+    <?php include_once __DIR__ . "/../../navbar.php"; ?>
 
     <div class="container my-5 text-center">
         <h1 class="py-2">Create New User</h1>
@@ -82,10 +83,8 @@
         });
     </script>
 
-    <footer>
-        <?php include_once __DIR__ . "/../../footer.html"; ?>
-    </footer>
+
+     <?php include_once __DIR__ . "/../../footer.html"; ?>
 
 </body>
-
 </html>

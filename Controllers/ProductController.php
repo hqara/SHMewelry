@@ -14,7 +14,7 @@ class ProductController extends Controller {
         // Initialize the Product model
         $productModel = new Product();
 
-        if ($action == "list" || $action == "view" || $action == "read") {
+        if ($action == "list" || $action == "view" || $action == "read" || $action == "search") {
             $products = $productModel->$action();
             if (!empty($products)) {
                 $this->render("Product", $action, $products);

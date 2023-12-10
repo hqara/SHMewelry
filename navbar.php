@@ -9,9 +9,10 @@ var_dump($_SESSION);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="CSS/style.css">
     <link rel="stylesheet" href="CSS/shared.css">
     <title>SHMewelry</title>
@@ -21,25 +22,44 @@ var_dump($_SESSION);
     <header>
         <div class="header-container">
             <div class="left-box">
-                <h1><a class="logo" href="index.php?controller=home&action=index">SHMewelry</a></h1>
+                <h1>
+                    <a style="text-decoration: none; color: black; padding: 10px; text-align: center; font-family: 'Lucida Handwriting', Times, serif; font-weight: bold;" href="index.php?controller=home&action=index">
+                        SHMewelry
+                    </a>
+                </h1>
             </div>
             <div class="right-box">
                 <table>
                     <tr>
+                        <script>
+                            function updateAction() {
+                                var lookupValue = document.getElementById('lookup').value;
+                                var form = document.getElementById('searchForm');
+                                form.action = 'index.php?controller=product&action=search&query=' + encodeURIComponent(lookupValue);
+                            }
+                        </script>
+
+                        <form id="searchForm" onsubmit="updateAction()" method="post">
+                            <td>
+                                <input type="text" name="lookup" id="lookup" value="" placeholder="Search">
+                            </td>
+                            <td>
+                                <button type="submit" name="search" class="searchIcon"><i class="fa fa-search"></i></button>
+                            </td>
+                        </form>
+
                         <td>
-                            <input type="text" name="searchQuery" placeholder="Search">
-                        </td>
-                        <td>
-                            <button type="submit" class="searchIcon"><i class="fa fa-search"></i></button>
-                        </td>
-                        <td>
-                            <button name="cartButton" <?php echo $isLoggedIn ? '' : 'disabled'; ?>><i class="fa fa-shopping-cart"></i></button>
+                            <button name="cartButton" <?php echo $isLoggedIn ? 'onclick="redirectToCart()"' : 'disabled'; ?>><i class="fa fa-shopping-cart"></i></button>
                         </td>
                         <td class="dropdown profile-dropdown">
                             <button name="profileButton" id="profileButton" <?php echo $isLoggedIn ? 'onclick="redirectToProfile()"' : 'onclick="openLoginPage()"'; ?>>
                                 <i class="fa fa-user-circle"></i>
                             </button>
                             <script>
+                                function redirectToCart() {
+                                    window.location.href = 'index.php?controller=user&action=cart';
+                                }
+
                                 function redirectToProfile() {
                                     window.location.href = 'index.php?controller=login&action=login';
                                 }
@@ -62,8 +82,8 @@ var_dump($_SESSION);
             </div>
         </div>
     </header>
-<nav>
-<table>
+    <nav>
+        <table>
             <tr>
                 <td><a class="dropdown-home" href="index.php?controller=home&action=index">Home</a></td>
                 <td class="dropdown">
@@ -146,11 +166,11 @@ var_dump($_SESSION);
         </table>
     </nav>
 
+    <section>
 
-<section>
-
-</section>
-<br>
-<br>
+    </section>
+    <br>
+    <br>
 </body>
+
 </html>
