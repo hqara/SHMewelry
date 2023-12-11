@@ -14,7 +14,7 @@ class UserController extends Controller {
         // Initialize the User model
         $userModel = new User();
 
-        if ($action == "list" || $action == "read") {
+        if ($action == "list" || $action == "read" || $action == "cart") {
             $users = User::$action();
             $this->render("User", $action, $users);
         } else if ($action == "create" || $action == "update" || $action == "delete") {

@@ -21,6 +21,7 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/shared.css">
+    <link rel="stylesheet" href="CSS/quantity.css">
 </head>
 
 <body>
@@ -39,47 +40,57 @@
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <img src="assets/images/ring1.jpg" alt="ring1.jpg" width="150" style="border: 1px solid #6ac5fe;">
-                    </td>
-                    <td>
-                        <p style="margin-top: 10px;">
-                            Item Name<br>
-                            Size<br>
-                            Material<br>
-                            Type<br>
-                            Color<br>
-                            Manufacturer
-                        </p>
-                    </td>
-                    <td><p style="margin-top:25px;">$19.99</p></td>
-                    <td>
-                        <div class="input-group number-spinner" style="width:25%;margin-top:20px;">
-                            <span class="input-group-btn data-dwn">
-                                <button class="btn btn-default btn-info" data-dir="dwn">
-                                    <span class="glyphicon glyphicon-minus"></span>
-                                </button>
-                            </span>
-                            <input type="text" class="form-control text-center" style="width:100px;" value="1" min="1" max="10" name="quantity" id="quantity">
-                            <span class="input-group-btn data-up">
-                                <button class="btn btn-default btn-info" data-dir="up">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </td>
-                    <td>
-                        <button name="remove" style="margin-top:20px;" class="btn btn-danger btn-sm">Remove</button>
-                    </td>
-                </tr>
-                <!-- Add more rows for other products [TO BE ADJUSTED LATER ] -->
-            </tbody>
+            <?php
+                // fetching from the 'cart' action
+                if (isset($data) && is_array($data) && !empty($data)) {
+                    $items = $data; 
+                }
+
+                foreach ($items as $item)
+                {
+                    echo <<<ECHO
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="assets/images/{$item["PRODUCT_IMAGE"]}" alt="ring1.jpg" width="150" style="border: 1px solid #6ac5fe;">
+                                </td>
+                                <td>
+                                    <p style="margin-top: 10px;">
+                                        {$item["NAME"]}<br>
+                                        {$item["SIZE"]}<br>
+                                        {$item["MATERIAL"]}<br>
+                                        {$item["TYPE"]}<br>
+                                        {$item["COLOR"]}<br>
+                                        {$item["MANUFACTURER"]}
+                                    </p>
+                                </td>
+                                <td><p style="margin-top:25px;">\${$item["PRICE"]}</p></td>
+                                <td>
+                                    <div class="input-group number-spinner" style="width:25%;margin-top:20px;">
+                                        <span class="input-group-btn data-dwn">
+                                            <button class="btn btn-default btn-info" data-dir="dwn">
+                                                <span class="glyphicon glyphicon-minus"></span>
+                                            </button>
+                                        </span>
+                                        <input type="number" class="form-control text-center" style="width:100px;" value="1" min="1" max="10" name="quantity" id="quantity">
+                                        <span class="input-group-btn data-up">
+                                            <button class="btn btn-default btn-info" data-dir="up">
+                                                <span class="glyphicon glyphicon-plus"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button name="remove" style="margin-top:20px;" class="btn btn-danger btn-sm">Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    ECHO;
+                }
+            ?>
         </table>
-        
+                    
         <h4 class="text-right">Total: $39.98</h4>
-        
         <div class="row">
             <div class="col-md-6">
                 <button name="clear" class="btn btn-primary" style="margin-bottom:50px;">Clear Cart</button>

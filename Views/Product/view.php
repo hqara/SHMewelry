@@ -23,6 +23,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/product_detail.css">
     <link rel="stylesheet" href="CSS/shared.css">
+    <link rel="stylesheet" href="CSS/quantity.css">
 </head>
 
 <body>
@@ -33,24 +34,33 @@
             <section class="panel">
                 <div class="panel-body">
                     <div class="col-md-6">
-                    <?php
-                            // Check if $data is defined and not empty
-                            if (isset($data) && is_array($data) && !empty($data)) {
-                                $product = $data[0]; // Assuming you want the first product from the array
-                                ?>
-                        <div class="pro-img-details">
-                            <img src="assets/images/<?php echo $product['PRODUCT_IMAGE']; ?>" alt="<?php echo $product['PRODUCT_IMAGE'];?>">
+                        <?php
+                        // Check if $data is defined and not empty
+                        if (isset($data) && is_array($data) && !empty($data)) {
+                            $product = $data[0]; // Assuming you want the first product from the array
+                        ?>
+                            <div class="pro-img-details">
+                                <img src="assets/images/<?php echo $product['PRODUCT_IMAGE']; ?>"
+                                    alt="<?php echo $product['PRODUCT_IMAGE']; ?>">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h4 class="pro-d-title">
-                                <h2><strong><?php echo $product['NAME']; ?></strong></h2>
-                                <h3>$<?php echo $product['PRICE']; ?></h3>
+                        <div class="col-md-6">
+                            <h4 class="pro-d-title">
+                                <h2><strong>
+                                        <?php echo $product['NAME']; ?>
+                                    </strong></h2>
+                                <h3>$
+                                    <?php echo $product['PRICE']; ?>
+                                </h3>
                             <?php } ?>
                         </h4>
                         <hr>
-                        <h4><strong><?php echo $product['SIZE']; ?></strong></h4>
-                        <p><?php echo $product['DESCRIPTION']; ?></p>
+                        <h4><strong>
+                                <?php echo $product['SIZE']; ?>
+                            </strong></h4>
+                        <p>
+                            <?php echo $product['DESCRIPTION']; ?>
+                        </p>
                         <div class="product_meta">
 
                             <span class="posted_in">
@@ -60,14 +70,16 @@
 
                             <span class="posted_in">
                                 <strong>Material:</strong>
-                                <?php if (isset($product['MATERIAL'])) : ?>
-                                    <a rel="tag" href="index.php?controller=product&action=read&material=<?php echo $product['MATERIAL']; ?>&type=<?php echo $product['TYPE']; ?>"><?php echo $product['MATERIAL']; ?></a>
+                                <?php if (isset($product['MATERIAL'])): ?>
+                                    <a rel="tag"
+                                        href="index.php?controller=product&action=read&material=<?php echo $product['MATERIAL']; ?>&type=<?php echo $product['TYPE']; ?>"><?php echo $product['MATERIAL']; ?></a>
                                 <?php endif; ?>
                             </span>
                             <span class="posted_in">
                                 <strong>Type:</strong>
-                                <?php if (isset($product['TYPE'])) : ?>
-                                    <a rel="tag" href="index.php?controller=product&action=read&type=<?php echo $product['TYPE']; ?>"><?php echo $product['TYPE']; ?></a>
+                                <?php if (isset($product['TYPE'])): ?>
+                                    <a rel="tag"
+                                        href="index.php?controller=product&action=read&type=<?php echo $product['TYPE']; ?>"><?php echo $product['TYPE']; ?></a>
                                 <?php endif; ?>
                             </span>
 
@@ -77,29 +89,34 @@
                             </span>
                         </div>
 
-                        <div class="form-group center-content">
-                            <div class="tor">
-                                <label for="quantity">Quantity</label>
-                                <div class="container">
-                                    <div class="col-xs-3 col-xs-offset-3">
-                                        <div class="input-group number-spinner">
-                                            <span class="input-group-btn data-dwn">
-                                                <button class="btn btn-default btn-info" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                            </span>
-                                            <input type="text" class="form-control text-center" value="1" min="1" max="10" name="quantity" id="quantity">
-                                            <span class="input-group-btn data-up">
-                                                <button class="btn btn-default btn-info" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                            </span>
+                        <form action="index.php?controller=product&action=bag&id=<?php echo $_GET['id']; ?>" method="post">
+                            <div class="form-group center-content">
+                                <div class="tor">
+                                    <label for="quantity">Quantity</label>
+                                    <div class="container">
+                                        <div class="col-xs-3 col-xs-offset-3">
+                                            <div class="input-group number-spinner">
+                                                <span class="input-group-btn data-dwn">
+                                                    <button type="button" class="btn btn-default btn-info" data-dir="dwn"><span
+                                                            class="glyphicon glyphicon-minus"></span></button>
+                                                </span>
+                                                <input type="number" class="form-control text-center" value="1" min="1"
+                                                    max="10" name="quantity" id="quantity">
+                                                <span class="input-group-btn data-up">
+                                                    <button type="button" class="btn btn-default btn-info" data-dir="up"><span
+                                                            class="glyphicon glyphicon-plus"></span></button>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <p>
-                            <button class="btn btn-round btn-danger" type="button">
-                                <i class="fa fa-shopping-cart"></i> Add to Cart
-                            </button>
-                        </p>
+                            <p>
+                                <button class="btn btn-round btn-danger" type="submit" name="addToCartBtn">
+                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </section>

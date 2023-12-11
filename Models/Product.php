@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 include_once(__DIR__ . '/../db_connection.php');
 
-class Product {
+class Product
+{
     public $product_id;
     public $name;
     public $description;
@@ -15,7 +16,8 @@ class Product {
     public $stock;
     public $product_image;
 
-    function __construct($id = -1) {
+    function __construct($id = -1)
+    {
         global $conn;
 
         if ($id > 0) {
@@ -86,7 +88,8 @@ class Product {
         }
     }
 
-    public static function list() {
+    public static function list()
+    {
         global $conn;
         $sql = 'SELECT * FROM `PRODUCT`';
         $stmt = $conn->prepare($sql);
@@ -95,13 +98,14 @@ class Product {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public static function search() {
+    public static function search()
+    {
         global $conn;
 
         $lookupTerm = isset($_POST['lookup']) ? $_POST['lookup'] : '';
         if (!empty($lookupTerm)) {
             $sql = "SELECT * FROM `product` WHERE `name` LIKE ?";
-            
+
             $stmt = $conn->prepare($sql);
             $lookupTerm = "%$lookupTerm%";
             $stmt->bind_param('s', $lookupTerm);
@@ -122,7 +126,8 @@ class Product {
         return null;
     }
 
-    public static function view(){
+    public static function view()
+    {
         global $conn;
         $id = isset($_GET['id']) ? $_GET['id'] : -1;
 
@@ -146,7 +151,8 @@ class Product {
         return null;
     }
 
-    public static function read() {
+    public static function read()
+    {
         $row_count = 0;
         $result = array();
 
@@ -155,11 +161,12 @@ class Product {
         } else {
             $result = Product::viewByJewelryType();
         }
-        
+
         return $result;
     }
 
-    private static function viewByJewelryType() {
+    private static function viewByJewelryType()
+    {
         global $conn;
         $type = isset($_GET['type']) ? $_GET['type'] : 'ring';
 
@@ -184,7 +191,8 @@ class Product {
         return null;
     }
 
-    private static function viewByJewelrySubtype() {
+    private static function viewByJewelrySubtype()
+    {
         global $conn;
 
         $type = isset($_GET['type']) ? $_GET['type'] : 'ring';
@@ -211,7 +219,8 @@ class Product {
         return null;
     }
 
-    public static function create() {
+    public static function create()
+    {
         global $conn;
 
         if (isset($_POST['create'])) {
@@ -280,9 +289,10 @@ class Product {
         return false;
     }
 
-    public static function update() {
+    public static function update()
+    {
         global $conn;
-    
+
         // Check if the 'update' key is set in the POST data
         if (isset($_POST['update'])) {
             // Check if 'product_id' key is set
@@ -298,16 +308,16 @@ class Product {
                 $type = $_POST['type'];
                 $size = $_POST['size'];
                 $stock = $_POST['stock'];
-    
+
                 // File upload handling
                 $targetDirectory = __DIR__ . "/../assets/images/";
                 $product_image = $_POST['product_image']; // Initialize with the existing value
-    
+
                 if (!empty($_FILES["product_image"]["name"])) {
                     $targetFile = $targetDirectory . basename($_FILES["product_image"]["name"]);
                     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
                     $allowedExtensions = array("jpg", "jpeg", "png");
-    
+
                     if (in_array($imageFileType, $allowedExtensions)) {
                         if (move_uploaded_file($_FILES["product_image"]["tmp_name"], $targetFile)) {
                             // File uploaded successfully
@@ -321,33 +331,33 @@ class Product {
                         die('Invalid file type. Only JPG, JPEG, and PNG files are allowed.');
                     }
                 }
-    
+
                 // Prepare and execute the SQL update statement
                 $sql = 'UPDATE PRODUCT SET NAME = ?, DESCRIPTION = ?, PRICE = ?, MANUFACTURER = ?, COLOR = ?, MATERIAL = ?, TYPE = ?, SIZE = ?, STOCK = ?, PRODUCT_IMAGE = ? WHERE PRODUCT_ID = ?';
                 $stmt = $conn->prepare($sql);
-    
+
                 // Check if the prepare statement was successful
                 if (!$stmt) {
                     // Handle the case when the prepare statement fails
                     return 0;
                 }
-    
+
                 $stmt->bind_param('ssdsssssisi', $name, $description, $price, $manufacturer, $color, $material, $type, $size, $stock, $product_image, $product_id);
                 $stmt->execute();
-    
+
                 // Check for errors during the execution of the SQL statement
                 if ($stmt->errno) {
                     // Handle the case when an error occurs
-    
+
                     // Close the statement
                     $stmt->close();
-    
+
                     return 0;
                 }
-    
+
                 // Close the statement
                 $stmt->close();
-    
+
                 // Redirect 
                 header("Location: index.php?controller=Product&action=list");
                 exit();
@@ -356,8 +366,9 @@ class Product {
         // Handle the case when 'update' key is not set
         return 0;
     }
-    
-    public static function delete() {
+
+    public static function delete()
+    {
         global $conn;
 
         if (isset($_POST['delete'])) {
@@ -410,6 +421,48 @@ class Product {
         // Handle the case when 'delete' key is not set
         return 0;
     }
-}
 
+    // add an item to the cart
+    public static function bag()
+    {
+        global $conn;
+        $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+        $product = !empty($_GET['id']) ? $_GET['id'] : null;
+
+        if ($user == null || $product == null) {
+            header("Location: 404.php");
+            return;
+        }
+
+        if (isset($_POST['addToCartBtn'])) {
+
+            $qty = $_POST['quantity'];
+            $sql = "INSERT INTO USER_PRODUCT (USER_ID, PRODUCT_ID, QTY) VALUES (?, ?, ?)";
+
+            $stmt = $conn->prepare($sql);
+
+            // Check for errors in preparing the statement
+            if (!$stmt) {
+                die('Error preparing statement: ' . $conn->error);
+            }
+
+            // Bind parameters and execute the statement
+            $stmt->bind_param('iii', $user, $product, $qty);
+            $stmt->execute();
+
+            // Check for errors in executing the statement
+            if ($stmt->error) {
+                // Handle the error (e.g., display an error message or redirect to an error page)
+                die('Error executing statement: ' . $stmt->error);
+            }
+
+            // Close the statement
+            $stmt->close();
+
+            // Redirect to a success page or do other post-creation actions
+            header("Location: index.php?controller=user&action=cart");
+            exit();
+        }
+    }
+}
 ?>

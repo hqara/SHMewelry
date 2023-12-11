@@ -466,6 +466,34 @@ class User {
 
     }
 
+    public static function cart()
+    {
+        global $conn;
+        $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : -1;
+
+        $sql = "SELECT PRODUCT.*
+        FROM PRODUCT
+        JOIN USER_PRODUCT ON PRODUCT.PRODUCT_ID = USER_PRODUCT.PRODUCT_ID
+        WHERE USER_PRODUCT.USER_ID = ?;";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param('i', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        if ($result->num_rows > 0) {
+            $rows = array();
+            while ($row = $result->fetch_assoc()) {
+                $rows[] = $row;
+            }
+
+            return $rows;
+        }
+
+        return null;
+    }
+
     
     /*
         static function list(){

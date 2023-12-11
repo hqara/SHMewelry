@@ -21,7 +21,7 @@ class ProductController extends Controller {
             } else {
                 $this->render("Product", $action, array());
             }
-        } else if ($action == "create" || $action == "update" || $action == "delete") {
+        } else if ($action == "create" || $action == "update" || $action == "delete" || $action == "bag") { // change to other name if necessary
             $result = $productModel->$action();
         } else if ($action == "add") {
             $this->render("Product", $action, array());

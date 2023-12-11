@@ -77,7 +77,6 @@
                     </tr>
                 </table>
             </center>';
-
     }
     ?>
 

@@ -15,7 +15,7 @@ class Controller{
 	}
 
     function render($controller, $action, $data = []) {
-        extract($data);
+        //extract($data);
         $dirString = dirname(__FILE__) . "/../Views/$controller/{$action}.php";
         
         if (file_exists($dirString))
