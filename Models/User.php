@@ -100,6 +100,7 @@ class User {
 
     public static function register() {
 
+        global $conn;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fname = $_POST['fname'];
             $lname = $_POST['lname'];
@@ -137,6 +138,7 @@ class User {
     
     public static function login() {
         $isLoggedIn = false;
+        global $conn;
     
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $username = $_POST['username'];
@@ -466,12 +468,13 @@ class User {
 
     }
 
+    // for passing the cart items corresponding to a user to the cart page
     public static function cart()
     {
         global $conn;
         $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : -1;
 
-        $sql = "SELECT PRODUCT.*
+        $sql = "SELECT PRODUCT.*, USER_PRODUCT.QTY
         FROM PRODUCT
         JOIN USER_PRODUCT ON PRODUCT.PRODUCT_ID = USER_PRODUCT.PRODUCT_ID
         WHERE USER_PRODUCT.USER_ID = ?;";
@@ -487,14 +490,176 @@ class User {
             while ($row = $result->fetch_assoc()) {
                 $rows[] = $row;
             }
-
             return $rows;
         }
-
         return null;
     }
 
+    // add an item to the cart
+    public static function bag()
+    {
+        global $conn;
+        $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+        $product = !empty($_GET['id']) ? $_GET['id'] : null;
+
+        if ($user == null || $product == null) {
+            header("Location: 404.php");
+            return;
+        }
+
+        if (isset($_POST['addToCartBtn'])) {
+
+            // this section is to see if the product is already in the user's cart.
+            // if the product is already in the cart, it wont insert (PK violation)
+            // instead, it will update the quantity to be the sum of the old quantity
+            // and the new quantity.
+            $sql = "SELECT QTY FROM USER_PRODUCT WHERE USER_ID = ? AND PRODUCT_ID = ?;";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('ii', $user, $product);
+            $stmt->execute();
+            $cartQty = $stmt->get_result(); // the quantity already in cart
+            $stmt->close();
+
+            if ($cartQty->num_rows > 0) {
+                $rows = array();
+                while ($row = $cartQty->fetch_assoc()) {
+                    $rows[] = $row;
+                }
+
+                // to ensure the added quantity is not bigger than 10
+                $qty = ($_POST['quantity'] + intval($rows[0]['QTY']) > 10) 
+                    ? 10 
+                    : $_POST['quantity'] + intval($rows[0]['QTY']);
+
+                $sql = "UPDATE USER_PRODUCT SET QTY = ? WHERE USER_ID = ? AND PRODUCT_ID = ?;";
+                $stmt = $conn->prepare($sql);
+                
+                // Check if the prepare statement was successful
+                if (!$stmt) {
+                    // Handle the case when the prepare statement fails
+                    return 0;
+                }
+                
+                $stmt->bind_param('iii', $qty, $user, $product);
+                $stmt->execute();
     
+                // Check for errors during the execution of the SQL statement
+                if ($stmt->errno) {
+                    // Handle the case when an error occurs
+    
+                    // Close the statement
+                    $stmt->close();
+                    
+                    return 0;
+                }
+    
+                // Close the statement
+                $stmt->close();
+            } 
+            else
+            {
+                $qty = $_POST['quantity'];
+                $sql = "INSERT INTO USER_PRODUCT (USER_ID, PRODUCT_ID, QTY) VALUES (?, ?, ?)";
+    
+                $stmt = $conn->prepare($sql);
+    
+                // Check for errors in preparing the statement
+                if (!$stmt) {
+                    die('Error preparing statement: ' . $conn->error);
+                }
+    
+                // Bind parameters and execute the statement
+                $stmt->bind_param('iii', $user, $product, $qty);
+                $stmt->execute();
+    
+                // Check for errors in executing the statement
+                if ($stmt->error) {
+                    // Handle the error (e.g., display an error message or redirect to an error page)
+                    die('Error executing statement: ' . $stmt->error);
+                }
+    
+                // Close the statement
+                $stmt->close();
+            }
+        
+            // Redirect to a success page or do other post-creation actions
+            header("Location: index.php?controller=user&action=cart");
+            exit();
+        }
+    }
+    
+    // to remove an item from a users cart
+    public static function unbag()
+    {
+        global $conn;
+        $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : '';
+
+        if (!empty($user_id) && !empty($product_id))
+        {
+            $sql = "DELETE FROM USER_PRODUCT WHERE USER_ID = ? AND PRODUCT_ID = ?;";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('ii', $user_id, $product_id);
+            $stmt->execute();
+
+            // Check for errors in executing the statement
+            if ($stmt->error) {
+                // Handle the error (e.g., display an error message or redirect to an error page)
+                die('Error executing statement: ' . $stmt->error);
+            }
+    
+            // Close the statement
+            $stmt->close();
+        }
+        
+        return 0;
+    }
+
+    // this is to update the quantity of a specific product dynamically using ajax + mysql
+    public static function updateQty()
+    {
+        global $conn;
+        header("Location: index.php?controller=home&action=home");
+        
+        $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
+        $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : 0;
+        $qty = isset($_POST['qty']) ? $_POST['qty'] : 0;
+
+        var_dump($user_id);
+        var_dump($product_id);
+        var_dump($qty);
+        
+        //$qty = $_POST['quantity'];
+        if (($user_id != 0 && $product_id != 0 && $qty != 0 ) && 
+        (isset($_POST['btnUp' + $product_id]) || isset($_POST['btnDown' + $product_id])))
+        {
+            $sql = "UPDATE USER_PRODUCT SET QTY = ? WHERE USER_ID = ? AND PRODUCT_ID = ?;";
+
+            $stmt = $conn->prepare($sql);
+                    
+            // Check if the prepare statement was successful
+            if (!$stmt) {
+                // Handle the case when the prepare statement fails
+                return 0;
+            }
+            
+            $stmt->bind_param('iii', $qty, $user_id, $product_id);
+            $stmt->execute();
+    
+            // Check for errors during the execution of the SQL statement
+            if ($stmt->errno) {
+                // Handle the case when an error occurs
+    
+                // Close the statement
+                $stmt->close();
+                
+                return 0;
+            }
+            $stmt->close();
+        }
+    }
+
     /*
         static function list(){
         return [];

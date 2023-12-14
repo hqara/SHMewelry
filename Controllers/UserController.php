@@ -17,7 +17,8 @@ class UserController extends Controller {
         if ($action == "list" || $action == "read" || $action == "cart") {
             $users = User::$action();
             $this->render("User", $action, $users);
-        } else if ($action == "create" || $action == "update" || $action == "delete") {
+        } else if ($action == "create" || $action == "update" || $action == "delete" 
+        || $action == "bag" || $action == "unbag" || $action == "updateQty") {
             $result = $userModel->$action();
         } else if ($action == "updateEmail" || $action == "updatePassword") {
             $result = $this->handleUpdateAction($userModel);

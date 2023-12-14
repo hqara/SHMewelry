@@ -40,19 +40,21 @@
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
+            <tbody>
             <?php
                 // fetching from the 'cart' action
                 if (isset($data) && is_array($data) && !empty($data)) {
                     $items = $data; 
-                }
 
-                foreach ($items as $item)
-                {
-                    echo <<<ECHO
-                        <tbody>
-                            <tr>
+                    foreach ($items as $item)
+                    {
+                        $runningTotalSingleProduct =  $item["QTY"] * $item['PRICE'];
+                        echo <<<ECHO
+                            <tr id="product{$item['PRODUCT_ID']}">
                                 <td>
-                                    <img src="assets/images/{$item["PRODUCT_IMAGE"]}" alt="ring1.jpg" width="150" style="border: 1px solid #6ac5fe;">
+                                    <a href="index.php?controller=product&action=view&id={$item["PRODUCT_ID"]}">
+                                        <img src="assets/images/{$item["PRODUCT_IMAGE"]}" alt="ring1.jpg" width="150" style="border: 1px solid #6ac5fe;">
+                                    </a>
                                 </td>
                                 <td>
                                     <p style="margin-top: 10px;">
@@ -64,33 +66,51 @@
                                         {$item["MANUFACTURER"]}
                                     </p>
                                 </td>
-                                <td><p style="margin-top:25px;">\${$item["PRICE"]}</p></td>
+                                <td>
+                                    <p style="margin-top:25px;" id="runningPriceProduct{$item["PRODUCT_ID"]}">\$$runningTotalSingleProduct</p>
+                                    <p hidden id="fullPriceProduct{$item["PRODUCT_ID"]}">{$item["PRICE"]}</p>
+                                </td>
                                 <td>
                                     <div class="input-group number-spinner" style="width:25%;margin-top:20px;">
                                         <span class="input-group-btn data-dwn">
-                                            <button class="btn btn-default btn-info" data-dir="dwn">
+                                            <button id="btnUp{$item["PRODUCT_ID"]}" name="btnUp{$item["PRODUCT_ID"]}" class="btn btn-default btn-info" data-dir="dwn">
                                                 <span class="glyphicon glyphicon-minus"></span>
                                             </button>
                                         </span>
-                                        <input type="number" class="form-control text-center" style="width:100px;" value="1" min="1" max="10" name="quantity" id="quantity">
+                                        <input onKeyDown="return false" type="number" class="form-control text-center" style="width:100px;" value="{$item['QTY']}" min="1" max="10" name="quantity" id="quantity{$item['PRODUCT_ID']}">
                                         <span class="input-group-btn data-up">
-                                            <button class="btn btn-default btn-info" data-dir="up">
+                                            <button id="btnDown{$item["PRODUCT_ID"]}" name="btnDown{$item["PRODUCT_ID"]}" class="btn btn-default btn-info" data-dir="up">
                                                 <span class="glyphicon glyphicon-plus"></span>
                                             </button>
                                         </span>
                                     </div>
                                 </td>
                                 <td>
-                                    <button name="remove" style="margin-top:20px;" class="btn btn-danger btn-sm">Remove</button>
+                                    <button name="remove{$item['PRODUCT_ID']}" id="remove{$item['PRODUCT_ID']}" style="margin-top:20px;" class="btn btn-danger btn-sm">Remove</button>
                                 </td>
                             </tr>
-                        </tbody>
+                        ECHO;
+                    }
+                }
+                else
+                {
+                    echo <<<ECHO
+                    <center>
+                    <table style="background-color: #e6f3f8; width: 100%; height: auto; margin-bottom:50px;">
+                        <tr>
+                            <td style="padding:25px">
+                                <h5 style="text-align:center;">You have no items in the cart.</h5>
+                            </td>
+                        </tr>
+                    </table>
+                    </center>
                     ECHO;
                 }
             ?>
+            </tbody>
         </table>
                     
-        <h4 class="text-right">Total: $39.98</h4>
+        <h4 name="total" id="total" class="text-right">Total: $39.98</h4>
         <div class="row">
             <div class="col-md-6">
                 <button name="clear" class="btn btn-primary" style="margin-bottom:50px;">Clear Cart</button>
@@ -102,5 +122,7 @@
     </div>
     
     <?php include_once __DIR__ . "/../../footer.html"; ?>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="app/scripts/cart.js"></script>
 </body>
 </html>

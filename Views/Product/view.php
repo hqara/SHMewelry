@@ -89,7 +89,7 @@
                             </span>
                         </div>
 
-                        <form action="index.php?controller=product&action=bag&id=<?php echo $_GET['id']; ?>" method="post">
+                        <form action="index.php?controller=user&action=bag&id=<?php echo $_GET['id']; ?>" method="post">
                             <div class="form-group center-content">
                                 <div class="tor">
                                     <label for="quantity">Quantity</label>
@@ -100,7 +100,7 @@
                                                     <button type="button" class="btn btn-default btn-info" data-dir="dwn"><span
                                                             class="glyphicon glyphicon-minus"></span></button>
                                                 </span>
-                                                <input type="number" class="form-control text-center" value="1" min="1"
+                                                <input onKeyDown="return false" type="number" class="form-control text-center" value="1" min="1"
                                                     max="10" name="quantity" id="quantity">
                                                 <span class="input-group-btn data-up">
                                                     <button type="button" class="btn btn-default btn-info" data-dir="up"><span

@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$controller = (isset($_GET['controller'])) ? $_GET['controller'] : "home";
+$controller = isset($_GET['controller']) ? $_GET['controller'] : "home";
 $action = isset($_GET["action"]) ? $_GET["action"] : "index";
 
 $controller = ucfirst($controller);

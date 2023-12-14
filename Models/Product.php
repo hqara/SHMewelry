@@ -421,48 +421,5 @@ class Product
         // Handle the case when 'delete' key is not set
         return 0;
     }
-
-    // add an item to the cart
-    public static function bag()
-    {
-        global $conn;
-        $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-        $product = !empty($_GET['id']) ? $_GET['id'] : null;
-
-        if ($user == null || $product == null) {
-            header("Location: 404.php");
-            return;
-        }
-
-        if (isset($_POST['addToCartBtn'])) {
-
-            $qty = $_POST['quantity'];
-            $sql = "INSERT INTO USER_PRODUCT (USER_ID, PRODUCT_ID, QTY) VALUES (?, ?, ?)";
-
-            $stmt = $conn->prepare($sql);
-
-            // Check for errors in preparing the statement
-            if (!$stmt) {
-                die('Error preparing statement: ' . $conn->error);
-            }
-
-            // Bind parameters and execute the statement
-            $stmt->bind_param('iii', $user, $product, $qty);
-            $stmt->execute();
-
-            // Check for errors in executing the statement
-            if ($stmt->error) {
-                // Handle the error (e.g., display an error message or redirect to an error page)
-                die('Error executing statement: ' . $stmt->error);
-            }
-
-            // Close the statement
-            $stmt->close();
-
-            // Redirect to a success page or do other post-creation actions
-            header("Location: index.php?controller=user&action=cart");
-            exit();
-        }
-    }
 }
 ?>
