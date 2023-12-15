@@ -52,7 +52,7 @@
                         echo <<<ECHO
                             <tr id="product{$item['PRODUCT_ID']}">
                                 <td>
-                                    <a href="?controller=product&action=view&id={$item["PRODUCT_ID"]}">
+                                    <a href="index.php?controller=product&action=view&id={$item["PRODUCT_ID"]}">
                                         <img src="assets/images/{$item["PRODUCT_IMAGE"]}" alt="ring1.jpg" width="150" style="border: 1px solid #6ac5fe;">
                                     </a>
                                 </td>
@@ -110,15 +110,18 @@
             </tbody>
         </table>
                     
-        <h4 name="total" id="total" class="text-right">Total: $39.98</h4>
-        <div class="row">
-            <div class="col-md-6">
-                <button name="clear" class="btn btn-primary" style="margin-bottom:50px;">Clear Cart</button>
+        <form action="index.php?controller=address&action=add" method="post">
+            <h4 id="totalLabel" class="text-right"></h4> <!-- WHERE THE TOTAL IS DISPLAYED-->
+            <p hidden id="total" name="total"></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <button name="clear" type="button" id="clear" class="btn btn-primary" style="margin-bottom:50px;">Clear Cart</button>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button name="checkout" type="submit" class="btn btn-primary" style="margin-bottom:50px;">Checkout</button>
+                </div>
             </div>
-            <div class="col-md-6 text-right">
-                <button name="checkout" class="btn btn-primary" style="margin-bottom:50px;">Checkout</button>
-            </div>
-        </div>
+        </form>
     </div>
     
     <?php include_once __DIR__ . "/../../footer.html"; ?>

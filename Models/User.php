@@ -83,7 +83,7 @@ class User {
         global $conn;
 
         // Check if user ID is present in the session
-        $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+        $userId = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
 
         $sql = "SELECT * FROM `USER` WHERE USER_ID = ?";
         $stmt = $conn->prepare($sql);
@@ -112,13 +112,13 @@ class User {
             // Validate input data and register user
             if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
                 $_SESSION['register_alert'] = "All fields are required.";
-                header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
                 exit();
             }
     
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['register_alert'] = "Invalid email format.";
-                header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
                 exit();
             }
     
@@ -136,24 +136,24 @@ class User {
                     if ($stmt->execute()) {
                         // Registration successful
                         $_SESSION['register_alert'] = "Registration successful!";
-                        header('Location: ?controller=user&action=login'); // Redirect to login page
+                        header('Location: index.php?controller=user&action=login'); // Redirect to login page
                         exit();
                     } else {
                         // Handle errors, e.g., duplicate entry
                         $_SESSION['register_alert'] = "Email already in use.";
-                        header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                        header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
                         exit();
                     }
                 } else {
                     // Handle preparation error
                     $_SESSION['register_alert'] = "An error occurred during query preparation: " . $conn->error;
-                    header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                    header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
                     exit();
                 }
             } catch (mysqli_sql_exception $exception) {
                 // Handle other exceptions
                 $_SESSION['register_alert'] = "An unexpected error occurred: " . $exception->getMessage();
-                header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
                 exit();
             }
         }
@@ -193,7 +193,7 @@ class User {
     
                         // Store user object in session
                         $_SESSION['user'] = $user;
-                        header('Location: ?controller=home&action=index');
+                        header('Location: index.php?controller=home&action=index');
                         exit();
                     } else {
                         // Incorrect password
@@ -209,7 +209,7 @@ class User {
             }
     
             // Redirect to the login page if the login attempt fails
-            header('Location: ?controller=user&action=login');
+            header('Location: index.php?controller=user&action=login');
             exit();
         }
     }
@@ -227,11 +227,11 @@ class User {
     
                 if (empty($email) || empty($password)) {
                     $_SESSION['reset_alert'] = "All fields are required.";
-                    header('Location: ?controller=user&action=reset');
+                    header('Location: index.php?controller=user&action=reset');
                     exit();
                 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $_SESSION['reset_alert'] = "Invalid email format.";
-                    header('Location: ?controller=user&action=reset');
+                    header('Location: index.php?controller=user&action=reset');
                     exit();
                 } else {
                     try {
@@ -271,12 +271,12 @@ class User {
                 }
     
                 // Redirect back to the reset page
-                header('Location: ?controller=user&action=reset');
+                header('Location: index.php?controller=user&action=reset');
                 exit();
             } else {
                 // Handle the case when required keys are not present
                 $_SESSION['reset_alert'] = "Invalid request.";
-                header('Location: ?controller=user&action=reset');
+                header('Location: index.php?controller=user&action=reset');
                 exit();
             }
         }
@@ -293,7 +293,7 @@ class User {
         header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
         header("Pragma: no-cache");
         header("Expires: 0");
-        header('Location: ?controller=home&action=index');
+        header('Location: index.php?controller=home&action=index');
         exit();
     }
 
@@ -337,7 +337,7 @@ class User {
             $stmt->close();
     
             // Redirect
-            header("Location: ?controller=user&action=list");
+            header("Location: index.php?controller=user&action=list");
             exit();
         }
     
@@ -383,7 +383,7 @@ class User {
                 $stmt->close();
     
                 // Redirect 
-                header("Location: ?controller=user&action=list");
+                header("Location: index.php?controller=user&action=list");
                 exit();
             }
         }
@@ -430,7 +430,7 @@ class User {
                 $stmt->close();
     
                 // Redirect 
-                header("Location: ?controller=user&action=list");
+                header("Location: index.php?controller=user&action=list");
                 exit();
             }
         }
@@ -477,7 +477,7 @@ class User {
                 $stmt->close();
     
                  // Redirect 
-                header("Location: ?controller=user&action=read");
+                header("Location: index.php?controller=user&action=read");
                 exit();
             }
         }
@@ -532,7 +532,7 @@ class User {
             $stmt->close();
     
             // Redirect
-            header("Location: ?controller=user&action=list");
+            header("Location: index.php?controller=user&action=list");
             exit();
         }
     
@@ -545,7 +545,7 @@ class User {
     public static function cart()
     {
         global $conn;
-        $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : -1;
+        $user = isset($_SESSION['user']) ? $_SESSION['user']->user_id : -1;
 
         $sql = "SELECT PRODUCT.*, USER_PRODUCT.QTY
         FROM PRODUCT
@@ -572,9 +572,10 @@ class User {
     public static function bag()
     {
         global $conn;
-        $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-        $product = !empty($_GET['id']) ? $_GET['id'] : null;
+        $user = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
+        $product = isset($_GET['id']) ? $_GET['id'] : null;
 
+        var_dump($user);
         if ($user == null || $product == null) {
             header("Location: 404.php");
             return;
@@ -656,7 +657,7 @@ class User {
             }
         
             // Redirect to a success page or do other post-creation actions
-            header("Location: ?controller=user&action=cart");
+            header("Location: index.php?controller=user&action=cart");
             exit();
         }
     }
@@ -665,7 +666,7 @@ class User {
     public static function unbag()
     {
         global $conn;
-        $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
+        $user_id = isset($_SESSION['user']) ? $_SESSION['user']->user_id : '';
         $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : '';
 
         if (!empty($user_id) && !empty($product_id))
@@ -689,13 +690,40 @@ class User {
         return 0;
     }
 
+    public static function unbagAll()
+    {
+        //header("Location: index.php?controller=home&action=index");
+        global $conn;
+        $user_id = isset($_SESSION['user']) ? $_SESSION['user']->user_id : '';
+
+        if (!empty($user_id) && isset($_POST['clear']))
+        {
+            $sql = "DELETE FROM USER_PRODUCT WHERE USER_ID = ?;";
+
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param('i', $user_id);
+            $stmt->execute();
+
+            // Check for errors in executing the statement
+            if ($stmt->error) {
+                // Handle the error (e.g., display an error message or redirect to an error page)
+                die('Error executing statement: ' . $stmt->error);
+            }
+    
+            // Close the statement
+            $stmt->close();
+        }
+        
+        return 0;
+    }
+
     // this is to update the quantity of a specific product dynamically using ajax + mysql
     public static function updateQty()
     {
         global $conn;
-        header("Location: ?controller=home&action=home");
+        header("Location: index.php?controller=home&action=home");
         
-        $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
+        $user_id = isset($_SESSION['user']) ? $_SESSION['user']->user_id : 0;
         $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : 0;
         $qty = isset($_POST['qty']) ? $_POST['qty'] : 0;
 

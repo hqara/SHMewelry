@@ -29,7 +29,7 @@ class UserController extends Controller {
             } elseif (in_array($action, ["list", "read", "cart"])) {
                 $users = User::$action();
                 $this->render("User", $action, $users);
-            } elseif (in_array($action, ["create", "update", "delete", "bag", "unbag", "updateQty"])) {
+            } elseif (in_array($action, ["create", "update", "delete", "bag", "unbag", "updateQty", "unbagAll"])) {
                 $result = $userModel->$action();
             } elseif (in_array($action, ["updateEmail", "updatePassword"])) {
                 $result = $this->handleUpdateAction($userModel);
@@ -58,7 +58,7 @@ class UserController extends Controller {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $userModel->register();
             if ($result === true) {
-                header('Location: ?controller=user&action=login');
+                header('Location: index.php?controller=user&action=login');
                 exit();
             } else {
                 $_SESSION['register_alert'] = "Registration failed: " . $result;
@@ -74,7 +74,7 @@ class UserController extends Controller {
             $_SESSION['reset_alert'] = "";
             $result = $userModel->reset();
             if ($result === true) {
-                header('Location: ?controller=user&action=login');
+                header('Location: index.php?controller=user&action=login');
                 exit();
             } else {
                 $_SESSION['reset_alert'] = $result;

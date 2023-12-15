@@ -32,7 +32,7 @@
         </div>
 
         <h1 class="py-2" style="padding:10px;">Grant User Permissions</h1>
-        <form method="post" action="?controller=user&action=update">
+        <form method="post" action="index.php?controller=user&action=update">
             <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>">
             <input type="hidden" name="group_id" value="<?php echo $user->group_id; ?>">
 

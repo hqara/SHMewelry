@@ -36,7 +36,7 @@
         ?>
         <h2 class="center">SHMEWELRY Registration</h2>
        
-        <form method="post" action="?controller=user&action=register">
+        <form method="post" action="index.php?controller=user&action=register">
             <table class="center">
                 <tr>
                     <td>
@@ -98,7 +98,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Already have an Account? <a style="text-decoration:underline" href="?controller=user&action=login">Login</a></td>
+                    <td>Already have an Account? <a style="text-decoration:underline" href="index.php?controller=user&action=login">Login</a></td>
                 </tr>
             </table>
         </form>

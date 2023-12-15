@@ -15,7 +15,7 @@
         <h1 class="py-2">MANAGE PRODUCTS</h1>
 
         </br>
-        <form method="post" action="?controller=product&action=add">
+        <form method="post" action="index.php?controller=product&action=add">
             <button type="submit" class="btn btn-primary" name="add">ADD NEW PRODUCT TO CATALOG</button>
         </form>
         </br>
@@ -66,14 +66,14 @@
                             
                             echo '<td>
 
-                            <form method="post" action="?controller=product&action=edit&id=' . $product['PRODUCT_ID'] . '">
+                            <form method="post" action="index.php?controller=product&action=edit&id=' . $product['PRODUCT_ID'] . '">
                                 <input type="hidden" name="product_id" value="' . $product['PRODUCT_ID'] . '">
                                 <button type="submit" class="btn btn-primary" name="edit">Edit</button>
                             </form>
                             </td>
 
                             <td>
-                            <form method="post" action="?controller=product&action=delete">
+                            <form method="post" action="index.php?controller=product&action=delete">
                                 <input type="hidden" name="product_id" value="' . $product['PRODUCT_ID'] . '">
                                 <button type="submit" class="btn btn-danger" name="delete">Remove</button>
                             </form>

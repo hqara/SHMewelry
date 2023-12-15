@@ -16,7 +16,7 @@
 
     <div class="container my-5">
         <h1 class="py-2" style="padding: 10px; display:flex; justify-content: center;">Add New Product to Catalog</h1>
-        <form method="post" action="?controller=product&action=create" enctype="multipart/form-data">
+        <form method="post" action="index.php?controller=product&action=create" enctype="multipart/form-data">
 
             <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">
                 <label for="name" class="col-sm-2 col-form-label text-left">Name</label>

@@ -37,7 +37,7 @@
         ?>
 
         <h2 class="center">Reset My Password</h2>
-        <form method="post" action="?controller=user&action=reset">
+        <form method="post" action="index.php?controller=user&action=reset">
             <table class="center">
                 <tr>
                     <td>

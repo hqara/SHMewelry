@@ -9,7 +9,7 @@ class Controller{
         session_start();  // Start or resume the session
     
         if (!isset($_SESSION['user'])) {
-            header("Location: ?controller=home&action=index");
+            header("Location: index.php?controller=home&action=index");
             exit();
         } else {
 

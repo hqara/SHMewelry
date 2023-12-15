@@ -1,3 +1,5 @@
+<?php include_once "db_connection.php"; ?>
+
 <html>
     <head>
         <title>Page Not Found</title>

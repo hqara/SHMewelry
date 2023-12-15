@@ -18,7 +18,7 @@
 
     <div class="container my-5">
             <h1 class="py-2 text-center mx-auto">ORDER CONFIRMATION</h1>
-            <form method="post" action="?controller=orders&action=read&id=<?php echo $order['ORDER_ID']; ?>">
+            <form method="post" action="index.php?controller=orders&action=read&id=<?php echo $order['ORDER_ID']; ?>">
             <input type="hidden" name="order_id" value="<?php echo $order['ORDER_ID']; ?>">
             <?php
             // Check if $data is defined and not empty
@@ -26,7 +26,7 @@
                 $shippingDetailsDisplayed = false;
 
                 // Display shipping details once
-                echo '<h2 class="py-4">Shipping Details</h2><a href="?controller=address&action=edit&id=' . $address['ADDRESS_ID'] . '"></a>';
+                echo '<h2 class="py-4">Shipping Details</h2><a href="index.php?controller=address&action=edit&id=' . $address['ADDRESS_ID'] . '"></a>';
                 foreach ($data as $orderDetails) {
 
                     if (!$shippingDetailsDisplayed) {

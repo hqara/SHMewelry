@@ -15,7 +15,8 @@
         .login-box {
             background-color: #e6f3f8;
             width: 700px; 
-            margin: auto; 
+            margin-left: auto;
+            margin-right: auto;
             padding: 20px; 
             border-radius: 8px; 
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -36,7 +37,7 @@
         ?>
         <h2 class="center">Login</h2>
    
-        <form method="post" action="?controller=user&action=login">
+        <form method="post" action="index.php?controller=user&action=login">
             <table class="center">
                 <tr>
                     <td>
@@ -64,10 +65,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><a style="text-decoration:underline" href="?controller=user&action=reset"> Forgot Password?</a></td>
+                    <td><a style="text-decoration:underline" href="index.php?controller=user&action=reset"> Forgot Password?</a></td>
                 </tr>
                 <tr>
-                    <td>Don't have an Account? <a style="text-decoration:underline" href="?controller=user&action=register">Register</a></td>
+                    <td>Don't have an Account? <a style="text-decoration:underline" href="index.php?controller=user&action=register">Register</a></td>
                 </tr>
             </table>
         </form>

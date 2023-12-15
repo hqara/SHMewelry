@@ -61,12 +61,12 @@
                                    {$product['PRICE']}
                                 </span>
                                 <small class="text-muted">{$product['MATERIAL']}</small>
-                                <a href="?controller=product&action=view&id={$product['PRODUCT_ID']}" class="product-name">{$product['NAME']}</a>
+                                <a href="index.php?controller=product&action=view&id={$product['PRODUCT_ID']}" class="product-name">{$product['NAME']}</a>
                                 <div class="small m-t-xs">
                                     {$product['DESCRIPTION']}
                                 </div>
                                 <div class="m-t text-righ">
-                                    <a href="?controller=product&action=view&id={$product['PRODUCT_ID']}" class="btn btn-xs btn-blue">Info<i
+                                    <a href="index.php?controller=product&action=view&id={$product['PRODUCT_ID']}" class="btn btn-xs btn-blue">Info<i
                                             class="fa fa-long-arrow-right"></i> </a>
                                 </div>
                             </div>

@@ -15,7 +15,7 @@
         <h1 class="py-2">MANAGE USERS AND PERMISSIONS</h1>
 
         </br>
-        <form method="post" action="?controller=user&action=add">
+        <form method="post" action="index.php?controller=user&action=add">
             <button type="submit" class="btn btn-primary" name="add">CREATE NEW USER ACCOUNT</button>
         </form>
         </br>
@@ -47,14 +47,14 @@
                             <td>' . $user['EMAIL'] . '</td>
 
                         <td>
-                        <form method="post" action="?controller=user&action=edit&id=' . $user['USER_ID'] . '">
+                        <form method="post" action="index.php?controller=user&action=edit&id=' . $user['USER_ID'] . '">
                             <input type="hidden" name="user_id" value="' . $user['USER_ID'] . '">
                             <button type="submit" class="btn btn-primary" name="edit">Edit</button>
                         </form>
                         </td>
 
                         <td>
-                        <form method="post" action="?controller=user&action=delete">
+                        <form method="post" action="index.php?controller=user&action=delete">
                             <input type="hidden" name="user_id" value="' . $user['USER_ID'] . '">
                             <input type="hidden" name="group_id" value="' . $user['GROUP_ID'] . '">
                             <button type="submit" class="btn btn-danger" name="delete">Remove</button>

@@ -83,7 +83,7 @@ class Orders {
             }
     
             // Bind the user ID parameter
-            $stmt->bind_param('i', $_SESSION['user_id']);
+            $stmt->bind_param('i', $_SESSION['user']->user_id);
         } else {
             // For Manage Orders (group_id = 2 or 3)
             $sql = "SELECT * FROM `ORDERS`";
@@ -208,7 +208,7 @@ class Orders {
     
         // Assuming you have stored the user ID in the session
         session_start();
-        $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+        $userId = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
     
         // Check if the user ID is available
         if (!$userId) {
@@ -295,7 +295,7 @@ class Orders {
             $stmt->close();
     
             // Redirect to a success page or do other post-creation actions
-            //header("Location: ?controller=order&action=list");
+            //header("Location: index.php?controller=order&action=list");
             exit();
         }
     
@@ -336,7 +336,7 @@ class Orders {
         return $stmt->execute();
 
          // Redirect 
-         header("Location: ?controller=orders&action=list");
+         header("Location: index.php?controller=orders&action=list");
          exit();
     }
 

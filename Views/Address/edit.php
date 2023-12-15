@@ -18,7 +18,7 @@
 
     <div class="container my-5 text-center">
         <h1 class="py-5" style="padding: 10px;">UPDATE SHIPPING DETAILS</h1>
-        <form method="post" action="?controller=address&action=update">
+        <form method="post" action="index.php?controller=address&action=update">
         <input type="hidden" name="address_id" value="<?php echo $address->address_id; ?>">
 
             <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">

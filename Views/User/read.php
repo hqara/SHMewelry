@@ -61,7 +61,7 @@ if ($isLoggedIn) {
                 $.ajax({
                     type: 'POST',
                     url: '?controller=user&action=updateEmail',
-                    data: { updateEmail: true, user_id: <?php echo $_SESSION['user_id']; ?>, emailInput: newEmail },
+                    data: { updateEmail: true, user_id: <?php echo $_SESSION['user']->user_id; ?>, emailInput: newEmail },
                     success: function (response) {
                         // Handle the response if needed
                         console.log(response);
@@ -119,7 +119,7 @@ if ($isLoggedIn) {
                 $.ajax({
                     type: 'POST',
                     url: '?controller=user&action=updatePassword',
-                    data: { updatePassword: true, user_id: <?php echo $_SESSION['user_id']; ?>, passwordInput: newPassword },
+                    data: { updatePassword: true, user_id: <?php echo $_SESSION['user']->user_id; ?>, passwordInput: newPassword },
                     success: function (response) {
                         // Handle the response if needed
                         console.log(response);
@@ -182,7 +182,7 @@ if ($isLoggedIn) {
                         <p class="py-2 text-left mx-auto">NOTE: Account will NOT BE RECOVERABLE once deleted.</p>
                     </td>
                     <td>
-                        <form method="post" action="?controller=user&action=delete">
+                        <form method="post" action="index.php?controller=user&action=delete">
                             <input type="hidden" name="user_id" value="' . $_SESSION['user']->user_id . '">
                             <input type="hidden" name="group_id" value="' . $_SESSION['user']->group_id . '">
                             <button type="button" class="btn btn-danger" style="margin-top: 20px;" name="delete">DELETE</button>

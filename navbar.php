@@ -33,7 +33,7 @@ if ($isLoggedIn) {
         <div class="header-container">
             <div class="left-box">
                 <h1>
-                    <a style="text-decoration: none; color: #4a8bb4; padding: 10px; text-align: center; font-family: 'Lucida Handwriting', Times, serif; font-weight: bold;" href="?controller=home&action=index">
+                    <a style="text-decoration: none; color: #4a8bb4; padding: 10px; text-align: center; font-family: 'Lucida Handwriting', Times, serif; font-weight: bold;" href="index.php?controller=home&action=index">
                         SHMewelry
                     </a>
                 </h1>
@@ -68,20 +68,20 @@ if ($isLoggedIn) {
                                 </button>
                                 <div class="dropdown-content" id="profileDropdown">
                                     <?php if ($groupId === 1): ?>
-                                        <a class="profile" href="?controller=user&action=read">My Profile</a>
-                                        <a class="profile" href="?controller=orders&action=list">My Orders</a>
-                                        <a class="profile" href="?controller=user&action=logout">Logout</a>
+                                        <a class="profile" href="index.php?controller=user&action=read">My Profile</a>
+                                        <a class="profile" href="index.php?controller=orders&action=list">My Orders</a>
+                                        <a class="profile" href="index.php?controller=user&action=logout">Logout</a>
                                     <?php elseif ($groupId === 2 ): ?>
-                                        <a class="profile" href="?controller=user&action=read">My Profile</a>
-                                        <a class="profile" href="?controller=orders&action=list">Manage Orders</a>
-                                        <a class="profile" href="?controller=product&action=list">Manage Products</a>
-                                        <a class="profile" href="?controller=user&action=logout">Logout</a>
+                                        <a class="profile" href="index.php?controller=user&action=read">My Profile</a>
+                                        <a class="profile" href="index.php?controller=orders&action=list">Manage Orders</a>
+                                        <a class="profile" href="index.php?controller=product&action=list">Manage Products</a>
+                                        <a class="profile" href="index.php?controller=user&action=logout">Logout</a>
                                     <?php elseif ($groupId === 3): ?>
-                                        <a class="profile" href="?controller=user&action=read">My Profile</a>
-                                        <a class="profile" href="?controller=orders&action=list">Manage Orders</a>
-                                        <a class="profile" href="?controller=product&action=list">Manage Products</a>
-                                        <a class="profile" href="?controller=user&action=list">Manage Users and Permissions</a>
-                                        <a class="profile" href="?controller=user&action=logout">Logout</a>
+                                        <a class="profile" href="index.php?controller=user&action=read">My Profile</a>
+                                        <a class="profile" href="index.php?controller=orders&action=list">Manage Orders</a>
+                                        <a class="profile" href="index.php?controller=product&action=list">Manage Products</a>
+                                        <a class="profile" href="index.php?controller=user&action=list">Manage Users and Permissions</a>
+                                        <a class="profile" href="index.php?controller=user&action=logout">Logout</a>
                                     <?php endif; ?>
                                 </div>
                             <?php endif; ?>
@@ -120,11 +120,11 @@ if ($isLoggedIn) {
     <nav>
         <table>
             <tr>
-                <td><a class="dropdown-home" href="?controller=home&action=index">Home</a></td>
+                <td><a class="dropdown-home" href="index.php?controller=home&action=index">Home</a></td>
                 <td class="dropdown">
-                    <a href="?controller=product&action=read&type=bracelet">Bracelets &#9662;</a>
+                    <a href="index.php?controller=product&action=read&type=bracelet">Bracelets &#9662;</a>
                     <div class="dropdown-content">
-                        <a href="?controller=product&action=read&type=bracelet"> All Bracelets</a>
+                        <a href="index.php?controller=product&action=read&type=bracelet"> All Bracelets</a>
                         <?php
                         global $conn;
                         // Fetch unique materials from the Product table
@@ -141,7 +141,7 @@ if ($isLoggedIn) {
                     </div>
                 </td>
                 <td class="dropdown">
-                    <a href="?controller=product&action=read&type=ring">Rings &#9662;</a>
+                    <a href="index.php?controller=product&action=read&type=ring">Rings &#9662;</a>
                     <div class="dropdown-content">
                         <a href='?controller=product&action=read&type=ring'>All Rings</a>
                         <?php
@@ -160,7 +160,7 @@ if ($isLoggedIn) {
                     </div>
                 </td>
                 <td class="dropdown">
-                    <a href="?controller=product&action=read&type=necklace">Necklaces &#9662;</a>
+                    <a href="index.php?controller=product&action=read&type=necklace">Necklaces &#9662;</a>
                     <div class="dropdown-content">
                         <a href='?controller=product&action=read&type=necklace'>All Necklaces</a>
                         <?php
@@ -179,7 +179,7 @@ if ($isLoggedIn) {
                     </div>
                 </td>
                 <td class="dropdown">
-                    <a href="?controller=product&action=read&type=earring">Earrings &#9662;</a>
+                    <a href="index.php?controller=product&action=read&type=earring">Earrings &#9662;</a>
                     <div class="dropdown-content">
                         <a href='?controller=product&action=read&type=earring'>All Earrings</a>
                         <?php
