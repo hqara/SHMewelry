@@ -72,14 +72,14 @@
                                 <strong>Material:</strong>
                                 <?php if (isset($product['MATERIAL'])): ?>
                                     <a rel="tag"
-                                        href="index.php?controller=product&action=read&material=<?php echo $product['MATERIAL']; ?>&type=<?php echo $product['TYPE']; ?>"><?php echo $product['MATERIAL']; ?></a>
+                                        href="?controller=product&action=read&material=<?php echo $product['MATERIAL']; ?>&type=<?php echo $product['TYPE']; ?>"><?php echo $product['MATERIAL']; ?></a>
                                 <?php endif; ?>
                             </span>
                             <span class="posted_in">
                                 <strong>Type:</strong>
                                 <?php if (isset($product['TYPE'])): ?>
                                     <a rel="tag"
-                                        href="index.php?controller=product&action=read&type=<?php echo $product['TYPE']; ?>"><?php echo $product['TYPE']; ?></a>
+                                        href="?controller=product&action=read&type=<?php echo $product['TYPE']; ?>"><?php echo $product['TYPE']; ?></a>
                                 <?php endif; ?>
                             </span>
 
@@ -89,7 +89,7 @@
                             </span>
                         </div>
 
-                        <form action="index.php?controller=user&action=bag&id=<?php echo $_GET['id']; ?>" method="post">
+                        <form action="?controller=user&action=bag&id=<?php echo $_GET['id']; ?>" method="post">
                             <div class="form-group center-content">
                                 <div class="tor">
                                     <label for="quantity">Quantity</label>

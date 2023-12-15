@@ -110,7 +110,7 @@ class Address {
             $stmt->close();
     
             // Redirect
-            //header("Location: index.php?controller=address&action=view");
+            //header("Location: ?controller=address&action=view");
             exit();
         }
     
@@ -163,7 +163,7 @@ class Address {
                     $stmt->close();
     
                     // Redirect
-                    //header("Location: index.php?controller=address&action=view");
+                    //header("Location: ?controller=address&action=view");
                     exit();
                 }
             }
@@ -196,7 +196,7 @@ class Address {
                 $stmt->close();
     
                 // Redirect
-                //header("Location: index.php?controller=address&action=view");
+                //header("Location: ?controller=address&action=view");
                 exit();
             }
     

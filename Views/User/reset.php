@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHMewelry</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .center {
             text-align: center;
         }
 
-        .login-box {
+        .reset-box {
             background-color: #e6f3f8;
             width: 700px; 
             margin: auto; 
@@ -22,15 +24,20 @@
     </style>
 </head>
 <body>
-    <header>
     <?php
         include_once dirname(__FILE__) .  "/../../navbar.php";
     ?>
-    </header>
-    <div class="login-box">
+
+    <div class="reset-box">
+        <?php
+            if (isset($_SESSION['reset_alert'])) {
+                echo "<p class='error'>" . $_SESSION['reset_alert'] . "</p>";
+                unset($_SESSION['reset_alert']);
+            }
+        ?>
+
         <h2 class="center">Reset My Password</h2>
-        <form method="post" action="index.php?controller=user&action=reset">
-        <!---<input type="hidden" name="username" value="<?php //echo $user->email; ?>"> -->
+        <form method="post" action="?controller=user&action=reset">
             <table class="center">
                 <tr>
                     <td>
@@ -39,7 +46,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" id="username" name="username" required>
+                        <input type="text" id="email" name="email" required>
                     </td>
                 </tr>
                 <tr>
@@ -54,7 +61,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" name="update" value="Update">
+                        <input type="submit" name="reset" value="Update">
                     </td>
                 </tr>
             </table>

@@ -52,7 +52,7 @@
                         echo <<<ECHO
                             <tr id="product{$item['PRODUCT_ID']}">
                                 <td>
-                                    <a href="index.php?controller=product&action=view&id={$item["PRODUCT_ID"]}">
+                                    <a href="?controller=product&action=view&id={$item["PRODUCT_ID"]}">
                                         <img src="assets/images/{$item["PRODUCT_IMAGE"]}" alt="ring1.jpg" width="150" style="border: 1px solid #6ac5fe;">
                                     </a>
                                 </td>

@@ -1,33 +1,44 @@
-<!--- FIX SESSION THING ONCE WE'VE ESTABLISHED SESSION -->
+<?php
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
+
+// Debugging: Dump the entire user object
+if ($isLoggedIn) {
+    // Retrieve the group_id from the user object in the session
+    $groupId = isset($_SESSION['user']->group_id) ? $_SESSION['user']->group_id : null;
+
+    // Now, $groupId contains the value of group_id for the logged-in user
+    echo "Group ID: " . $groupId;
+} else {
+    // User is not logged in
+    echo "User is not logged in.";
+    // You might want to redirect the user to the login page or handle this case appropriately
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-   
+
     <!-- Bootstrap CSS -->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/shared.css">
 </head>
+
 <body>
 
-    <?php include_once __DIR__ . "/../../navbar.php"; ?>
+<?php include_once __DIR__ . "/../../navbar.php"; ?>
 
-    <div class="container my-5">
-        <?php
-        
-        // Replace this with the actual value from the session
-        //$_SESSION['group_id']=2;  // 1 for Client, 2 or 3 for Moderator/Admin
-        //$_SESSION['user_id']=1;
-
-        // Check the user's group_id
-        $userGroupId= $_SESSION['group_id'];
-
-        if ($userGroupId == 1) {
-            // Display for group_id = 1 (My Orders)
+<div class="container my-5">
+    <?php
+    switch ($groupId) {
+        case 1:
             echo '<h1 class="py-2">My Orders</h1>';
             echo '<table class="table">
                     <thead>
@@ -43,7 +54,7 @@
                     <tbody>';
 
             // Check if $data is defined and not empty
-            if (isset($data) && is_array($data) && !empty($data)) {
+            if (!empty($data)) {
                 foreach ($data as $order) {
                     echo '<tr>
                             <td>' . $order['ORDER_ID'] . '</td>
@@ -72,14 +83,16 @@
                     echo '</td></tr>';
                 }
             } else {
-                // No data available
-                echo '<tr><td colspan="6">No data available</td></tr>';
+                // No order has been placed yet
+                echo '<tr><td colspan="6">No order has been placed yet.</td></tr>';
             }
 
             echo '</tbody></table>';
-        } else {
-            // Display for group_id = 2 or 3 (Manage Orders)
-            echo '<h1 class="py-2">MANAGE ORDERS</h1>';
+            break;
+
+        case 2:
+        case 3:
+            echo '<h1 class="py-2">Manage Orders</h1>';
             echo '<table class="table">
                     <thead>
                         <tr>
@@ -95,7 +108,7 @@
                     <tbody>';
 
             // Check if $data is defined and not empty
-            if (isset($data) && is_array($data) && !empty($data)) {
+            if (!empty($data)) {
                 foreach ($data as $order) {
                     echo '<tr>
                             <th scope="row">' . $order['USER_ID'] . '</th>
@@ -126,14 +139,21 @@
                 }
             } else {
                 // No data available
-                echo '<tr><td colspan="7">No data available</td></tr>';
+                echo '<tr><td colspan="7">No data available.</td></tr>';
             }
             echo '</tbody></table>';
-        }
-        ?>
-    </div>
-    
-    <?php include_once __DIR__ . "/../../footer.html"; ?>
+            break;
+
+        default:
+            // Handle unknown user group or no user in session
+            echo '<p>No user information found.</p>';
+            break;
+    }
+    ?>
+</div>
+
+<?php include_once __DIR__ . "/../../footer.html"; ?>
 
 </body>
+
 </html>

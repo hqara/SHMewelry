@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SHMEWELRY Registration</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
         .center {
             text-align: center;
@@ -19,21 +24,19 @@
     </style>
 </head>
 <body>
-    <header>
-        <?php
-            include dirname(__FILE__) . '/../../navbar.php';
-        ?>
-    </header>
+
+    <?php include dirname(__FILE__) . '/../../navbar.php'; ?>
+
     <div class="registration-box">
         <?php
-            if (isset($_SESSION['registration_error'])) {
-                echo "<p class='error'>" . $_SESSION['registration_error'] . "</p>";
-                unset($_SESSION['registration_error']);
+            if (isset($_SESSION['register_alert'])) {
+                echo "<p class='error'>" . $_SESSION['register_alert'] . "</p>";
+                unset($_SESSION['register_alert']);
             }
         ?>
         <h2 class="center">SHMEWELRY Registration</h2>
        
-        <form method="post" action="Controllers/RegisterController.php">
+        <form method="post" action="?controller=user&action=register">
             <table class="center">
                 <tr>
                     <td>
@@ -95,15 +98,12 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Already have an Account? <a style="text-decoration:underline" href="index.php?controller=login&action=login">Login</a></td>
+                    <td>Already have an Account? <a style="text-decoration:underline" href="?controller=user&action=login">Login</a></td>
                 </tr>
             </table>
         </form>
     </div>
-    <footer>
-    <?php
-        include_once dirname(__FILE__) . "/../../footer.html";
-    ?>
-</footer>
+
+    <?php include_once dirname(__FILE__) . "/../../footer.html"; ?>
 </body>
 </html>

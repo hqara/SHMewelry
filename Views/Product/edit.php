@@ -17,7 +17,7 @@
 
     <div class="container my-5 text-center">
         <h1 class="py-2" style="padding:10px;">Edit Product#<?php echo $product->product_id; ?></h1>
-        <form method="post" action="index.php?controller=product&action=update" enctype="multipart/form-data">
+        <form method="post" action="?controller=product&action=update" enctype="multipart/form-data">
             <input type="hidden" name="product_id" value="<?php echo $product->product_id; ?>">
 
             <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">

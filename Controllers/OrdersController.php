@@ -3,6 +3,7 @@
 include_once __DIR__ . "/Controller.php";
 include_once __DIR__ . "/../Models/Orders.php";
 
+
 class OrdersController extends Controller {
     
     function route() {
@@ -19,7 +20,7 @@ class OrdersController extends Controller {
             if (!empty($orders)) {
                 $this->render("Orders", $action, $orders);
             } else {
-                $this->render("Orders", $action, array());
+                $this->render("Orders", $action, null);
             }
         } else if ($action == "create" || $action == "update" || $action == "delete") {
             $result = $orderModel->$action();

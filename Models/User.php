@@ -79,16 +79,15 @@ class User {
         return $result->fetch_all(MYSQLI_ASSOC);
     }
     
-
     public static function read() {
         global $conn;
 
-        // Check if group ID is present in the session
-        $groupId = isset($_SESSION['group_id']) ? $_SESSION['group_id'] : null;
+        // Check if user ID is present in the session
+        $userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
 
         $sql = "SELECT * FROM `USER` WHERE USER_ID = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('i', $_SESSION['user_id']);
+        $stmt->bind_param('i', $userId);
     
         $stmt->execute();
         $result = $stmt->get_result();
@@ -96,110 +95,208 @@ class User {
         // Return the fetched result
         return $result->fetch_assoc();
     }
-    
 
-    public static function register() {
-
+     
+    public function register() {
         global $conn;
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $fname = $_POST['fname'];
-            $lname = $_POST['lname'];
+            // Collect user input data
+            $firstName = $_POST['fname'];
+            $lastName = $_POST['lname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $group = $_POST['group'];
+            $groupId = $_POST['group_id'];
     
-            // Hash the password
-            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
     
-            if ($hashedPassword === false) {
-                // Password hashing failed
-                $_SESSION['registration_error'] = "Password hashing failed";
-                header('Location: index.php?controller=home&action=register'); // FOR NOW
-                exit;
+            // Validate input data and register user
+            if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
+                $_SESSION['register_alert'] = "All fields are required.";
+                header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                exit();
             }
     
-            $query = "INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES (?, ?, ?, ?, ?)";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("ssssi", $fname, $lname, $email, $hashedPassword, $group);
-    
-            if ($stmt->execute()) {
-                $_SESSION['registration_success'] = "Registration successful!";
-                header('Location: index.php?controller=home&action=login'); // FOR NOW
-            } else {
-                $_SESSION['registration_error'] = "Error: " . $stmt->error;
-                header('Location: index.php?controller=home&action=register');
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['register_alert'] = "Invalid email format.";
+                header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                exit();
             }
     
-            $stmt->close();
-        } else {
-            header('Location: index.php?controller=home&action=register');
+            // Hash password
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+            // Prepare database query
+            $query = 'INSERT INTO user (fname, lname, email, password, group_id) VALUES (?, ?, ?, ?, ?)';
+            try {
+                if ($stmt = $conn->prepare($query)) {
+                    // Bind parameters
+                    $stmt->bind_param("ssssi", $firstName, $lastName, $email, $hashedPassword, $groupId); // Fixed variable names
+    
+                    // Execute query and check for successful insertion
+                    if ($stmt->execute()) {
+                        // Registration successful
+                        $_SESSION['register_alert'] = "Registration successful!";
+                        header('Location: ?controller=user&action=login'); // Redirect to login page
+                        exit();
+                    } else {
+                        // Handle errors, e.g., duplicate entry
+                        $_SESSION['register_alert'] = "Email already in use.";
+                        header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                        exit();
+                    }
+                } else {
+                    // Handle preparation error
+                    $_SESSION['register_alert'] = "An error occurred during query preparation: " . $conn->error;
+                    header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                    exit();
+                }
+            } catch (mysqli_sql_exception $exception) {
+                // Handle other exceptions
+                $_SESSION['register_alert'] = "An unexpected error occurred: " . $exception->getMessage();
+                header('Location: ?controller=user&action=register'); // Redirect back to registration page
+                exit();
+            }
         }
     }
     
+    
     public static function login() {
-        $isLoggedIn = false;
         global $conn;
     
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_POST['username'];
+            $email = $_POST['email'];
             $password = $_POST['password'];
     
-            $query = "SELECT USER_ID, FNAME, LNAME, GROUP_ID, PASSWORD FROM USER WHERE EMAIL = ?";
+            // Use prepared statements to prevent SQL injection
+            $query = "SELECT user_id, email, password, fname, lname, group_id FROM user WHERE email = ?";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            $stmt->store_result();
     
-            if ($stmt->num_rows > 0) {
-                $stmt->bind_result($user_id, $fname, $lname, $group_id, $storedPassword);
-                $stmt->fetch();
+            if ($stmt) {
+                $stmt->bind_param("s", $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $stmt->close();
     
-                if (password_verify($password, $storedPassword)) {
-                    // User logged in
-                    $isLoggedIn = true;
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
     
-                    $_SESSION['user_id'] = $user_id;
-                    $_SESSION['username'] = $username;
-                    $_SESSION['fname'] = $fname;
-                    $_SESSION['lname'] = $lname;
-                    $_SESSION['group_id'] = $group_id;
+                    // Use password_verify to check hashed password
+                    if (password_verify($password, $row['password'])) {
+                        // User logged in
+                        $user = new User();
+                        $user->user_id = $row['user_id'];
+                        $user->fname = $row['fname'];
+                        $user->lname = $row['lname'];
+                        $user->email = $row['email'];
+                        $user->password = $row['password'];
+                        $user->group_id = $row['group_id'];
     
-                    $stmt->close();
-                    header('Location: index.php?controller=home&action=index');
+                        // Store user object in session
+                        $_SESSION['user'] = $user;
+                        header('Location: ?controller=home&action=index');
+                        exit();
+                    } else {
+                        // Incorrect password
+                        $_SESSION['login_alert'] = "Invalid email or password";
+                    }
                 } else {
-                    $isLoggedIn = false;
-                    $stmt->close();
-                    $_SESSION['login_error'] = "Invalid username or password";
-                    header('Location: index.php?controller=home&action=login');
+                    // User not found
+                    $_SESSION['login_alert'] = "Invalid email or password";
                 }
             } else {
-                $isLoggedIn = false;
+                // Handle the case where there's an issue with the prepared statement
+                $_SESSION['login_alert'] = "An error occurred. Please try again later.";
+            }
     
-                $stmt->close();
-                $_SESSION['login_error'] = "Invalid username or password";
-                header('Location: index.php?controller=home&action=login');
+            // Redirect to the login page if the login attempt fails
+            header('Location: ?controller=user&action=login');
+            exit();
+        }
+    }
+    
+    public function reset() {
+        global $conn;
+    
+        // Check if the 'reset' key is set in the POST data
+        if (isset($_POST['reset'])) {
+            // Check if the required keys are present in the POST data
+            if (isset($_POST['email'], $_POST['password'])) {
+                // Validate input data and reset password
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+    
+                if (empty($email) || empty($password)) {
+                    $_SESSION['reset_alert'] = "All fields are required.";
+                    header('Location: ?controller=user&action=reset');
+                    exit();
+                } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $_SESSION['reset_alert'] = "Invalid email format.";
+                    header('Location: ?controller=user&action=reset');
+                    exit();
+                } else {
+                    try {
+                        // Hash the updated password
+                        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+                        // Prepare and execute the SQL statement to update the hashed password
+                        $sql = 'UPDATE USER SET PASSWORD = ? WHERE EMAIL = ?';
+                        $stmt = $conn->prepare($sql);
+    
+                        if (!$stmt) {
+                            throw new Exception("Error preparing SQL statement: " . $conn->error);
+                        }
+    
+                        // Bind parameters
+                        $stmt->bind_param('ss', $hashedPassword, $email);
+    
+                        // Execute the statement
+                        $stmt->execute();
+    
+                        // Check the number of affected rows
+                        $affectedRows = $stmt->affected_rows;
+    
+                        // Close the statement
+                        $stmt->close();
+    
+                        if ($affectedRows > 0) {
+                            // Password reset successful
+                            $_SESSION['reset_alert'] = "Reset password success!";
+                        } else {
+                            // No rows affected, email not found
+                            $_SESSION['reset_alert'] = "User not found. Password reset failed.";
+                        }
+                    } catch (Exception $e) {
+                        $_SESSION['reset_alert'] = "An unexpected error occurred: " . $e->getMessage();
+                    }
+                }
+    
+                // Redirect back to the reset page
+                header('Location: ?controller=user&action=reset');
+                exit();
+            } else {
+                // Handle the case when required keys are not present
+                $_SESSION['reset_alert'] = "Invalid request.";
+                header('Location: ?controller=user&action=reset');
+                exit();
             }
         }
     }
-
-    /*
-    function getRedirectPage($group_id) {
-        if ($group_id === 1) {
-            // return '../client/index.php';
-            return '../Home/index.php';
-        } elseif ($group_id === 2) {
-            // return '../moderator/index.php';
-            return '../Home/index.php';
-        } elseif ($group_id === 3) {
-            // return '../admin/index.php';
-            return '../Home/index.php';
-        } else {
-            return 'login.php';
-        }
-    }
-    */
-
     
+    public static function logout() {
+        // Unset all session variables
+        session_unset();
+
+        // Destroy the session
+        session_destroy();
+
+        // Empty cache
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        header('Location: ?controller=home&action=index');
+        exit();
+    }
+
     public static function create() {
         global $conn;
     
@@ -240,7 +337,7 @@ class User {
             $stmt->close();
     
             // Redirect
-            header("Location: index.php?controller=user&action=list");
+            header("Location: ?controller=user&action=list");
             exit();
         }
     
@@ -286,7 +383,7 @@ class User {
                 $stmt->close();
     
                 // Redirect 
-                header("Location: index.php?controller=user&action=list");
+                header("Location: ?controller=user&action=list");
                 exit();
             }
         }
@@ -333,7 +430,7 @@ class User {
                 $stmt->close();
     
                 // Redirect 
-                header("Location: index.php?controller=user&action=list");
+                header("Location: ?controller=user&action=list");
                 exit();
             }
         }
@@ -380,7 +477,7 @@ class User {
                 $stmt->close();
     
                  // Redirect 
-                header("Location: index.php?controller=user&action=read");
+                header("Location: ?controller=user&action=read");
                 exit();
             }
         }
@@ -435,7 +532,7 @@ class User {
             $stmt->close();
     
             // Redirect
-            header("Location: index.php?controller=user&action=list");
+            header("Location: ?controller=user&action=list");
             exit();
         }
     
@@ -443,30 +540,6 @@ class User {
         return 0;
     }
     
-    
-
-    // WILL WORRY ABOUT LATER
-    public static function hasRights($classname, $action) {
-        
-        $sql = "SELECT rights.RIGHTS_ID, rights.ACTION_NAME, rights.CLASS_NAME FROM `user` 
-        inner join `group` using (`GROUP_ID`) 
-        inner join group_rights on (group.GROUP_ID = group_rights.GROUP_ID) 
-        INNER join rights on (group_rights.RIGHTS_ID = rights.RIGHTS_ID) 
-        WHERE rights.ACTION_NAME like '$action' and rights.CLASS_NAME like '$classname' and user.USER_ID=$this->user_id;";
-
-        echo $sql;
-
-        global $conn;
-
-        $res = $conn->query($sql);
-        $r = $res->fetch_assoc();
-
-        var_dump($r);
-
-        if($r != NULL) return true;
-        else return false;
-
-    }
 
     // for passing the cart items corresponding to a user to the cart page
     public static function cart()
@@ -583,7 +656,7 @@ class User {
             }
         
             // Redirect to a success page or do other post-creation actions
-            header("Location: index.php?controller=user&action=cart");
+            header("Location: ?controller=user&action=cart");
             exit();
         }
     }
@@ -620,7 +693,7 @@ class User {
     public static function updateQty()
     {
         global $conn;
-        header("Location: index.php?controller=home&action=home");
+        header("Location: ?controller=home&action=home");
         
         $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 0;
         $product_id = isset($_POST['product_id']) ? $_POST['product_id'] : 0;
@@ -660,6 +733,29 @@ class User {
         }
     }
 
+     // WILL WORRY ABOUT LATER
+     public static function hasRights($classname, $action) {
+        
+        $sql = "SELECT rights.RIGHTS_ID, rights.ACTION_NAME, rights.CLASS_NAME FROM `user` 
+        inner join `group` using (`GROUP_ID`) 
+        inner join group_rights on (group.GROUP_ID = group_rights.GROUP_ID) 
+        INNER join rights on (group_rights.RIGHTS_ID = rights.RIGHTS_ID) 
+        WHERE rights.ACTION_NAME like '$action' and rights.CLASS_NAME like '$classname' and user.USER_ID=$this->user_id;";
+
+        echo $sql;
+
+        global $conn;
+
+        $res = $conn->query($sql);
+        $r = $res->fetch_assoc();
+
+        var_dump($r);
+
+        if($r != NULL) return true;
+        else return false;
+
+    }
+
     /*
         static function list(){
         return [];
@@ -674,7 +770,9 @@ class User {
             $this->hasRights('User',"delete");
         
         }
+   
     */
+
 }
 
 ?>

@@ -273,7 +273,7 @@ class Product
                     $stmt->close();
 
                     // Redirect to a success page or do other post-creation actions
-                    header("Location: index.php?controller=product&action=list");
+                    header("Location: ?controller=product&action=list");
                     exit();
                 } else {
                     // File upload failed
@@ -359,7 +359,7 @@ class Product
                 $stmt->close();
 
                 // Redirect 
-                header("Location: index.php?controller=Product&action=list");
+                header("Location: ?controller=Product&action=list");
                 exit();
             }
         }
@@ -414,7 +414,7 @@ class Product
             }
 
             // Redirect 
-            header("Location: index.php?controller=product&action=list");
+            header("Location: ?controller=product&action=list");
             exit();
         }
 

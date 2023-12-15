@@ -66,7 +66,7 @@ class Orders {
             $this->userId = 0;
         }
     }
-    
+  
     public static function list() {
         global $conn;
     
@@ -77,19 +77,45 @@ class Orders {
             // For My Orders (group_id = 1)
             $sql = "SELECT * FROM `ORDERS` WHERE USER_ID = ?";
             $stmt = $conn->prepare($sql);
+    
+            if (!$stmt) {
+                throw new Exception("Error preparing SQL statement: " . $conn->error);
+            }
+    
+            // Bind the user ID parameter
             $stmt->bind_param('i', $_SESSION['user_id']);
         } else {
             // For Manage Orders (group_id = 2 or 3)
             $sql = "SELECT * FROM `ORDERS`";
             $stmt = $conn->prepare($sql);
+    
+            if (!$stmt) {
+                throw new Exception("Error preparing SQL statement: " . $conn->error);
+            }
         }
     
         $stmt->execute();
+    
+        if ($stmt->errno) {
+            throw new Exception("Error executing SQL statement: " . $stmt->error);
+        }
+    
         $result = $stmt->get_result();
     
+        if (!$result) {
+            throw new Exception("Error getting result: " . $stmt->error);
+        }
+    
+        // Fetch the result
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+    
+        // Close the statement
+        $stmt->close();
+    
         // Return the fetched result
-        return $result->fetch_all(MYSQLI_ASSOC);
+        return $data;
     }
+    
     
     
     public static function read() {
@@ -269,7 +295,7 @@ class Orders {
             $stmt->close();
     
             // Redirect to a success page or do other post-creation actions
-            //header("Location: index.php?controller=order&action=list");
+            //header("Location: ?controller=order&action=list");
             exit();
         }
     
@@ -310,7 +336,7 @@ class Orders {
         return $stmt->execute();
 
          // Redirect 
-         header("Location: index.php?controller=orders&action=list");
+         header("Location: ?controller=orders&action=list");
          exit();
     }
 

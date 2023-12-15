@@ -1,3 +1,23 @@
+<?php
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
+
+// Debugging: Dump the entire user object
+if ($isLoggedIn) {
+    // Retrieve the group_id from the user object in the session
+    $groupId = isset($_SESSION['user']->group_id) ? $_SESSION['user']->group_id : null;
+    $userId = isset($_SESSION['user']->user_id) ? $_SESSION['user']->user_id : null;
+
+    // Now, $groupId contains the value of group_id for the logged-in user
+    echo "Group ID: " . $groupId;
+} else {
+    // User is not logged in
+    echo "User is not logged in.";
+    // You might want to redirect the user to the login page or handle this case appropriately
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,17 +28,9 @@
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <?php
-        // Replace this with the actual value from the session
-        $_SESSION['user_id'] = 3;
-
-        // Check if $data is defined and not empty
-        if (isset($data) && is_array($data) && !empty($data)) {
-            $user = User::read(); // FOR NOW. NEED TO MODIFY ONCE I'VE CONNECTED TO A LINK
-
-            // Encode the user's password for JavaScript
-            $encodedPassword = htmlspecialchars(json_encode($user['PASSWORD']), ENT_QUOTES, 'UTF-8');
-            echo '<script>var userPassword = ' . $encodedPassword . ';</script>';
-        }
+    // Encode the user's password for JavaScript
+    $encodedPassword = htmlspecialchars(json_encode($_SESSION['user']->password), ENT_QUOTES, 'UTF-8');
+    echo '<script>var userPassword = ' . $encodedPassword . ';</script>';
     ?>
     <script>
         $(document).ready(function () {
@@ -48,8 +60,8 @@
                 // Make an AJAX request to update the email
                 $.ajax({
                     type: 'POST',
-                    url: 'index.php?controller=user&action=updateEmail', 
-                    data: { updateEmail: true, user_id: <?php echo $user['USER_ID']; ?>, emailInput: newEmail },
+                    url: '?controller=user&action=updateEmail',
+                    data: { updateEmail: true, user_id: <?php echo $_SESSION['user_id']; ?>, emailInput: newEmail },
                     success: function (response) {
                         // Handle the response if needed
                         console.log(response);
@@ -106,8 +118,8 @@
                 // Make an AJAX request to update the password
                 $.ajax({
                     type: 'POST',
-                    url: 'index.php?controller=user&action=updatePassword', 
-                    data: { updatePassword: true, user_id: <?php echo $user['USER_ID']; ?>, passwordInput: newPassword },
+                    url: '?controller=user&action=updatePassword',
+                    data: { updatePassword: true, user_id: <?php echo $_SESSION['user_id']; ?>, passwordInput: newPassword },
                     success: function (response) {
                         // Handle the response if needed
                         console.log(response);
@@ -143,21 +155,21 @@
         <?php
         // Check if $data is defined and not empty
         if (isset($data) && is_array($data) && !empty($data)) {
-            echo '<h1 class="text-center mx-auto">Hi, ' . $user['FNAME'] . '!</h1>';
+            echo '<h1 class="text-center mx-auto">Hi, ' . $_SESSION['user']->fname . '!</h1>';
             echo '<h2 class="py-2 text-left mx-auto">MANAGE MY ACCOUNT</h2>';
             echo '<table class="table">';
             echo '<tr>
                     <td>
                         <h3 class="py-2 text-left mx-auto">Email</h3>
-                        <p name="emailP" class="py-2 text-left mx-auto">' . $user['EMAIL'] . '</p>
-                        <input type="text" class="form-control" name="emailInput" autocomplete="off" value="' . $user['EMAIL'] . '" style="display: none;">
+                        <p name="emailP" class="py-2 text-left mx-auto">' . $_SESSION['user']->email . '</p>
+                        <input type="text" class="form-control" name="emailInput" autocomplete="off" value="' . $_SESSION['user']->email . '" style="display: none;">
                     </td>
                     <td><button type="button" class="btn btn-primary" style="margin-top: 20px;" name="changeEmail">CHANGE</button></td>
                 </tr>';
             echo '<tr>
                     <td>
                         <h3 class="py-2 text-left mx-auto">Password</h3>
-                        <p name="passwordP" class="py-2 text-left mx-auto">' . str_repeat('*', strlen($user['PASSWORD'])) . '</p>
+                        <p name="passwordP" class="py-2 text-left mx-auto">' . str_repeat('*', strlen($_SESSION['user']->password)) . '</p>
                         <input type="password" class="form-control" name="passwordInput" autocomplete="off" style="display: none;" placeholder="Enter New Password">
                     </td>
                     <td>
@@ -170,14 +182,16 @@
                         <p class="py-2 text-left mx-auto">NOTE: Account will NOT BE RECOVERABLE once deleted.</p>
                     </td>
                     <td>
-                        <form method="post" action="index.php?controller=user&action=delete">
-                            <input type="hidden" name="user_id" value="' . $user['USER_ID'] . '">
-                            <input type="hidden" name="group_id" value="' . $user['GROUP_ID'] . '">
+                        <form method="post" action="?controller=user&action=delete">
+                            <input type="hidden" name="user_id" value="' . $_SESSION['user']->user_id . '">
+                            <input type="hidden" name="group_id" value="' . $_SESSION['user']->group_id . '">
                             <button type="button" class="btn btn-danger" style="margin-top: 20px;" name="delete">DELETE</button>
                         </form>
                     </td>
                 </tr>';
             echo '</table>';
+        } else {
+            echo '<p>No data available.</p>';
         }
         ?>
     </div>

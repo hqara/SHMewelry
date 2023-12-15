@@ -17,7 +17,7 @@
 
     <div class="container my-5 text-center">
         <h1 class="py-2" style="padding:10px;">Create New User</h1>
-        <form method="post" action="index.php?controller=user&action=create">
+        <form method="post" action="?controller=user&action=create">
 
             <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">
                 <label for="fname" class="col-sm-2 col-form-label text-left">First Name</label>

@@ -19,7 +19,7 @@
 
     <div class="container my-5 text-center">
         <h1 class="py-5" style="padding: 10px;">SHIPPING DETAILS</h1>
-        <form method="post" action="index.php?controller=address&action=create" class="mx-auto">
+        <form method="post" action="?controller=address&action=create" class="mx-auto">
 
             <div class="form-group row justify-content-center" style="display:flex; justify-content: center;">
                 <div class="col-sm-6">
