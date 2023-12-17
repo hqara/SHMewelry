@@ -6,14 +6,8 @@ $isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
 if ($isLoggedIn) {
     // Retrieve the group_id from the user object in the session
     $groupId = isset($_SESSION['user']->group_id) ? $_SESSION['user']->group_id : null;
+    $userId = isset($_SESSION['user']->user_id) ? $_SESSION['user']->user_id : null;
 
-    // Now, $groupId contains the value of group_id for the logged-in user
-    echo "Group ID: " . $groupId;
-} else {
-    // User is not logged in
-    echo "User is not logged in.";
-    // You might want to redirect the user to the login page or handle this case appropriately
-    exit;
 }
 ?>
 
@@ -129,7 +123,7 @@ if ($isLoggedIn) {
                         echo '<button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">Cancel Order</button>';
                     } else {
                         // Order can be canceled, render the original delete form
-                        echo '<form method="post" action="index.php?controller=orders&action=delete">
+                        echo '<form method="post" action="index.php?controller=orders&action=list">
                                     <input type="hidden" name="order_id" value="' . $order['ORDER_ID'] . '">
                                     <button type="submit" class="btn btn-danger" name="delete">Cancel Order</button>
                                 </form>';

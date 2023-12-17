@@ -62,6 +62,7 @@
 
             <div class="form-group row justify-content-center" style="display:flex; justify-content: space-around;">
                 <div class="col-sm-6 text-right">
+                    <input type="hidden" name="user_id" value="<?php echo isset($user['USER_ID']) ? $user['USER_ID'] : ''; ?>">
                     <button type="submit" class="btn btn-primary" name="create">NEXT</button>
                 </div>
             </div>

@@ -14,15 +14,14 @@ class OrdersController extends Controller {
 
         // Initialize the Orders model
         $orderModel = new Orders();
-
-        if ($action == "list" || $action == "view") {
+        if ($this->userIsLoggedIn() && $action == "list") {
             $orders = Orders::$action();
-            if (!empty($orders)) {
-                $this->render("Orders", $action, $orders);
-            } else {
-                $this->render("Orders", $action, null);
-            }
-        } else if ($action == "create" || $action == "update" || $action == "delete") {
+            $this->render("Orders", $action, $orders);
+
+        }else if ($action == "view") {
+            $orders = Orders::$action();
+             $this->render("Orders", $action, $orders);
+        } else if ($action == "create" || $action == "update" || $action == "delete" || $action == "deleteOrder") {
             $result = $orderModel->$action();
         } else if ($action == "add") {
             $this->render("Orders", $action, array());

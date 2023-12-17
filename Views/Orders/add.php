@@ -18,7 +18,7 @@
 
     <div class="container my-5">
             <h1 class="py-2 text-center mx-auto">ORDER CONFIRMATION</h1>
-            <form method="post" action="index.php?controller=orders&action=read&id=<?php echo $order['ORDER_ID']; ?>">
+            <form method="post" action="index.php?controller=orders&action=read">
             <input type="hidden" name="order_id" value="<?php echo $order['ORDER_ID']; ?>">
             <?php
             // Check if $data is defined and not empty
@@ -54,7 +54,7 @@
             }
             ?>
         <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary" name="create">CONFIRM ORDER</button>
+                <button type="submit" class="btn btn-primary"  style="margin-left:75%;margin-bottom:20px;" name="create">CONFIRM ORDER</button>
         </div>
     </div>
 </form>

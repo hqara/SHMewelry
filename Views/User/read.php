@@ -1,24 +1,3 @@
-<?php
-// Check if the user is logged in
-$isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
-
-// Debugging: Dump the entire user object
-if ($isLoggedIn) {
-    // Retrieve the group_id from the user object in the session
-    $groupId = isset($_SESSION['user']->group_id) ? $_SESSION['user']->group_id : null;
-    $userId = isset($_SESSION['user']->user_id) ? $_SESSION['user']->user_id : null;
-
-    // Now, $groupId contains the value of group_id for the logged-in user
-    echo "Group ID: " . $groupId;
-} else {
-    // User is not logged in
-    echo "User is not logged in.";
-    // You might want to redirect the user to the login page or handle this case appropriately
-    exit;
-}
-?>
-
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -26,59 +5,80 @@ if ($isLoggedIn) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Latest jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="app/scripts/number_input.js"></script>
     <?php
     // Encode the user's password for JavaScript
     $encodedPassword = htmlspecialchars(json_encode($_SESSION['user']->password), ENT_QUOTES, 'UTF-8');
     echo '<script>var userPassword = ' . $encodedPassword . ';</script>';
     ?>
     <script>
-        $(document).ready(function () {
-            // Change Email button click handling
-            $('[name="changeEmail"]').on('click', function () {
-                var emailInput = $('[name="emailInput"]');
-                var emailP = $('[name="emailP"]');
-                var changeEmailButton = $('[name="changeEmail"]');
+  $(document).ready(function () {
+    // Change Email button click handling
+    $('[name="changeEmail"]').on('click', function () {
+        var emailInput = $('[name="emailInput"]');
+        var emailP = $('[name="emailP"]');
+        var changeEmailButton = $('[name="changeEmail"]');
 
-                emailInput.toggle();
-                emailP.toggle();
+        emailInput.toggle();
+        emailP.toggle();
 
-                // Change button text and functionality
-                if (emailInput.is(':visible')) {
-                    changeEmailButton.text('SAVE');
-                    changeEmailButton.attr('name', 'update');
-                } else {
+        // Change button text and functionality
+        if (emailInput.is(':visible')) {
+            changeEmailButton.text('SAVE');
+            changeEmailButton.attr('name', 'updateEmail');
+        } else {
+            changeEmailButton.text('CHANGE');
+            changeEmailButton.attr('name', 'changeEmail');
+        }
+    });
+
+    // Update Email button click handling
+    $('[name="updateEmail"]').on('click', function () {
+        var newEmail = $('[name="emailInput"]').val();
+        var emailP = $('[name="emailP"]');
+        var changeEmailButton = $('[name="changeEmail"]');
+
+        // Make an AJAX request to update the email
+        $.ajax({
+            type: 'POST',
+            url: '?controller=user&action=updateEmail',
+            data: {
+                updateEmail: true,
+                email: newEmail
+            },
+            success: function (response) {
+                // Handle the response if needed
+                console.log(response);
+
+                if (response.success) {
+                    // Update the content of the paragraph with the new email
+                    emailP.text(newEmail);
+
+                    // Toggle visibility of input and paragraph elements
+                    $('[name="emailInput"]').toggle();
+                    $('[name="emailP"]').toggle();
+
+                    // Change button text and functionality back to "CHANGE"
                     changeEmailButton.text('CHANGE');
                     changeEmailButton.attr('name', 'changeEmail');
+                } else {
+                    // If the update fails, keep the button as "SAVE"
+                    changeEmailButton.text('SAVE');
                 }
-            });
+            },
+            error: function (error) {
+                // Handle the error if needed
+                console.error(error);
+            }
+        });
+    });
 
-            // Save (Update) Email button click handling
-            $('[name="update"]').on('click', function () {
-                var newEmail = $('[name="emailInput"]').val();
-
-                // Make an AJAX request to update the email
-                $.ajax({
-                    type: 'POST',
-                    url: '?controller=user&action=updateEmail',
-                    data: { updateEmail: true, user_id: <?php echo $_SESSION['user']->user_id; ?>, emailInput: newEmail },
-                    success: function (response) {
-                        // Handle the response if needed
-                        console.log(response);
-
-                        // Update the content of the paragraph with the new email
-                        $('[name="emailP"]').text(newEmail);
-
-                        // Toggle visibility of input and paragraph elements
-                        $('[name="emailInput"]').toggle();
-                        $('[name="emailP"]').toggle();
-                    },
-                    error: function (error) {
-                        // Handle the error if needed
-                        console.error(error);
-                    }
-                });
-            });
 
             // Change Password button click handling
             $('[name="changePassword"]').on('click', function () {
@@ -119,7 +119,11 @@ if ($isLoggedIn) {
                 $.ajax({
                     type: 'POST',
                     url: '?controller=user&action=updatePassword',
-                    data: { updatePassword: true, user_id: <?php echo $_SESSION['user']->user_id; ?>, passwordInput: newPassword },
+                    data: {
+                        updatePassword: true,
+                        user_id: <?php echo isset($_SESSION['user']) ? $_SESSION['user']->user_id : -1; ?>,
+                        passwordInput: newPassword
+                    },
                     success: function (response) {
                         // Handle the response if needed
                         console.log(response);
@@ -182,10 +186,9 @@ if ($isLoggedIn) {
                         <p class="py-2 text-left mx-auto">NOTE: Account will NOT BE RECOVERABLE once deleted.</p>
                     </td>
                     <td>
-                        <form method="post" action="index.php?controller=user&action=delete">
+                        <form method="post" action="index.php?controller=user&action=deleteAccount">
                             <input type="hidden" name="user_id" value="' . $_SESSION['user']->user_id . '">
-                            <input type="hidden" name="group_id" value="' . $_SESSION['user']->group_id . '">
-                            <button type="button" class="btn btn-danger" style="margin-top: 20px;" name="delete">DELETE</button>
+                            <button type="submit" class="btn btn-danger" style="margin-top: 20px;" name="deleteAccount">DELETE</button>
                         </form>
                     </td>
                 </tr>';

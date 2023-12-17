@@ -71,7 +71,8 @@ class Address {
     public static function create() {
         global $conn;
     
-        // Check if the 'create' key is set in the $_POST array
+        $user_id = isset($_SESSION['user']) ? $_SESSION['user']->user_id : 0;
+    
         if (isset($_POST['create'])) {
             // Get form data
             $street_address = $_POST['street_address'];
@@ -79,12 +80,11 @@ class Address {
             $province = $_POST['province'];
             $postal_code = $_POST['postal_code'];
             $country = $_POST['country'];
-            $user_id = $_POST['user_id'];
-            
+    
             // Check if the checkbox is checked
             $is_default = isset($_POST['set_default']) ? 1 : 0;
     
-            // Prepare and execute the SQL query
+            // Prepare the SQL query using a prepared statement
             $sql = 'INSERT INTO ADDRESS (STREET_ADDRESS, CITY, PROVINCE, POSTAL_CODE, COUNTRY, USER_ID, IS_DEFAULT) VALUES (?, ?, ?, ?, ?, ?, ?)';
             $stmt = $conn->prepare($sql);
     
@@ -93,8 +93,10 @@ class Address {
                 die('Error preparing statement: ' . $conn->error);
             }
     
-            // Bind parameters and execute the statement
+            // Bind parameters
             $stmt->bind_param('ssssssi', $street_address, $city, $province, $postal_code, $country, $user_id, $is_default);
+    
+            // Execute the statement
             $stmt->execute();
     
             // Check for errors in executing the statement
@@ -103,20 +105,27 @@ class Address {
                 die('Error executing statement: ' . $stmt->error);
             }
     
-            // Get the ID of the inserted address
-            $insertedAddressId = $stmt->insert_id;
+            // Check if any rows were affected
+            if ($stmt->affected_rows > 0) {
+                // Get the ID of the inserted address
+                $insertedAddressId = $stmt->insert_id;
     
-            // Close the statement
-            $stmt->close();
+                // Close the statement
+                $stmt->close();
     
-            // Redirect
-            //header("Location: index.php?controller=address&action=view");
-            exit();
+                // Redirect
+                header("Location: index.php?controller=orders&action=add");
+                exit();
+            } else {
+                // Handle the case where no rows were affected (insertion failed)
+                die('Address creation failed.');
+            }
         }
     
         // Return false if the 'create' key is not present in the $_POST array
         return false;
     }
+    
     
     public static function update() {
 

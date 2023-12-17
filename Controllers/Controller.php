@@ -2,78 +2,64 @@
 
 include_once __DIR__ . "/../Models/User.php";
 
-class Controller{
+class Controller {
 
-    function validateSessionUser() {
-        /*
-        session_start();  // Start or resume the session
     
-        if (!isset($_SESSION['user'])) {
-            header("Location: index.php?controller=home&action=index");
-            exit();
+    function validateSessionUser($controller, $action) {
+        if ($this->hasRights($controller, $action)) {
+            $this->render($controller, $action);
         } else {
-
+            $this->render("Home", "index");
         }
-        */
     }
-    
-	function route() {
-        $this->validateSessionUser();
-    
-        /*
-        // Validate controller and action names to prevent possible security issues
-        $allowedControllers = ['Home', 'Product', 'Address', 'Orders', 'User'];
-        $allowedActions = ['index', 'list', 'read', 'cart', 'create', 'update', 'delete', 'login', 'logout', 'add', 'edit'];
-    
-        if (!in_array($controllerName, $allowedControllers) || !in_array($actionName, $allowedActions)) {
-            // Invalid controller or action, handle accordingly (redirect, show 404, etc.)
-            $this->render('Error', 'index');
-            return;
-        }
-    
-        // Construct the controller class name
-        $controllerClassName = ucfirst($controllerName) . 'Controller';
-    
-        // Include the controller file
-        include_once __DIR__ . "/../Controllers/$controllerClassName.php";
-    
-        // Create an instance of the controller
-        $controller = new $controllerClassName();
-    
-        // Call the specified action on the controller
-        $controller->$actionName();
-        */
-    }
-
-    /*
-    
-	function route() {
-		$this->validateSessionUser();
-       // global $controller, $view;
-        //$this->render($controller, $view);
-	}
-
-    */
 
     protected function userIsLoggedIn() {
         return isset($_SESSION['user']);
     }
 
+    protected function groupId() {
+        return isset($_SESSION['user']->group_id);
+    }
+
+    protected function userId() {
+        return isset($_SESSION['user']->user_id);
+    }
 
     function render($controller, $action, $data = []) {
-        //extract($data);
         $dirString = dirname(__FILE__) . "/../Views/$controller/{$action}.php";
-        
-        if (file_exists($dirString))
-        {
+
+        if (file_exists($dirString)) {
             include_once $dirString;
-        }
-        else
-        {
+        } else {
             var_dump($dirString);
             include_once dirname(__FILE__) . "/../404.php";
-           
         }
+    }
+
+    function route() {
+        //NEED TO FIX DATABASE
+        //$this->validateSessionUser($controller, $action);
+    }
+
+    public function hasRights($classname, $action) {
+        global $conn;
+
+        $user_id = isset($_SESSION['user']) ? $_SESSION['user']->user_id : -1;
+
+        // Using prepared statements to prevent SQL injection
+        $sql = "SELECT rights.RIGHTS_ID, rights.ACTION_NAME, rights.CLASS_NAME FROM `user` 
+                INNER JOIN `group` USING (`GROUP_ID`) 
+                INNER JOIN group_rights ON (group.GROUP_ID = group_rights.GROUP_ID) 
+                INNER JOIN rights ON (group_rights.RIGHTS_ID = rights.RIGHTS_ID) 
+                WHERE rights.ACTION_NAME LIKE ? AND rights.CLASS_NAME LIKE ? AND user.USER_ID = ?";
+
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssi", $action, $classname, $user_id);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        $r = $res->fetch_assoc();
+
+        return ($r !== null);
     }
 }
 

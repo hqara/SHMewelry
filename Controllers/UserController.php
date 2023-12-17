@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . "/Controller.php";
+include_once __DIR__ . "/../Models/User.php";
 
 class UserController extends Controller {
     
@@ -29,7 +30,7 @@ class UserController extends Controller {
             } elseif (in_array($action, ["list", "read", "cart"])) {
                 $users = User::$action();
                 $this->render("User", $action, $users);
-            } elseif (in_array($action, ["create", "update", "delete", "bag", "unbag", "updateQty", "unbagAll"])) {
+            } elseif (in_array($action, ["create", "update", "delete", "deleteAccount","bag", "unbag", "updateQty", "unbagAll"])) {
                 $result = $userModel->$action();
             } elseif (in_array($action, ["updateEmail", "updatePassword"])) {
                 $result = $this->handleUpdateAction($userModel);

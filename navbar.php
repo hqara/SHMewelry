@@ -4,15 +4,11 @@ $isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
 
 // Debugging: Dump the entire user object
 if ($isLoggedIn) {
-    var_dump($_SESSION['user']);
     // Retrieve the group_id from the user object in the session
     $groupId = $_SESSION['user']->group_id;
-
-    // Now, $groupId contains the value of group_id for the logged-in user
-    echo "Group ID: " . $groupId;
 } else {
     // User is not logged in
-    echo "User is not logged in.";
+    $groupId =0;
 }
 
 ?>

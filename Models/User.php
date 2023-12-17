@@ -344,6 +344,7 @@ class User {
         // Return false if the 'create' key is not present in the $_POST array
         return false;
     }
+
     
     public static function update() {
         global $conn;
@@ -395,95 +396,94 @@ class User {
     public static function updateEmail() {
         global $conn;
     
-        // Check if the 'updateEmail' key is set in the POST data
         if (isset($_POST['updateEmail'])) {
-            // Check if 'user_id' and 'emailInput' keys are set
-            if (isset($_POST['user_id'], $_POST['emailInput'])) {
-                // Get form data
-                $user_id = $_POST['user_id'];
-                $new_email = $_POST['emailInput'];
+            $userId = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
     
-                // Prepare and execute the SQL update statement
-                $sql = 'UPDATE USER SET EMAIL = ? WHERE USER_ID = ?';
-                $stmt = $conn->prepare($sql);
-    
-                // Check if the prepare statement was successful
-                if (!$stmt) {
-                    // Handle the case when the prepare statement fails
-                    return 0;
-                }
-    
-                $stmt->bind_param('si', $new_email, $user_id);
-                $stmt->execute();
-    
-                // Check for errors during the execution of the SQL statement
-                if ($stmt->errno) {
-                    // Handle the case when an error occurs
-    
-                    // Close the statement
-                    $stmt->close();
-    
-                    return 0;
-                }
-    
-                // Close the statement
-                $stmt->close();
-    
-                // Redirect 
-                header("Location: index.php?controller=user&action=list");
-                exit();
+            // Check if the user ID is set
+            if ($userId === null) {
+                return json_encode(array('success' => false, 'message' => 'User ID not set.'));
             }
+    
+            // Retrieve updated user information from the POST data
+            $email = isset($_POST['email']) ? $_POST['email'] : null;
+    
+            // Check if required fields are set
+            if ($email === null) {
+                return json_encode(array('success' => false, 'message' => 'Email not provided.'));
+            }
+    
+            // Update user information in the database
+            $sql = 'UPDATE `user` SET email = ? WHERE user_id = ?';
+            $stmt = $conn->prepare($sql);
+    
+            // Check if the prepared statement was successful
+            if (!$stmt) {
+                return json_encode(array('success' => false, 'message' => 'Failed to prepare statement.'));
+            }
+    
+            $stmt->bind_param('si', $email, $userId);
+            $stmt->execute();
+    
+            if ($stmt->errno) {
+                $stmt->close();
+                return json_encode(array('success' => false, 'message' => 'Error updating email.'));
+            }
+    
+            $stmt->close();
+    
+            // Return a success response
+            return json_encode(array('success' => true, 'message' => 'Email updated successfully.'));
         }
     
-        // Handle the case when 'updateEmail' key is not set or required keys are missing
-        return 0;
+        return json_encode(array('success' => false, 'message' => 'Invalid request.'));
     }
-    
+
     public static function updatePassword() {
         global $conn;
     
-        // Check if the 'updatePassword' key is set in the POST data
         if (isset($_POST['updatePassword'])) {
-            // Check if 'user_id' and 'passwordInput' keys are set
-            if (isset($_POST['user_id'], $_POST['passwordInput'])) {
-                // Get form data
-                $user_id = $_POST['user_id'];
-                $new_password = password_hash($_POST['passwordInput'], PASSWORD_DEFAULT);
+            $userId = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
     
-                // Prepare and execute the SQL update statement
-                $sql = 'UPDATE USER SET PASSWORD = ? WHERE USER_ID = ?';
-                $stmt = $conn->prepare($sql);
-    
-                // Check if the prepare statement was successful
-                if (!$stmt) {
-                    // Handle the case when the prepare statement fails
-                    return 0;
-                }
-    
-                $stmt->bind_param('si', $new_password, $user_id);
-                $stmt->execute();
-    
-                // Check for errors during the execution of the SQL statement
-                if ($stmt->errno) {
-                    // Handle the case when an error occurs
-    
-                    // Close the statement
-                    $stmt->close();
-    
-                    return 0;
-                }
-    
-                // Close the statement
-                $stmt->close();
-    
-                 // Redirect 
-                header("Location: index.php?controller=user&action=read");
-                exit();
+            // Check if the user ID is set
+            if ($userId === null) {
+                return json_encode(array('success' => false, 'message' => 'User ID not set.'));
             }
+    
+            // Retrieve updated user information from the POST data
+            $newPassword = isset($_POST['passwordInput']) ? $_POST['passwordInput'] : null;
+    
+            // Check if required fields are set
+            if ($newPassword === null) {
+                return json_encode(array('success' => false, 'message' => 'Password not provided.'));
+            }
+    
+            // Hash the new password before updating in the database
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    
+            // Update user information in the database
+            $sql = 'UPDATE `user` SET password = ? WHERE user_id = ?';
+            $stmt = $conn->prepare($sql);
+    
+            // Check if the prepared statement was successful
+            if (!$stmt) {
+                return json_encode(array('success' => false, 'message' => 'Failed to prepare statement.'));
+            }
+    
+            $stmt->bind_param('si', $hashedPassword, $userId);
+            $stmt->execute();
+    
+            if ($stmt->errno) {
+                $stmt->close();
+                return json_encode(array('success' => false, 'message' => 'Error updating password.'));
+            }
+    
+            $stmt->close();
+    
+            // Return a success response
+            return json_encode(array('success' => true, 'message' => 'Password updated successfully.'));
         }
     
-        // Handle the case when 'updatePassword' key is not set or required keys are missing
-        return 0;
+        return json_encode(array('success' => false, 'message' => 'Invalid request.'));
     }
     
     public static function delete() {
@@ -539,6 +539,62 @@ class User {
         // Return false if the 'delete' key is not present in the $_POST array or 'user_id' is not set
         return 0;
     }
+
+    public static function deleteAccount() {
+        global $conn;
+    
+        // Check if user ID is present in the session
+        $userId = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
+    
+        // Check if the 'deleteAccount' key is present in the $_POST array
+        if (isset($_POST['deleteAccount'])) {
+            // Validate user ID
+            if (!$userId) {
+                die('Error: User ID not available. Please log in.');
+            }
+    
+            // Prepare and execute the SQL query to delete the user account
+            $sql = 'DELETE FROM USER WHERE USER_ID = ?';
+            $stmt = $conn->prepare($sql);
+    
+            // Check for errors in preparing the statement
+            if (!$stmt) {
+                die('Error preparing statement: ' . $conn->error);
+            }
+    
+            // Bind parameters and execute the statement
+            $stmt->bind_param('i', $userId);
+            $stmt->execute();
+    
+            // Check for errors in executing the statement
+            if ($stmt->error) {
+                // Handle the error (e.g., display an error message or redirect to an error page)
+                die('Error executing statement: ' . $stmt->error);
+            }
+    
+            // Close the statement
+            $stmt->close();
+    
+            // Unset all session variables
+            session_unset();
+    
+            // Destroy the session
+            session_destroy();
+    
+            // Empty cache
+            header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+    
+            // Redirect to the home page after successful account deletion
+            header('Location: index.php?controller=home&action=index');
+            exit();
+        }
+    
+        // Return false if the 'deleteAccount' key is not present in the $_POST array
+        return false;
+    }
+    
     
 
     // for passing the cart items corresponding to a user to the cart page
@@ -760,47 +816,6 @@ class User {
             $stmt->close();
         }
     }
-
-     // WILL WORRY ABOUT LATER
-     public static function hasRights($classname, $action) {
-        
-        $sql = "SELECT rights.RIGHTS_ID, rights.ACTION_NAME, rights.CLASS_NAME FROM `user` 
-        inner join `group` using (`GROUP_ID`) 
-        inner join group_rights on (group.GROUP_ID = group_rights.GROUP_ID) 
-        INNER join rights on (group_rights.RIGHTS_ID = rights.RIGHTS_ID) 
-        WHERE rights.ACTION_NAME like '$action' and rights.CLASS_NAME like '$classname' and user.USER_ID=$this->user_id;";
-
-        echo $sql;
-
-        global $conn;
-
-        $res = $conn->query($sql);
-        $r = $res->fetch_assoc();
-
-        var_dump($r);
-
-        if($r != NULL) return true;
-        else return false;
-
-    }
-
-    /*
-        static function list(){
-        return [];
-        }
-        
-        function edit(){
-            $this->hasRights('User',"edit");
-        
-        }
-        
-        function delete(){
-            $this->hasRights('User',"delete");
-        
-        }
-   
-    */
-
 }
 
 ?>
