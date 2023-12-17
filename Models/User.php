@@ -805,15 +805,17 @@ class User
     public static function updateQty()
     {
         global $conn;
+        error_reporting(E_ALL);
+        ini_set('display_errors', 1);
         ob_start();
 
         $user_id = isset($_SESSION['user']) ? $_SESSION['user']->user_id : 0;
         $product_id = isset($_GET['id']) ? $_GET['id'] : 0;
-        $qty = isset($_POST['quantity' + $product_id]) ? $_POST['quantity' + $product_id] : 0;
+        $qty = isset($_POST['quantity' . $product_id]) ? $_POST['quantity' . $product_id] : 0;
 
         if (
             ($user_id != 0 && $product_id != 0 && $qty != 0) &&
-            (isset($_POST['btnUp' + $product_id]) || isset($_POST['btnDown' + $product_id]))
+            (isset($_POST['btnUp' . $product_id]) || isset($_POST['btnDown' . $product_id]))
         ) {
             $sql = "UPDATE USER_PRODUCT SET QTY = ? WHERE USER_ID = ? AND PRODUCT_ID = ?;";
 
@@ -840,6 +842,7 @@ class User
         } else {
             self::redirectToCart();
         }
+        ob_end_flush();
     }
 }
 

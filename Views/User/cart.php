@@ -113,7 +113,7 @@
         </table>
                     
         
-        <h4 id="totalLabel" class="text-right"></h4> <!-- WHERE THE TOTAL IS DISPLAYED-->
+        <h4 id="totalLabel" class="text-right">Total: $0</h4> <!-- WHERE THE TOTAL IS DISPLAYED-->
         <p hidden id="total" name="total"></p>
         <div class="row">
             <div class="col-md-6">
