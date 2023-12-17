@@ -36,7 +36,8 @@
             echo '<p>- [' . $orderDetails['QTY'] . '] X $' . $orderDetails['PRICE'] . ' X ' . $orderDetails['NAME'] . ', ' . $orderDetails['SIZE'] . ', ' . $orderDetails['MATERIAL'] . ', ' . $orderDetails['TYPE'] . ', ' . $orderDetails['COLOR'] . '</p>';
         }
 
-        // Display total only once
+        // Display total here
+        
         echo '<h3 class="py-4">Total: $' . $data[0]['TOTAL_PRICE'] . '</h3>';
     } else {
         // No data available
@@ -45,7 +46,7 @@
     ?>
 
     <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-primary" style="margin-left:75%;margin-bottom:20px;" name="return" onclick="window.history.back();">RETURN</button>
+        <button type="button" class="btn btn-primary" style="margin-left:75%;margin-bottom:20px;" name="return" onclick="redirectToOrderHistory()">RETURN</button>
     </div>
 </div>
 

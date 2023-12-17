@@ -180,6 +180,8 @@
                         <button type="button" class="btn btn-primary" style="margin-top: 20px;" name="changePassword">CHANGE</button>
                     </td>
                 </tr>';
+
+
             echo '<tr>
                     <td>
                         <h3 class="py-2 text-left mx-auto">Delete My Account</h3>

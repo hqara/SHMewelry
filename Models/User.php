@@ -102,65 +102,73 @@ class User
 
 
     public function register()
-    {
-        global $conn;
+{
+    global $conn;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Collect user input data
-            $firstName = $_POST['fname'];
-            $lastName = $_POST['lname'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Collect user input data
+        $firstName = $_POST['fname'];
+        $lastName = $_POST['lname'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
 
-            // Validate input data and register user
-            if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
-                $_SESSION['register_alert'] = "All fields are required.";
-                header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
-                exit();
-            }
+        // Validate input data and register user
+        if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
+            $_SESSION['register_alert'] = "All fields are required.";
+            header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
+            exit();
+        }
 
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['register_alert'] = "Invalid email format.";
-                header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
-                exit();
-            }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['register_alert'] = "Invalid email format.";
+            header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
+            exit();
+        }
 
-            // Hash password
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        // Additional password validation
+        if (strlen($password) < 7 || !preg_match('/[A-Z]/', $password) || !preg_match('/[0-9]/', $password)) {
+            $_SESSION['register_alert'] = "Password must be at least 7 characters long, contain at least one capital letter, and one number.";
+            header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
+            exit();
+        }
 
-            // Prepare database query
-            $query = 'INSERT INTO user (fname, lname, email, password, group_id) VALUES (?, ?, ?, ?, 1)';
-            try {
-                if ($stmt = $conn->prepare($query)) {
-                    // Bind parameters
-                    $stmt->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
+        // Hash password
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-                    // Execute query and check for successful insertion
-                    if ($stmt->execute()) {
-                        // Registration successful
-                        $_SESSION['register_alert'] = "Registration successful!";
-                        header('Location: index.php?controller=user&action=login'); // Redirect to login page
-                        exit();
-                    } else {
-                        // Handle errors, e.g., duplicate entry
-                        $_SESSION['register_alert'] = "Email already in use.";
-                        header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
-                        exit();
-                    }
+        // Prepare database query
+        $query = 'INSERT INTO user (fname, lname, email, password, group_id) VALUES (?, ?, ?, ?, 1)';
+        try {
+            if ($stmt = $conn->prepare($query)) {
+                // Bind parameters
+                $stmt->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
+
+                // Execute query and check for successful insertion
+                if ($stmt->execute()) {
+                    // Registration successful
+                    $_SESSION['register_alert'] = "Registration successful!";
+                    header('Location: index.php?controller=user&action=login'); // Redirect to login page
+                    exit();
                 } else {
-                    // Handle preparation error
-                    $_SESSION['register_alert'] = "An error occurred during query preparation: " . $conn->error;
+                    // Handle errors, e.g., duplicate entry
+                    $_SESSION['register_alert'] = "Email already in use.";
                     header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
                     exit();
                 }
-            } catch (mysqli_sql_exception $exception) {
-                // Handle other exceptions
-                $_SESSION['register_alert'] = "An unexpected error occurred: " . $exception->getMessage();
+            } else {
+                // Handle preparation error
+                $_SESSION['register_alert'] = "An error occurred during query preparation: " . $conn->error;
                 header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
                 exit();
             }
+        } catch (mysqli_sql_exception $exception) {
+            // Handle other exceptions
+            $_SESSION['register_alert'] = "An unexpected error occurred: " . $exception->getMessage();
+            header('Location: index.php?controller=user&action=register'); // Redirect back to registration page
+            exit();
         }
     }
+}
+
 
     public static function login()
     {
@@ -286,7 +294,8 @@ class User
         }
     }
 
-    public static function logout()
+   public static function logout()
+       //Make sure they cannot 'accidently' log back in after logging out and hitting 'back' on their browser
     {
         // Unset all session variables
         session_unset();
@@ -298,9 +307,18 @@ class User
         header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
         header("Pragma: no-cache");
         header("Expires: 0");
+
+        // Set additional headers to prevent caching
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+        header('Cache-Control: no-store, no-cache, must-revalidate');
+        header('Cache-Control: post-check=0, pre-check=0', false);
+        header('Pragma: no-cache');
+
+        // Redirect to the home page
         header('Location: index.php?controller=home&action=index');
         exit();
     }
+
 
     public static function create()
     {

@@ -115,17 +115,29 @@
         
         <h4 id="totalLabel" class="text-right">Total: $0</h4> <!-- WHERE THE TOTAL IS DISPLAYED-->
         <p hidden id="total" name="total"></p>
+       
+
         <div class="row">
             <div class="col-md-6">
                 <form action="index.php?controller=user&action=clear" method="post">
                     <button name="clear" type="submit" id="clear" class="btn btn-primary" style="margin-bottom:50px;">Clear Cart</button>
                 </form>
             </div>
+            
             <div class="col-md-6 text-right">
                 <form action="index.php?controller=address&action=add" method="post">
-                    <button name="checkout" type="submit" class="btn btn-primary" style="margin-bottom:50px;">Checkout</button>
+                    <?php
+                    // Check if there are items in the cart
+                    if (!empty($items)) {
+                        echo '<button name="checkout" type="submit" class="btn btn-primary" style="margin-bottom:50px;">Checkout</button>';
+                    } else {
+                        echo '<button name="checkout" type="submit" class="btn btn-primary" style="margin-bottom:50px;" disabled>Checkout</button>';
+                    }
+                    ?>
                 </form>
             </div>
+            
+            
         </div>
         
     </div>

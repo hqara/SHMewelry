@@ -40,6 +40,7 @@
                 // Display order summary
                 echo '<h2 class="py-4">Order Summary</h2>';
 
+
                 $total = 0;
 
                 foreach ($data as $orderDetails) {
@@ -47,9 +48,9 @@
                     echo '<p>- [' . $orderDetails['QTY'] . '] X $' . $orderDetails['PRICE'] . ' X ' . $orderDetails['NAME'] . ', ' . $orderDetails['SIZE'] . ', ' . $orderDetails['MATERIAL'] . ', ' . $orderDetails['TYPE'] . ', ' . $orderDetails['COLOR'] . '</p>';
 
                     // Update total with the product of quantity and price
-                    $total += $orderDetails['QTY'] * $orderDetails['PRICE'];
+                   $total += $orderDetails['QTY'] * $orderDetails['PRICE'];
                 }
-
+                //echo '<h3 class="py-4">Total: $' . $data[0]['TOTAL_PRICE'] . '</h3>';
                 echo '<h3 class="py-4">Total: $' . $total . '</h3>';
             } else {
                 // No data available

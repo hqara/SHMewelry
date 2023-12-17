@@ -99,6 +99,10 @@ if ($isLoggedIn) {
             window.location.href = '?controller=user&action=cart';
         }
 
+        function redirectToOrderHistory() {
+            window.location.href = '?controller=orders&action=list';
+        }
+
         function redirectToProfile() {
             window.location.href = '?controller=user&action=read';
         }

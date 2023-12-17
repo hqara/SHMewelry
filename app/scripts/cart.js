@@ -35,6 +35,7 @@ $(document).ready(function ()
                     `);
                 }
                 calcTotal();
+                updateCheckoutButtonStatus();
                 console.log("item " + itemId + " successfully removed from your cart!");
             }
         });
@@ -60,7 +61,8 @@ $(document).ready(function ()
             success: function(response) {
                 calcTotal();
                 // change the single product running total to the price (in a hidden tag) times the quantity
-                $("#runningPriceProduct"+product_id).html("$" + (Number($("#fullPriceProduct"+product_id).html()) * qty).toFixed(2));
+                $("#runningPriceProduct" + product_id).html("$" + (Number($("#fullPriceProduct" + product_id).html()) * qty).toFixed(2));
+                updateCheckoutButtonStatus(); 
                 console.log("item " + product_id + " successfully updated!");
             }
         });
@@ -87,6 +89,7 @@ $(document).ready(function ()
                         </center>
                     `);
                 calcTotal();
+                updateCheckoutButtonStatus();
                 console.log("All items successfully cleared!");
             }
         });
@@ -109,4 +112,13 @@ function calcTotal()
     console.log(total);
 }
 
+function updateCheckoutButtonStatus() {
+    var checkoutButton = $('button[name="checkout"]');
+    var cartItemCount = $('button[name^="remove"]').length;
 
+    if (cartItemCount < 1) {
+        checkoutButton.prop('disabled', true);
+    } else {
+        checkoutButton.prop('disabled', false);
+    }
+}
