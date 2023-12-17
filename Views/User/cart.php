@@ -50,7 +50,7 @@
                     {
                         $runningTotalSingleProduct =  $item["QTY"] * $item['PRICE'];
                         echo <<<ECHO
-                            <tr id="product{$item['PRODUCT_ID']}">
+                            <tr id="product{$item['PRODUCT_ID']}" name="{$item['PRODUCT_ID']}">
                                 <td>
                                     <a href="index.php?controller=product&action=view&id={$item["PRODUCT_ID"]}">
                                         <img src="assets/images/{$item["PRODUCT_IMAGE"]}" alt="ring1.jpg" width="150" style="border: 1px solid #6ac5fe;">
@@ -71,19 +71,21 @@
                                     <p hidden id="fullPriceProduct{$item["PRODUCT_ID"]}">{$item["PRICE"]}</p>
                                 </td>
                                 <td>
+                                    <form method="post" action="index.php?controller=user&action=updateQty&id={$item['PRODUCT_ID']}">
                                     <div class="input-group number-spinner" style="width:25%;margin-top:20px;">
                                         <span class="input-group-btn data-dwn">
-                                            <button id="btnUp{$item["PRODUCT_ID"]}" name="btnUp{$item["PRODUCT_ID"]}" class="btn btn-default btn-info" data-dir="dwn">
+                                            <button type="submit" id="btnUp{$item["PRODUCT_ID"]}" name="btnUp{$item["PRODUCT_ID"]}" class="btn btn-default btn-info" data-dir="dwn">
                                                 <span class="glyphicon glyphicon-minus"></span>
                                             </button>
                                         </span>
-                                        <input onKeyDown="return false" type="number" class="form-control text-center" style="width:100px;" value="{$item['QTY']}" min="1" max="10" name="quantity" id="quantity{$item['PRODUCT_ID']}">
+                                        <input onKeyDown="return false" type="number" class="form-control text-center" style="width:100px;" value="{$item['QTY']}" min="1" max="10" name="quantity{$item['PRODUCT_ID']}" id="quantity{$item['PRODUCT_ID']}">
                                         <span class="input-group-btn data-up">
-                                            <button id="btnDown{$item["PRODUCT_ID"]}" name="btnDown{$item["PRODUCT_ID"]}" class="btn btn-default btn-info" data-dir="up">
+                                            <button type="submit" id="btnDown{$item["PRODUCT_ID"]}" name="btnDown{$item["PRODUCT_ID"]}" class="btn btn-default btn-info" data-dir="up">
                                                 <span class="glyphicon glyphicon-plus"></span>
                                             </button>
                                         </span>
                                     </div>
+                                    </form>
                                 </td>
                                 <td>
                                     <button name="remove{$item['PRODUCT_ID']}" id="remove{$item['PRODUCT_ID']}" style="margin-top:20px;" class="btn btn-danger btn-sm">Remove</button>
@@ -110,18 +112,22 @@
             </tbody>
         </table>
                     
-        <form action="index.php?controller=address&action=add" method="post">
-            <h4 id="totalLabel" class="text-right"></h4> <!-- WHERE THE TOTAL IS DISPLAYED-->
-            <p hidden id="total" name="total"></p>
-            <div class="row">
-                <div class="col-md-6">
-                    <button name="clear" type="button" id="clear" class="btn btn-primary" style="margin-bottom:50px;">Clear Cart</button>
-                </div>
-                <div class="col-md-6 text-right">
-                    <button name="checkout" type="submit" class="btn btn-primary" style="margin-bottom:50px;">Checkout</button>
-                </div>
+        
+        <h4 id="totalLabel" class="text-right"></h4> <!-- WHERE THE TOTAL IS DISPLAYED-->
+        <p hidden id="total" name="total"></p>
+        <div class="row">
+            <div class="col-md-6">
+                <form action="index.php?controller=user&action=clear" method="post">
+                    <button name="clear" type="submit" id="clear" class="btn btn-primary" style="margin-bottom:50px;">Clear Cart</button>
+                </form>
             </div>
-        </form>
+            <div class="col-md-6 text-right">
+                <form action="index.php?controller=address&action=add" method="post">
+                    <button name="checkout" type="submit" class="btn btn-primary" style="margin-bottom:50px;">Checkout</button>
+                </form>
+            </div>
+        </div>
+        
     </div>
     
     <?php include_once __DIR__ . "/../../footer.html"; ?>

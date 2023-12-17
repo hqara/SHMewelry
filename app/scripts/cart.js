@@ -71,7 +71,7 @@ $(document).ready(function ()
 
         $.ajax({
             type: 'GET',
-            url: 'index.php?controller=user&action=unbagAll',
+            url: 'index.php?controller=user&action=clear',
             data: {
             },
             success: function(response) {

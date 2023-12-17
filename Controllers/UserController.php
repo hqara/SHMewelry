@@ -30,7 +30,7 @@ class UserController extends Controller {
             } elseif (in_array($action, ["list", "read", "cart"])) {
                 $users = User::$action();
                 $this->render("User", $action, $users);
-            } elseif (in_array($action, ["create", "update", "delete", "deleteAccount","bag", "unbag", "updateQty", "unbagAll"])) {
+            } elseif (in_array($action, ["create", "update", "delete", "deleteAccount","bag", "unbag", "updateQty", "clear"])) {
                 $result = $userModel->$action();
             } elseif (in_array($action, ["updateEmail", "updatePassword"])) {
                 $result = $this->handleUpdateAction($userModel);
