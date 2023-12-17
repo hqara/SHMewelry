@@ -106,8 +106,6 @@ class User {
             $lastName = $_POST['lname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $groupId = $_POST['group_id'];
-    
     
             // Validate input data and register user
             if (empty($firstName) || empty($lastName) || empty($email) || empty($password)) {
@@ -126,11 +124,11 @@ class User {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
             // Prepare database query
-            $query = 'INSERT INTO user (fname, lname, email, password, group_id) VALUES (?, ?, ?, ?, ?)';
+            $query = 'INSERT INTO user (fname, lname, email, password, group_id) VALUES (?, ?, ?, ?, 1)';
             try {
                 if ($stmt = $conn->prepare($query)) {
                     // Bind parameters
-                    $stmt->bind_param("ssssi", $firstName, $lastName, $email, $hashedPassword, $groupId); // Fixed variable names
+                    $stmt->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
     
                     // Execute query and check for successful insertion
                     if ($stmt->execute()) {
@@ -158,7 +156,6 @@ class User {
             }
         }
     }
-    
     
     public static function login() {
         global $conn;
@@ -540,29 +537,45 @@ class User {
         return 0;
     }
 
+    
     public static function deleteAccount() {
         global $conn;
     
-        // Check if user ID is present in the session
-        $userId = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
-    
         // Check if the 'deleteAccount' key is present in the $_POST array
         if (isset($_POST['deleteAccount'])) {
+            
+            // Check if user ID is present in the session
+            $userId = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
+            
             // Validate user ID
             if (!$userId) {
                 die('Error: User ID not available. Please log in.');
             }
     
-            // Prepare and execute the SQL query to delete the user account
-            $sql = 'DELETE FROM USER WHERE USER_ID = ?';
-            $stmt = $conn->prepare($sql);
+            // Check if group ID is present in the session
+            $groupId = isset($_SESSION['user']) ? $_SESSION['user']->group_id : null;
     
-            // Check for errors in preparing the statement
-            if (!$stmt) {
-                die('Error preparing statement: ' . $conn->error);
+            if ($groupId == 3) {
+                // Check if there is only one admin left
+                $checksql = 'SELECT COUNT(*) as count FROM USER WHERE GROUP_ID = 3';
+                $checkResult = $conn->query($checksql);
+                $count = $checkResult->fetch_assoc()['count'];
+    
+                if ($count <= 1) {
+                    // Do not delete the last admin
+                    echo "Cannot delete the last admin. Assign a new admin before deleting.";
+                    return;
+                }
+    
+                // Delete the admin
+                $deletesql = 'DELETE FROM USER WHERE USER_ID = ? AND GROUP_ID = 3';
+            } else {
+                // Delete a regular user
+                $deletesql = 'DELETE FROM USER WHERE USER_ID = ?';
             }
     
-            // Bind parameters and execute the statement
+            // Prepare and execute the SQL query
+            $stmt = $conn->prepare($deletesql);
             $stmt->bind_param('i', $userId);
             $stmt->execute();
     
@@ -594,6 +607,7 @@ class User {
         // Return false if the 'deleteAccount' key is not present in the $_POST array
         return false;
     }
+    
     
     
 

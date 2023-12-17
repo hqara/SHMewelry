@@ -1,16 +1,3 @@
-<?php
-// Check if the user is logged in
-$isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
-
-// Debugging: Dump the entire user object
-if ($isLoggedIn) {
-    // Retrieve the group_id from the user object in the session
-    $groupId = isset($_SESSION['user']->group_id) ? $_SESSION['user']->group_id : null;
-    $userId = isset($_SESSION['user']->user_id) ? $_SESSION['user']->user_id : null;
-
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +20,7 @@ if ($isLoggedIn) {
     <?php
     switch ($groupId) {
         case 1:
-            echo '<h1 class="py-2">My Orders</h1>';
+            echo '<h1 class="py-2">MY ORDERS</h1>';
             echo '<table class="table">
                     <thead>
                         <tr>
@@ -63,30 +50,30 @@ if ($isLoggedIn) {
                             </td>
                             <td>';
 
-                    if ($order['ORDER_STATUS'] === 'Shipped' || $order['ORDER_STATUS'] === 'Delivered') {
-                        // Order is shipped or delivered, render a disabled button
-                        echo '<button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">Cancel Order</button>';
+                            if ($order['ORDER_STATUS'] === 'Shipped' || $order['ORDER_STATUS'] === 'Delivered') {
+                                // Order is shipped or delivered, render a disabled button
+                                echo '<button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">Cancel Order</button>';
+                            } else {
+                                // Order can be canceled, render the original delete form
+                                echo '<form method="post" action="index.php?controller=orders&action=delete">
+                                            <input type="hidden" name="order_id" value="' . $order['ORDER_ID'] . '">
+                                            <button type="submit" class="btn btn-danger" name="delete">Cancel Order</button>
+                                        </form>';
+                            }
+        
+                            echo '</td></tr>';
+                        }
                     } else {
-                        // Order can be canceled, render the original delete form
-                        echo '<form method="post" action="index.php?controller=orders&action=delete">
-                                    <input type="hidden" name="order_id" value="' . $order['ORDER_ID'] . '">
-                                    <button type="submit" class="btn btn-danger" name="delete">Cancel Order</button>
-                                </form>';
+                        // No order has been placed yet
+                        echo '<tr><td colspan="6">No order has been placed yet.</td></tr>';
                     }
-
-                    echo '</td></tr>';
-                }
-            } else {
-                // No order has been placed yet
-                echo '<tr><td colspan="6">No order has been placed yet.</td></tr>';
-            }
-
-            echo '</tbody></table>';
-            break;
+        
+                    echo '</tbody></table>';
+                    break;
 
         case 2:
         case 3:
-            echo '<h1 class="py-2">Manage Orders</h1>';
+            echo '<h1 class="py-2">MANAGE ORDERS</h1>';
             echo '<table class="table">
                     <thead>
                         <tr>
@@ -118,32 +105,32 @@ if ($isLoggedIn) {
                             </td>
                             <td>';
 
-                    if ($order['ORDER_STATUS'] === 'Shipped' || $order['ORDER_STATUS'] === 'Delivered') {
-                        // Order is shipped or delivered, render a disabled button
-                        echo '<button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">Cancel Order</button>';
+                            if ($order['ORDER_STATUS'] === 'Shipped' || $order['ORDER_STATUS'] === 'Delivered') {
+                                // Order is shipped or delivered, render a disabled button
+                                echo '<button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">Cancel Order</button>';
+                            } else {
+                                // Order can be canceled, render the original delete form
+                                echo '<form method="post" action="index.php?controller=orders&action=delete">
+                                            <input type="hidden" name="order_id" value="' . $order['ORDER_ID'] . '">
+                                            <button type="submit" class="btn btn-danger" name="delete">Cancel Order</button>
+                                        </form>';
+                            }
+        
+                            echo '</td></tr>';
+                        }
                     } else {
-                        // Order can be canceled, render the original delete form
-                        echo '<form method="post" action="index.php?controller=orders&action=list">
-                                    <input type="hidden" name="order_id" value="' . $order['ORDER_ID'] . '">
-                                    <button type="submit" class="btn btn-danger" name="delete">Cancel Order</button>
-                                </form>';
+                        // No data available
+                        echo '<tr><td colspan="7">No data available.</td></tr>';
                     }
-
-                    echo '</td></tr>';
-                }
-            } else {
-                // No data available
-                echo '<tr><td colspan="7">No data available.</td></tr>';
+                    echo '</tbody></table>';
+                    break;
+        
+                default:
+                    // Handle unknown user group or no user in session
+                    echo '<p>No user information found.</p>';
+                    break;
             }
-            echo '</tbody></table>';
-            break;
-
-        default:
-            // Handle unknown user group or no user in session
-            echo '<p>No user information found.</p>';
-            break;
-    }
-    ?>
+            ?>
 </div>
 
 <?php include_once __DIR__ . "/../../footer.html"; ?>

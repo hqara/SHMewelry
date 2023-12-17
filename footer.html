@@ -7,53 +7,36 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-
         body {
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
         }
 
-        header, footer {
-            flex-shrink: 0;
+        main {
+            flex-grow: 1;
         }
 
         footer {
+            flex-shrink: 0;
             background-color: #6ac5fe;
             color: #fff;
-            padding: 10px;
-            text-align: left;
-            flex-shrink: 0;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        th, td {
-            padding: 10px;
-        }
-
-        .wider-column2 {
-            width: 90% ;
-            margin-left: 10px;
+            margin-top: auto; 
         }
 
     </style>
 </head>
 
 <body>
+
     <footer>
         <table>
             <tr>
-                <td class="wider-column2">
-                    <p>Copyright &copy; 2023 SHMewelry Website</p>
+                <td>
+                    <div class="right-box" style="color: #fff; margin-left: 50px;">Copyright &copy; 2023 SHMewelry Website</div>
                 </td>
                 <td>
-                    <a href="index.php?controller=home&action=support">Need Help?</a>
+                    <div class="left-box" style="margin-left: 50%;"><a href="index.php?controller=home&action=support">Need Help?</a></div>
                 </td>
             </tr>
         </table>

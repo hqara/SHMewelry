@@ -286,7 +286,7 @@ INSERT INTO GROUP_RIGHTS (GROUP_ID, RIGHTS_ID) VALUES
 -- Insert values into the USER table (sample data using MD5 hash function for password)
 INSERT INTO USER (FNAME, LNAME, EMAIL, PASSWORD, GROUP_ID) VALUES
     ('John', 'Doe', 'johndoe@example.com', '$2y$10$yhv1Y95ozrc1moqxYqJe4.1rL4a.WV3g4ExQo5nNtXQYIIyc81tUG', 1), -- Client, password: client
-    ('Jane', 'Smith', 'janesmith@example.com', '$2y$10$gLwwXZIeqQffzp3Tn5Bn/.cJp1Sgm1D.zoyWsPipjAOHzJPyYgMV6', 2), -- Moderator, password: moderator
+    ('Jane', 'Smith', 'janesmith@example.com', '$2y$10$fQHAMNweulS1AOiKbU73TeIjj3FXB3dMbtQQ0R4Nc7/v8.nl0oCtu', 2), -- Moderator, password: moderator
     ('Alice', 'Johnson', 'alicejohnson@example.com', '$2y$10$lpbYdI7yzygoNsmniPSZhu0Ymd9zB5YaTQtuH6cJ6t.TiSB9koyOK', 3), -- Admin, password: admin
     ('Bob', 'Brown', 'bobbrown@example.com', '$2y$10$yhv1Y95ozrc1moqxYqJe4.1rL4a.WV3g4ExQo5nNtXQYIIyc81tUG', 1), -- Client, password: client
     ('Eva', 'Williams', 'evawilliams@example.com', '$2y$10$yhv1Y95ozrc1moqxYqJe4.1rL4a.WV3g4ExQo5nNtXQYIIyc81tUG', 1); -- Client, password: client
@@ -314,7 +314,7 @@ INSERT INTO PRODUCT (NAME, DESCRIPTION, PRICE, MANUFACTURER, COLOR, MATERIAL, TY
     ('Diamond Ring', 'Beautiful diamond ring', 999.99, 'Diamond Co.', 'Clear', 'Silver', 'Ring', 'one-size', 60, 'ring1.jpg'),                                                  -- 1
     ('Pearl Necklace', 'Elegant pearl necklace', 599.99, 'Pearl Charm Jewelry', 'Pink', 'RoseGold', 'Necklace', 'one-size', 45, 'necklace1.jpg'),                               -- 2
     ('Emerald Bracelet', 'Stunning emerald bracelet', 799.99, 'Pandora Co.', 'Green', 'Gold', 'Bracelet', 'one-size', 58, 'bracelet1.jpg'),                                   -- 3
-    ('Emerald Earrings', 'Dazzling emerald earrings', 399.99, 'Heart Silver Jewelry', 'Pink', 'Silver', 'Earring', 'one-size', 12, 'earring1.jpg'),                             -- 4
+    ('Heart Collection Earring', 'Dazzling emerald earrings', 399.99, 'Heart Silver Jewelry', 'Pink', 'Silver', 'Earring', 'one-size', 12, 'earring1.jpg'),                             -- 4
     ('Copper Bracelet', 'Unique copper bracelet', 199.99, 'Jewelry Creations', 'Clear', 'RoseGold', 'Bracelet', 'one-size', 25, 'bracelet2.jpg'),                               -- 5 
     ('Archer Ring', 'Beautiful archer-themed ring', 499.99, 'JewelCrafters', 'Silver', 'Silver', 'Ring', 'one-size', 100, 'ring100.jpg'),                                       -- 6
     ('Archer Bracelet', 'Stylish archer-themed bracelet', 299.99, 'FashionGems', 'Clear', 'Silver', 'Bracelet', 'one-size', 75, 'bracelet5.jpg'),                               -- 7

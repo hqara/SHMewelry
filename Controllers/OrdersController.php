@@ -17,15 +17,20 @@ class OrdersController extends Controller {
         if ($this->userIsLoggedIn() && $action == "list") {
             $orders = Orders::$action();
             $this->render("Orders", $action, $orders);
-
         }else if ($action == "view") {
-            $orders = Orders::$action();
+            $orders = Orders::$action($id);
              $this->render("Orders", $action, $orders);
-        } else if ($action == "create" || $action == "update" || $action == "delete" || $action == "deleteOrder") {
+        } else if ($action == "update" || $action == "delete" || $action == "deleteOrder") {
             $result = $orderModel->$action();
         } else if ($action == "add") {
-            $this->render("Orders", $action, array());
-        } else {
+            $orders = Orders::viewCart(); 
+            $this->render("Orders", $action, $orders);
+        } 
+        else if ($action == "read") {
+            $orders = Orders::create(); 
+            $this->render("Orders", $action, $orders);
+        }
+        else {
             $order = new Orders($id);
             $this->render("Orders", $action, array('order' => $order));
         }

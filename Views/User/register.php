@@ -34,7 +34,7 @@
                 unset($_SESSION['register_alert']);
             }
         ?>
-        <h2 class="center">SHMEWELRY Registration</h2>
+        <h2 class="center">Sign Up</h2>
        
         <form method="post" action="index.php?controller=user&action=register">
             <table class="center">
@@ -78,6 +78,8 @@
                         <input type="password" id="password" name="password" required>
                     </td>
                 </tr>
+                <!--- 
+                FOR DEBUGGING PURPOSES
                 <tr>
                     <td>
                         <label for="group">User Group:</label>
@@ -92,6 +94,7 @@
                     </select>
                     </td>
                 </tr>
+                -->
                 <tr>
                     <td colspan="2">
                         <input type="submit" name="create" value="Register">

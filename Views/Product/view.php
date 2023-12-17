@@ -1,3 +1,14 @@
+<?php
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['user']) && !empty($_SESSION['user']);
+
+// Debugging: Dump the entire user object
+if ($isLoggedIn) {
+    // Retrieve the group_id from the user object in the session
+    $groupId = isset($_SESSION['user']->group_id) ? $_SESSION['user']->group_id : null;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,20 +49,20 @@
                         // Check if $data is defined and not empty
                         if (isset($data) && is_array($data) && !empty($data)) {
                             $product = $data[0]; // Assuming you want the first product from the array
-                        ?>
+                            ?>
                             <div class="pro-img-details">
                                 <img src="assets/images/<?php echo $product['PRODUCT_IMAGE']; ?>"
-                                    alt="<?php echo $product['PRODUCT_IMAGE']; ?>">
+                                     alt="<?php echo $product['PRODUCT_IMAGE']; ?>">
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h4 class="pro-d-title">
-                                <h2><strong>
-                                        <?php echo $product['NAME']; ?>
-                                    </strong></h2>
-                                <h3>$
-                                    <?php echo $product['PRICE']; ?>
-                                </h3>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="pro-d-title">
+                            <h2><strong>
+                                    <?php echo $product['NAME']; ?>
+                                </strong></h2>
+                            <h3>$
+                                <?php echo $product['PRICE']; ?>
+                            </h3>
                             <?php } ?>
                         </h4>
                         <hr>
@@ -72,14 +83,14 @@
                                 <strong>Material:</strong>
                                 <?php if (isset($product['MATERIAL'])): ?>
                                     <a rel="tag"
-                                        href="index.php?controller=product&action=read&material=<?php echo $product['MATERIAL']; ?>&type=<?php echo $product['TYPE']; ?>"><?php echo $product['MATERIAL']; ?></a>
+                                       href="index.php?controller=product&action=read&material=<?php echo $product['MATERIAL']; ?>&type=<?php echo $product['TYPE']; ?>"><?php echo $product['MATERIAL']; ?></a>
                                 <?php endif; ?>
                             </span>
                             <span class="posted_in">
                                 <strong>Type:</strong>
                                 <?php if (isset($product['TYPE'])): ?>
                                     <a rel="tag"
-                                        href="index.php?controller=product&action=read&type=<?php echo $product['TYPE']; ?>"><?php echo $product['TYPE']; ?></a>
+                                       href="index.php?controller=product&action=read&type=<?php echo $product['TYPE']; ?>"><?php echo $product['TYPE']; ?></a>
                                 <?php endif; ?>
                             </span>
 
@@ -98,13 +109,13 @@
                                             <div class="input-group number-spinner">
                                                 <span class="input-group-btn data-dwn">
                                                     <button type="button" class="btn btn-default btn-info" data-dir="dwn"><span
-                                                            class="glyphicon glyphicon-minus"></span></button>
+                                                                class="glyphicon glyphicon-minus"></span></button>
                                                 </span>
                                                 <input onKeyDown="return false" type="number" class="form-control text-center" value="1" min="1"
-                                                    max="10" name="quantity" id="quantity">
+                                                       max="10" name="quantity" id="quantity">
                                                 <span class="input-group-btn data-up">
                                                     <button type="button" class="btn btn-default btn-info" data-dir="up"><span
-                                                            class="glyphicon glyphicon-plus"></span></button>
+                                                                class="glyphicon glyphicon-plus"></span></button>
                                                 </span>
                                             </div>
                                         </div>
@@ -112,9 +123,15 @@
                                 </div>
                             </div>
                             <p>
-                                <button class="btn btn-round btn-danger" type="submit" name="addToCartBtn">
-                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                </button>
+                                <?php if ($isLoggedIn && $groupId == 1): ?>
+                                    <button class="btn btn-round btn-danger" type="submit" name="addToCartBtn">
+                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                    </button>
+                                <?php else: ?>
+                                    <button class="btn btn-secondary" disabled style="background-color: darkgrey; border: 1px solid grey;">
+                                        Add to Cart
+                                    </button>
+                                <?php endif; ?>
                             </p>
                         </form>
                     </div>
