@@ -32,8 +32,8 @@ class UserController extends Controller {
                 $this->render("User", $action, $users);
             } elseif (in_array($action, ["create", "update", "delete", "deleteAccount","bag", "unbag", "updateQty", "clear"])) {
                 $result = $userModel->$action();
-            } elseif (in_array($action, ["updateEmail", "updatePassword"])) {
-                $result = $this->handleUpdateAction($userModel);
+            } elseif (in_array($action, ["updatePassword"])) {
+                $result = $this->updatePassword();
             } elseif ($action == "add") {
                 $this->render("User", $action, array());
             } else {
@@ -54,6 +54,7 @@ class UserController extends Controller {
             $this->render("User", "login");
         }
     }
+
 
     private function handleRegisterAction($userModel) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -93,6 +94,35 @@ class UserController extends Controller {
             return $userModel->updatePassword();
         }
         return false;
+    }
+    public function updatePassword() {
+        // Check if the form is submitted
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Validate and sanitize the input data
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+            $newPassword = filter_input(INPUT_POST, 'passwordInput', FILTER_SANITIZE_STRING);
+
+            // Check if both email and password are provided
+            if (!empty($email) && !empty($newPassword)) {
+                // Update the user's password in the model
+                $userModel = new User(); // Replace $yourDatabaseConnection with your actual database connection
+
+                if ($userModel->updatePassword($email, $newPassword)) {
+                    // Password update successful
+                    // Redirect to a success page or back to the profile page
+                header('Location: index.php?controller=user&action=read');
+                    exit();
+                } else {
+                    // Password update failed
+                    // You might want to display an error message or redirect back to the form with an error
+                    echo "Failed to update password.";
+                }
+            } else {
+                // Handle validation errors
+                // You might want to display an error message or redirect back to the form with an error
+                echo "Invalid input. Both email and password are required.";
+            }
+        }
     }
 }
 ?>

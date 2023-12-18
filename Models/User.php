@@ -14,6 +14,7 @@ class User
 
     public function __construct($id = -1)
     {
+        
         global $conn;
 
         if ($id > 0) {
@@ -66,6 +67,26 @@ class User
             $this->email = "";
             $this->password = "";
             $this->group_id = 0;
+        }
+    }
+
+     public function updatePassword($email, $newPassword) {
+        // Update the user's password in the database
+        // Make sure to use prepared statements to prevent SQL injection
+        global $conn;
+        $this->conn = $conn;
+        // Hash the new password
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        // Prepare and execute the update statement
+        $stmt = $this->conn->prepare("UPDATE user SET password = ? WHERE email = ?");
+        $stmt->bind_param('ss', $hashedPassword, $email);
+
+        if ($stmt->execute()) {
+            return true; // Update successful
+        } else {
+            // Handle the error. You might want to log it or return false to indicate failure.
+            return false;
         }
     }
 
@@ -422,6 +443,8 @@ class User
     {
         global $conn;
 
+
+
         if (isset($_POST['updateEmail'])) {
             $userId = isset($_SESSION['user']) ? $_SESSION['user']->user_id : null;
 
@@ -464,7 +487,7 @@ class User
         return json_encode(array('success' => false, 'message' => 'Invalid request.'));
     }
 
-    public static function updatePassword()
+    /*public static function updatePassword()
     {
         global $conn;
 
@@ -512,7 +535,7 @@ class User
 
         return json_encode(array('success' => false, 'message' => 'Invalid request.'));
     }
-
+    */
     public static function delete()
     {
         global $conn;
