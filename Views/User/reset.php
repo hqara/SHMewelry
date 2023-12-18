@@ -24,9 +24,7 @@
     </style>
 </head>
 <body>
-    <?php
-        include_once dirname(__FILE__) .  "/../../navbar.php";
-    ?>
+    <?php  include_once dirname(__FILE__) .  "/../../navbar.php"; ?>
 
     <div class="reset-box">
         <?php
@@ -67,12 +65,8 @@
             </table>
         </form>
     </div>
-    <section></section>
-    <section></section>
-    <footer>
-    <?php
-        include_once dirname(__FILE__) .  "/../../footer.html";
-    ?>
-</footer>
+  
+    <?php include_once dirname(__FILE__) .  "/../../footer.html"; ?>
+
 </body>
 </html>
